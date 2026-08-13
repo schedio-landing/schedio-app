@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Página no encontrada — Schedio</title>
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#0f0f0f" />
+    <link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="preload" href="/assets/fonts/bebas-neue-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/css/tokens.css?v=17" />
+    <link rel="stylesheet" href="/css/styles.css?v=17" />
+    <style>
+      .notfound {
+        min-height: 100vh;
+        display: grid;
+        place-content: center;
+        text-align: center;
+        gap: var(--s4);
+      }
+      .notfound .code {
+        font-family: var(--font-display);
+        font-size: clamp(96px, 26vw, 220px);
+        line-height: 0.85;
+        color: var(--surface-hover);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="notfound wrap">
+      <div class="grid-bg"></div>
+      <div class="section-inner">
+        <p class="code">404</p>
+        <h1 class="display" style="font-size: clamp(28px, 7vw, 48px)">Esta página no existe</h1>
+        <p class="body-lg" style="margin-inline: auto">
+          El enlace está roto o la página se movió de sitio.
+        </p>
+        <p style="margin-top: var(--s6)">
+          <a class="btn btn--primary" href="/">Volver al inicio</a>
+        </p>
+      </div>
+    </main>
+  </body>
+</html>

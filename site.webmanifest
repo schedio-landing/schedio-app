@@ -1,0 +1,14 @@
+{
+  "name": "Schedio",
+  "short_name": "Schedio",
+  "description": "Que el estudio sea fácil. Tus asignaturas, tus exámenes y tus horas de estudio en una sola pantalla.",
+  "lang": "es-ES",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f0f0f",
+  "theme_color": "#0f0f0f",
+  "icons": [
+    { "src": "/assets/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "/assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}

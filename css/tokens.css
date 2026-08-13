@@ -1,0 +1,128 @@
+/**
+ * Schedio design tokens — web.
+ *
+ * Portado 1:1 desde schedio-mobile/theme/tokens.js, que a su vez espeja el
+ * proyecto "Schedio Design System" de Claude Design. Ese proyecto es la fuente
+ * de verdad: se cambia allí primero, luego en tokens.js, luego aquí.
+ *
+ * Regla del sistema: lenguaje plano. Bordes de 1px, nunca sombras ni degradados.
+ */
+
+:root {
+  /* ─── Superficies ───
+     Dos niveles, a diferencia de la app. La página va más oscura que las
+     superficies de producto para que las réplicas de la app se lean *dentro*
+     de la web. Es lo que ya hacen los assets de Play Store. */
+  --page-bg: #0f0f0f;
+  --bg-base: #191919;
+  --surface-card: #242424;
+  --surface-hover: #2c2c2c;
+  --border-default: #373737;
+
+  /* ─── Texto ─── */
+  --text-primary: #ededed;
+  --text-secondary: #9b9b9b;
+  /* tokens.js aliasea textTertiary a textSecondary a propósito: #6b6b6b da
+     ~3.4:1 sobre el fondo, por debajo del 4.5:1 que pide WCAG AA. */
+  --text-tertiary: #9b9b9b;
+
+  /* ─── Acento ───
+     Con avaricia: CTA, estado activo y el elemento que resuelve. Nada más. */
+  --accent: #2979ff;
+  --accent-soft-bg: rgba(41, 121, 255, 0.14);
+  --accent-soft-border: rgba(41, 121, 255, 0.28);
+
+  /* ─── Prime ─── */
+  --premium-text: #d4a94c;
+  --premium-bg: rgba(212, 169, 76, 0.12);
+  --premium-border: rgba(212, 169, 76, 0.3);
+
+  /* ─── Excepciones semánticas, nunca decorativas ─── */
+  --trend-up: #5ab98a;
+  --danger: #d8604a;
+
+  /* ─── Paleta cerrada de asignaturas ───
+     Ocho tonos fijos, desaturados para fondo oscuro. Categorizan, no decoran.
+     Es la firma visual de la marca. */
+  --subject-tecno: #2fa4a6;
+  --subject-historia: #c9922f;
+  --subject-filosofia: #8a6fd4;
+  --subject-quimica: #3fa76b;
+  --subject-mates: #e0705a;
+  --subject-tic: #4c9be0;
+  --subject-ingles: #d46a9a;
+  --subject-lengua: #6c6fd4;
+
+  /* ─── Espaciado ─── */
+  --s1: 4px;
+  --s2: 8px;
+  --s3: 12px;
+  --s4: 16px;
+  --s6: 24px;
+  --s8: 32px;
+  --s12: 48px;
+  --s16: 64px;
+  --s24: 96px;
+  --section-gap: clamp(64px, 12vw, 128px);
+
+  /* ─── Radios ─── */
+  --r-btn: 8px;
+  --r-card: 12px;
+  --r-sheet: 24px;
+  --r-pill: 100px;
+
+  /* ─── Tipografía ───
+     Inter para todo. Bebas Neue para titulares en versalitas: es lo que ya
+     usan los assets de Play Store. Ojo, dentro de la app Bebas es solo para
+     números grandes — en marketing es la tipografía de display. */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --font-display: 'Bebas Neue', 'Oswald', 'Arial Narrow', 'Haettenschweiler', sans-serif;
+
+  --fs-meta: 13px;
+  --fs-body: 15px;
+  --fs-section: 17px;
+  --fs-title: 26px;
+
+  /* ─── Movimiento ───
+     Un único vocabulario en toda la página: la bezier de Schedio. */
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --t-standard: 180ms;
+  --t-slow: 600ms;
+
+  /* ─── La retícula ───
+     No es un adorno: es el calendario de la pantalla de Inicio. */
+  --grid-size: 44px;
+  --grid-line: rgba(55, 55, 55, 0.55);
+
+  /* ─── La flecha de los botones ───
+     Va como máscara y no como carácter «→»: el subconjunto latino de Inter no
+     incluye U+2192, así que el glifo lo acababa pintando una tipografía de
+     respaldo distinta en cada sistema. Como máscara hereda `currentColor` y
+     escala con el tamaño de letra. */
+  --arrow-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12h15M13 6l6 6-6 6'/%3E%3C/svg%3E");
+}
+
+/* Fuentes self-hosted, subconjunto latino, descargadas de Google Fonts. Las dos
+   son OFL. Se alojan aquí a propósito: así la web no llama a Google en cada
+   visita y no hay cesión de datos de terceros que declarar.
+
+   Inter viene como fuente VARIABLE: un solo fichero cubre 400-700, por eso el
+   rango en `font-weight` en vez de cuatro declaraciones. */
+@font-face {
+  font-family: 'Inter';
+  /* `format('woff2')` a secas, no 'woff2-variations': esa sintaxis es antigua y
+     los navegadores que no la reconocen descartan la declaración entera. El
+     rango en `font-weight` ya es lo que activa el eje variable. */
+  src: url('../assets/fonts/inter-var.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Bebas Neue';
+  src: url('../assets/fonts/bebas-neue-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
