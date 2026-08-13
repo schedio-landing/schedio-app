@@ -1,0 +1,2052 @@
+/**
+ * Schedio — landing oficial.
+ *
+ * Mobile-first de verdad: se diseña a 390px y el escritorio es la adaptación.
+ * El movimiento macro va con scroll-driven animations de CSS (animation-timeline),
+ * que corren en el compositor: sin librería y sin listeners de scroll.
+ */
+
+/* ══════════════════════════════════════════════════════ Base */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--page-bg);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* El atributo `hidden` lo aplica el navegador con `display: none`, que pierde
+   contra cualquier regla nuestra que fije `display` (`.btn` es inline-flex,
+   `.cascade-scroll` es grid...). Sin esto, elementos marcados como ocultos
+   seguían ocupando sitio en el layout. */
+[hidden] {
+  display: none !important;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: var(--r-btn);
+}
+
+.wrap {
+  width: min(100% - 40px, 1160px);
+  margin-inline: auto;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: var(--accent);
+  color: #fff;
+  padding: var(--s3) var(--s4);
+  border-radius: 0 0 var(--r-btn) 0;
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  left: 0;
+}
+
+section {
+  position: relative;
+  padding-block: var(--section-gap);
+}
+
+/* ══════════════════════════════════════════════════════ Tipografía */
+
+/* Bebas en versalitas para titulares: es lo que ya usan los assets de Play
+   Store. Dentro de la app Bebas es solo para números. */
+.display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 0.92;
+  margin: 0;
+}
+
+h1.display {
+  font-size: clamp(44px, 11.5vw, 104px);
+}
+
+h2.display {
+  font-size: clamp(32px, 7vw, 60px);
+}
+
+.overline {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin: 0 0 var(--s3);
+  display: block;
+}
+
+.lede {
+  font-size: clamp(16px, 4vw, 20px);
+  color: var(--text-secondary);
+  max-width: 46ch;
+  margin: var(--s6) 0 0;
+}
+
+.body-lg {
+  font-size: clamp(15px, 3.6vw, 17px);
+  color: var(--text-secondary);
+  max-width: 54ch;
+}
+
+/* ══════════════════════════════════════════════════════ La retícula
+   No es decoración: es el calendario de la pantalla de Inicio, usado como
+   substrato. Perfecta en las secciones de orden, deformada en las de caos. */
+
+/* La deformación va en el ::before, no en el contenedor: así `overflow: hidden`
+   la recorta y no ensancha el documento. No se puede poner el overflow en
+   `section` porque rompería el `position: sticky` del móvil de los pasos. */
+.grid-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+  opacity: 0.16;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 30%, transparent 100%);
+}
+
+.grid-bg::before {
+  content: '';
+  position: absolute;
+  inset: -25%;
+  background-image: linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: var(--grid-size) var(--grid-size);
+}
+
+.grid-bg--broken {
+  opacity: 0.1;
+}
+
+.grid-bg--broken::before {
+  /* Misma retícula, cizallada: el mismo sistema, desordenado. */
+  transform: skewY(-4deg) scale(1.3);
+}
+
+.section-inner {
+  position: relative;
+  z-index: 1;
+}
+
+/* ══════════════════════════════════════════════════════ Botones */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s2);
+  padding: 15px var(--s6);
+  border-radius: var(--r-btn);
+  border: 1px solid transparent;
+  font-size: 15px;
+  font-weight: 600;
+  transition: background var(--t-standard) var(--ease),
+    border-color var(--t-standard) var(--ease), transform var(--t-standard) var(--ease);
+}
+
+.btn--primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn--primary:hover {
+  background: #1f6ae8;
+}
+
+.btn--ghost {
+  background: transparent;
+  border-color: var(--border-default);
+  color: var(--text-primary);
+}
+
+.btn--ghost:hover {
+  background: var(--surface-hover);
+  border-color: #4a4a4a;
+}
+
+.btn:active {
+  transform: scale(0.985);
+}
+
+.btn--block {
+  width: 100%;
+}
+
+/* Flecha de botón. Sustituye al carácter «→», que Inter no trae en su
+   subconjunto latino y acababa pintando otra tipografía. */
+.has-arrow::after {
+  content: '';
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-left: 0.34em;
+  vertical-align: -0.14em;
+  background: currentColor;
+  -webkit-mask: var(--arrow-mask) center / contain no-repeat;
+  mask: var(--arrow-mask) center / contain no-repeat;
+  transition: transform var(--t-standard) var(--ease);
+}
+
+.btn.has-arrow:hover::after {
+  transform: translateX(3px);
+}
+
+.cta-note {
+  font-size: var(--fs-meta);
+  color: var(--text-secondary);
+  margin: var(--s4) 0 0;
+}
+
+/* ══════════════════════════════════════════════════════ Nav */
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(15, 15, 15, 0.82);
+  backdrop-filter: blur(24px);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--t-standard) var(--ease);
+}
+
+.nav[data-scrolled='true'] {
+  border-bottom-color: var(--border-default);
+}
+
+.nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: var(--s3);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  font-weight: 700;
+  font-size: 19px;
+  letter-spacing: -0.01em;
+}
+
+/* `object-fit: contain` porque el mark no es cuadrado (83×96): la caja blanca
+   sí lo es, y el glifo se ajusta dentro sin deformarse. */
+.brand img {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: #fff;
+  padding: 4px;
+  object-fit: contain;
+}
+
+.nav .btn {
+  padding: 10px var(--s4);
+  font-size: 14px;
+}
+
+/* ══════════════════════════════════════════════════════ Hero */
+
+.hero {
+  padding-top: var(--s12);
+  overflow: hidden;
+}
+
+.hero__grid {
+  display: grid;
+  gap: var(--s12);
+  align-items: center;
+}
+
+.hero__stage {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  /* Profundidad para el inclinado del móvil. Generosa a propósito: valores
+     bajos exageran la perspectiva y el efecto se vuelve un truco. */
+  perspective: 1100px;
+}
+
+/* Solo el móvil del hero se inclina; el de "Cómo funciona" se queda quieto. */
+.phone--tilt {
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 500ms var(--ease);
+  will-change: transform;
+}
+
+/* Mientras el puntero está encima, la respuesta tiene que ser inmediata: con
+   la transición larga el móvil va por detrás del cursor y se siente pesado. */
+.phone--tilt.is-tracking {
+  transition: transform 90ms linear;
+}
+
+/* ── Fragmentos de desorden ──
+   Se colocan alrededor del móvil y se recolocan sobre él siguiendo la diagonal
+   ascendente del mark. Un solo pase al cargar. */
+
+.shard {
+  position: absolute;
+  z-index: 2;
+  padding: var(--s2) var(--s3);
+  background: var(--surface-card);
+  border: 1px solid var(--border-default);
+  border-left: 2px solid var(--shard-color, var(--border-default));
+  border-radius: var(--r-btn);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  transform: translate(var(--x), var(--y)) rotate(var(--rot));
+  animation: shard-settle 1.2s var(--ease) forwards;
+  animation-delay: calc(0.35s + var(--i) * 0.06s);
+}
+
+@keyframes shard-settle {
+  to {
+    /* Entra hacia el centro por la diagonal del mark: sube a la derecha. */
+    transform: translate(calc(var(--x) * 0.12 + 14px), calc(var(--y) * 0.12 - 14px))
+      rotate(0deg) scale(0.94);
+    opacity: 0;
+  }
+}
+
+/* ══════════════════════════════════════════════════════ Réplica del móvil
+   Reproduce la pantalla de Inicio real (ver Pantallas tienda/PlayStore-01).
+   No se idealiza ni se añade nada que la app no tenga. */
+
+.phone {
+  position: relative;
+  z-index: 3;
+  width: min(340px, 86vw);
+  border: 1px solid var(--border-default);
+  border-radius: 34px;
+  padding: 10px;
+  background: #131313;
+}
+
+.phone::before {
+  /* Cámara. */
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  width: 7px;
+  height: 7px;
+  margin-left: -3.5px;
+  border-radius: 50%;
+  background: #2e2e2e;
+}
+
+.phone__screen {
+  background: var(--bg-base);
+  border-radius: 26px;
+  padding: 30px var(--s3) var(--s3);
+  display: grid;
+  gap: var(--s3);
+  overflow: hidden;
+}
+
+.app-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.app-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  background: #fff;
+  color: #000;
+  border-radius: var(--r-pill);
+  padding: 4px 10px 4px 5px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.app-logo img {
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
+}
+
+.badge-prime {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--premium-text);
+  background: var(--premium-bg);
+  border: 1px solid var(--premium-border);
+  border-radius: var(--r-pill);
+  padding: 4px 9px;
+}
+
+.app-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background: var(--surface-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--r-card);
+  overflow: hidden;
+}
+
+.metric {
+  padding: var(--s2) var(--s2) 9px;
+  border-right: 1px solid var(--border-default);
+}
+
+.metric:last-child {
+  border-right: 0;
+}
+
+.metric__label {
+  display: block;
+  font-size: 7.5px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  color: var(--text-secondary);
+}
+
+.metric__value {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-top: 1px;
+}
+
+.app-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--r-card);
+  padding: var(--s3);
+}
+
+.app-card__overline {
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+}
+
+.app-card__title {
+  font-size: 13px;
+  font-weight: 700;
+  margin: 3px 0 4px;
+}
+
+.app-card__body {
+  font-size: 9.5px;
+  line-height: 1.4;
+  color: var(--text-secondary);
+  margin: 0 0 var(--s3);
+}
+
+.app-btn {
+  display: block;
+  width: 100%;
+  background: var(--accent);
+  color: #fff;
+  border: 0;
+  border-radius: var(--r-btn);
+  padding: 9px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.app-section-title {
+  font-size: 11px;
+  font-weight: 600;
+  margin: var(--s1) 0 0;
+}
+
+/* ── Calendario ── */
+
+.cal__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 10px;
+  font-weight: 600;
+  margin-bottom: var(--s2);
+}
+
+.cal__nav {
+  color: var(--text-secondary);
+}
+
+.cal__dow,
+.cal__days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  text-align: center;
+}
+
+.cal__dow span {
+  font-size: 7.5px;
+  color: var(--text-secondary);
+  padding-bottom: 3px;
+}
+
+.cal__days span {
+  position: relative;
+  font-size: 9px;
+  padding: 4px 0;
+  border-radius: 6px;
+}
+
+.cal__days .is-today {
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+}
+
+.cal__days .has-event::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 3px;
+  height: 3px;
+  margin-left: -1.5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.app-divider {
+  height: 1px;
+  background: var(--border-default);
+  margin: var(--s3) 0;
+}
+
+/* ── Filas de examen / por calificar ── */
+
+.app-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s2);
+  padding: 6px 0;
+}
+
+.app-row + .app-row {
+  border-top: 1px solid var(--border-default);
+}
+
+.app-row__name {
+  font-size: 10.5px;
+  font-weight: 600;
+}
+
+.app-row__meta {
+  font-size: 8.5px;
+  color: var(--text-secondary);
+  margin-top: 1px;
+}
+
+.chip {
+  flex-shrink: 0;
+  font-size: 8px;
+  font-weight: 600;
+  border-radius: var(--r-pill);
+  padding: 4px 8px;
+  border: 1px solid var(--border-default);
+  color: var(--text-secondary);
+}
+
+.chip--accent {
+  color: var(--accent);
+  background: var(--accent-soft-bg);
+  border-color: var(--accent-soft-border);
+}
+
+/* ══════════════════════════════════════════════════════ Problema */
+
+.shards-field {
+  position: relative;
+  min-height: 260px;
+  margin-top: var(--s8);
+  /* Los fragmentos se dispersan más allá del ancho del texto; se recortan aquí
+     para que en móvil no queden cortados contra el borde de la ventana. */
+  overflow: hidden;
+}
+
+.shards-field .shard {
+  animation: none;
+  opacity: 1;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+}
+
+@supports (animation-timeline: view()) {
+  .shards-field .shard {
+    animation: shard-scatter linear both;
+    animation-timeline: view();
+    animation-range: entry 10% cover 70%;
+  }
+}
+
+@keyframes shard-scatter {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) rotate(var(--rot));
+  }
+}
+
+/* ══════════════════════════════════════════════════════ Revelado genérico */
+
+/* Ocultar sólo si el JS ha confirmado que está vivo (html.js lo pone main.js
+   antes de pintar). Si el script falla, no carga o el observer no dispara, el
+   contenido se queda visible en vez de desaparecer media página. */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity var(--t-slow) var(--ease), transform var(--t-slow) var(--ease);
+}
+
+.js .reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* ══════════════════════════════════════════════════════ Cómo funciona */
+
+.steps__phone {
+  display: none;
+}
+
+.step {
+  padding-block: var(--s8);
+  border-top: 1px solid var(--border-default);
+}
+
+.step__num {
+  font-family: var(--font-display);
+  font-size: 40px;
+  line-height: 1;
+  color: var(--accent);
+}
+
+.step h3 {
+  font-size: clamp(20px, 5vw, 26px);
+  margin: var(--s2) 0 var(--s3);
+}
+
+.step p {
+  color: var(--text-secondary);
+  margin: 0;
+  max-width: 46ch;
+}
+
+.step__visual {
+  margin-top: var(--s6);
+}
+
+/* ── Escenas de cada paso, con componentes reales ── */
+
+.scene {
+  background: var(--bg-base);
+  border: 1px solid var(--border-default);
+  border-radius: var(--r-card);
+  padding: var(--s4);
+  display: grid;
+  gap: var(--s2);
+}
+
+.subject-chip {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  background: var(--surface-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--r-btn);
+  padding: 10px var(--s3);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--subject, var(--accent));
+  flex-shrink: 0;
+}
+
+.timer {
+  display: grid;
+  place-items: center;
+  gap: var(--s2);
+  padding: var(--s6) 0;
+}
+
+.timer__value {
+  font-family: var(--font-display);
+  font-size: 64px;
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+.timer__label {
+  font-size: var(--fs-meta);
+  color: var(--text-secondary);
+}
+
+/* ══════════════════════════════════════════════════════ Racha y rangos */
+
+.streak-days {
+  display: flex;
+  gap: var(--s2);
+  flex-wrap: wrap;
+  margin-top: var(--s6);
+}
+
+.streak-day {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--r-btn);
+  border: 1px solid var(--border-default);
+  background: var(--surface-card);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: background var(--t-standard) var(--ease), color var(--t-standard) var(--ease),
+    border-color var(--t-standard) var(--ease);
+}
+
+.is-in .streak-day.is-on {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.streak-day.is-rest {
+  border-style: dashed;
+}
+
+/* Escalera de rangos: la flecha ascendente del mark, literal. Cada peldaño
+   entra un poco más que el anterior. */
+.ranks {
+  display: grid;
+  gap: var(--s6);
+  margin-top: var(--s8);
+}
+
+.ranks__list {
+  display: grid;
+  gap: var(--s2);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: none;
+}
+
+.rank {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  width: 100%;
+  text-align: left;
+  padding: 10px var(--s4) 10px 10px;
+  background: var(--surface-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--r-btn);
+  /* La escalera: cada peldaño entra un poco más. Es la diagonal del mark.
+     El ancho se descuenta del sangrado; con `width: 100%` más `margin-left`,
+     el último peldaño se salía de la pantalla en móvil. */
+  --rank-step: 10px;
+  margin-left: calc(var(--step, 0) * var(--rank-step));
+  width: calc(100% - var(--step, 0) * var(--rank-step));
+  transition: background var(--t-standard) var(--ease),
+    border-color var(--t-standard) var(--ease), transform var(--t-standard) var(--ease);
+}
+
+.rank:hover {
+  background: var(--surface-hover);
+  border-color: var(--rank-line);
+  transform: translateX(3px);
+}
+
+/* Medallón: es como la app presenta el rango — icono dentro de un círculo del
+   color del rango. */
+.rank__badge {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--rank-soft);
+  border: 1px solid var(--rank-line);
+  color: var(--rank-color);
+  transition: background var(--t-standard) var(--ease),
+    border-color var(--t-standard) var(--ease);
+}
+
+.rank__badge svg {
+  width: 19px;
+  height: 19px;
+}
+
+.rank__name {
+  font-weight: 600;
+  font-size: 15px;
+  flex: 1;
+}
+
+/* El número va en Bebas: dentro de la app la display es exactamente para esto,
+   números grandes. */
+.rank__level {
+  font-family: var(--font-display);
+  font-size: 22px;
+  line-height: 1;
+  color: var(--text-secondary);
+  letter-spacing: 0.03em;
+  transition: color var(--t-standard) var(--ease);
+}
+
+.rank__level::before {
+  content: 'NVL ';
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  vertical-align: 3px;
+}
+
+.rank.is-active {
+  border-color: var(--rank-line);
+  background: var(--rank-soft);
+}
+
+.rank.is-active .rank__badge {
+  background: var(--rank-color);
+  border-color: var(--rank-color);
+  color: #0f0f0f;
+}
+
+.rank.is-active .rank__level {
+  color: var(--rank-color);
+}
+
+/* Panel de detalle del rango seleccionado. */
+.rank-detail {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: var(--s3);
+  padding: var(--s12) var(--s6);
+  background: var(--surface-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--r-card);
+  align-content: center;
+}
+
+.rank-detail__badge {
+  width: 84px;
+  height: 84px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--rank-soft);
+  border: 1px solid var(--rank-line);
+  color: var(--rank-color);
+  margin-bottom: var(--s1);
+}
+
+.rank-detail__badge svg {
+  width: 38px;
+  height: 38px;
+}
+
+.rank-detail__name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 46px;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--rank-color);
+}
+
+.rank-detail__level {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: var(--s2);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.rank-detail__level strong {
+  font-family: var(--font-display);
+  font-size: 30px;
+  letter-spacing: 0.02em;
+  color: var(--text-primary);
+}
+
+.rank-detail__desc {
+  margin: 0;
+  max-width: 32ch;
+  color: var(--text-secondary);
+  font-size: 15px;
+}
+
+.rank-detail__next {
+  margin: var(--s2) 0 0;
+  padding-top: var(--s4);
+  border-top: 1px solid var(--border-default);
+  width: 100%;
+  font-size: var(--fs-meta);
+  color: var(--text-secondary);
+}
+
+.rank-detail__next strong {
+  color: var(--text-primary);
+}
+
+/* Cambio de rango: el panel entra desde la diagonal del mark. */
+.rank-detail.is-swapping {
+  opacity: 0;
+  transform: translate(-6px, 6px);
+}
+
+.rank-detail {
+  transition: opacity 140ms var(--ease), transform 140ms var(--ease);
+}
+
+/* ══════════════════════════════════════════════════════ Simulador */
+
+.sim {
+  display: grid;
+  gap: var(--s6);
+  margin-top: var(--s8);
+}
+
+.sim__panel {
+  background: var(--surface-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--r-card);
+  padding: var(--s4);
+}
+
+.sim__panel h3 {
+  font-size: var(--fs-section);
+  margin: 0 0 var(--s4);
+}
+
+.sim-exam {
+  display: grid;
+  gap: var(--s3);
+  padding-block: var(--s4);
+  border-top: 1px solid var(--border-default);
+}
+
+.sim-exam:first-of-type {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.sim-exam__head {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+}
+
+.field label {
+  font-size: var(--fs-meta);
+  color: var(--text-secondary);
+  display: flex;
+  justify-content: space-between;
+}
+
+.field output {
+  color: var(--text-primary);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 3px;
+  border-radius: var(--r-pill);
+  background: var(--surface-hover);
+  outline-offset: 6px;
+}
+
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 0;
+  cursor: pointer;
+}
+
+input[type='range']::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: pointer;
+}
+
+.sim-result {
+  display: grid;
+  gap: var(--s2);
+}
+
+.sim-card {
+  display: grid;
+  gap: var(--s3);
+  padding: var(--s4);
+  background: var(--bg-base);
+  border: 1px solid var(--border-default);
+  border-radius: var(--r-btn);
+  transition: border-color var(--t-standard) var(--ease);
+}
+
+.sim-card.is-top {
+  border-color: var(--accent-soft-border);
+  background: var(--accent-soft-bg);
+}
+
+.sim-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s3);
+}
+
+.sim-card__name {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  font-weight: 600;
+}
+
+.sim-card__score {
+  font-family: var(--font-display);
+  font-size: 34px;
+  line-height: 1;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.sim-card__meta {
+  font-size: var(--fs-meta);
+  color: var(--text-secondary);
+}
+
+/* Desglose de factores: es lo que el algoritmo devuelve de verdad. */
+.factors {
+  display: grid;
+  gap: 5px;
+}
+
+.factor {
+  display: grid;
+  grid-template-columns: 74px 1fr 34px;
+  align-items: center;
+  gap: var(--s2);
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.factor__bar {
+  height: 4px;
+  border-radius: var(--r-pill);
+  background: var(--surface-hover);
+  overflow: hidden;
+}
+
+.factor__fill {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  border-radius: var(--r-pill);
+  transition: width var(--t-standard) var(--ease);
+}
+
+.factor__val {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.sim-fallback {
+  margin-top: var(--s4);
+  font-size: var(--fs-meta);
+  color: var(--text-secondary);
+}
+
+/* ══════════════════════════════════════════════════════ Ecosistema */
+
+/* Cascada diagonal. En móvil es una tira con scroll; en escritorio, una sola
+   composición escalonada que asciende hacia la derecha siguiendo la diagonal
+   del mark. Cuelga de <section>, no de `.wrap`, así que ya ocupa el ancho
+   completo: nada de `calc(50% - 50vw)`, que mete el ancho de la barra de scroll
+   como desbordamiento horizontal. */
+.cascade {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: min(200px, 54vw);
+  gap: var(--s4);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-block: var(--s6);
+  padding-inline: max(20px, calc((100% - 1160px) / 2));
+  scrollbar-width: thin;
+}
+
+.cascade__item {
+  scroll-snap-align: center;
+  margin: 0;
+  transition: transform var(--t-slow) var(--ease);
+}
+
+.cascade__item img {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border-default);
+  border-radius: 18px;
+  background: var(--bg-base);
+}
+
+.cascade__item figcaption {
+  margin-top: var(--s3);
+  font-size: var(--fs-meta);
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+/* Indicador de arrastre: rail plano con el recorrido real de la tira. La
+   etiqueta desaparece en cuanto el usuario arrastra por primera vez, porque
+   ya no hace falta decírselo. */
+.cascade-scroll {
+  display: grid;
+  justify-items: center;
+  gap: var(--s3);
+  margin-top: var(--s2);
+}
+
+.cascade-scroll__label {
+  margin: 0;
+  font-size: var(--fs-meta);
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: opacity var(--t-slow) var(--ease);
+}
+
+.cascade-scroll.is-used .cascade-scroll__label {
+  opacity: 0;
+}
+
+.cascade-scroll__rail {
+  width: min(180px, 46%);
+  height: 3px;
+  border-radius: var(--r-pill);
+  background: var(--surface-hover);
+  overflow: hidden;
+}
+
+.cascade-scroll__thumb {
+  display: block;
+  height: 100%;
+  width: 30%;
+  border-radius: var(--r-pill);
+  background: var(--accent);
+  transform: translateX(0);
+}
+
+@media (min-width: 860px) {
+  .cascade {
+    grid-auto-columns: 1fr;
+    overflow: visible;
+    gap: var(--s6);
+    align-items: start;
+    padding-block: var(--s12) var(--s16);
+  }
+
+  /* i=0 abajo del todo, i=4 arriba: asciende hacia la derecha. */
+  .cascade__item {
+    transform: translateY(calc((4 - var(--i)) * 30px));
+  }
+
+  .cascade__item:hover {
+    transform: translateY(calc((4 - var(--i)) * 30px - 10px));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cascade__item,
+  .cascade__item:hover {
+    transition: none;
+  }
+}
+
+/* ══════════════════════════════════════════════════════ FAQ */
+
+.faq {
+  margin-top: var(--s8);
+  border-top: 1px solid var(--border-default);
+}
+
+.faq details {
+  border-bottom: 1px solid var(--border-default);
+}
+
+.faq summary {
+  list-style: none;
+  cursor: pointer;
+  padding: var(--s4) 0;
+  font-weight: 600;
+  font-size: clamp(15px, 4vw, 17px);
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s4);
+  align-items: center;
+}
+
+.faq summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq summary::after {
+  content: '';
+  width: 9px;
+  height: 9px;
+  flex-shrink: 0;
+  border-right: 1.5px solid var(--text-secondary);
+  border-bottom: 1.5px solid var(--text-secondary);
+  transform: rotate(45deg);
+  transition: transform var(--t-standard) var(--ease);
+}
+
+.faq details[open] summary::after {
+  transform: rotate(225deg);
+}
+
+.faq p {
+  margin: 0 0 var(--s4);
+  color: var(--text-secondary);
+  max-width: 60ch;
+}
+
+/* ══════════════════════════════════════════════════════ CTA de cierre */
+
+.closer {
+  text-align: center;
+}
+
+.closer .lede {
+  margin-inline: auto;
+}
+
+/* ══════════════════════════════════════════════════════ Cuestionario */
+
+.quiz {
+  max-width: 520px;
+  margin: var(--s12) auto 0;
+  text-align: left;
+  border: 1px solid var(--border-default);
+  background: var(--surface-card);
+  border-radius: var(--r-card);
+  padding: var(--s6);
+}
+
+.quiz__bar {
+  height: 3px;
+  border-radius: var(--r-pill);
+  background: var(--surface-hover);
+  overflow: hidden;
+}
+
+.quiz__bar span {
+  display: block;
+  height: 100%;
+  width: 25%;
+  border-radius: var(--r-pill);
+  background: var(--accent);
+  transition: width var(--t-slow) var(--ease);
+}
+
+.quiz__count {
+  margin: var(--s3) 0 var(--s6);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.quiz__step {
+  display: none;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-inline-size: 0; /* los <fieldset> traen un min-width intrínseco */
+}
+
+.quiz__step.is-active {
+  display: block;
+}
+
+.quiz__q {
+  display: block;
+  font-size: clamp(19px, 4.6vw, 23px);
+  font-weight: 600;
+  margin-bottom: var(--s2);
+  padding: 0;
+}
+
+.quiz__hint {
+  margin: 0 0 var(--s4);
+  font-size: var(--fs-meta);
+  color: var(--text-secondary);
+}
+
+.quiz__input {
+  width: 100%;
+  background: var(--bg-base);
+  border: 1px solid var(--border-default);
+  border-radius: var(--r-btn);
+  color: var(--text-primary);
+  font: inherit;
+  padding: 13px var(--s4);
+  resize: vertical;
+  transition: border-color var(--t-standard) var(--ease);
+}
+
+.quiz__input::placeholder {
+  color: var(--text-secondary);
+}
+
+.quiz__input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.quiz__options {
+  display: grid;
+  gap: var(--s2);
+}
+
+.quiz__opt {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  padding: 13px var(--s4);
+  background: var(--bg-base);
+  border: 1px solid var(--border-default);
+  border-radius: var(--r-btn);
+  cursor: pointer;
+  transition: border-color var(--t-standard) var(--ease),
+    background var(--t-standard) var(--ease);
+}
+
+.quiz__opt:hover {
+  background: var(--surface-hover);
+}
+
+.quiz__opt input {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  border: 1px solid var(--border-default);
+  border-radius: 50%;
+  margin: 0;
+  transition: border-color var(--t-standard) var(--ease),
+    box-shadow var(--t-standard) var(--ease);
+}
+
+.quiz__opt input:checked {
+  border-color: var(--accent);
+  /* Punto interior sin pseudo-elemento: `inset` no es una sombra decorativa,
+     es la forma de rellenar el círculo manteniendo el borde. */
+  box-shadow: inset 0 0 0 4px var(--accent);
+}
+
+.quiz__opt:has(input:checked) {
+  border-color: var(--accent-soft-border);
+  background: var(--accent-soft-bg);
+}
+
+.quiz__warn {
+  margin: var(--s4) 0 0;
+  padding: var(--s3) var(--s4);
+  border: 1px solid var(--premium-border);
+  background: var(--premium-bg);
+  border-radius: var(--r-btn);
+  font-size: var(--fs-meta);
+  color: var(--premium-text);
+}
+
+.quiz__consent {
+  display: flex;
+  gap: var(--s3);
+  align-items: flex-start;
+  margin-top: var(--s6);
+  font-size: var(--fs-meta);
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.quiz__consent input {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin: 1px 0 0;
+  border: 1px solid var(--border-default);
+  border-radius: 5px;
+  transition: background var(--t-standard) var(--ease),
+    border-color var(--t-standard) var(--ease);
+}
+
+.quiz__consent input:checked {
+  background: var(--accent) var(--arrow-mask) center / 0 0 no-repeat;
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 3px var(--surface-card);
+}
+
+.quiz__consent a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Trampa antispam: fuera de la vista pero no `display:none`, que algunos bots
+   detectan y saltan. */
+.quiz__trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.quiz__error {
+  margin: var(--s4) 0 0;
+  font-size: var(--fs-meta);
+  color: var(--danger);
+}
+
+.quiz__nav {
+  display: flex;
+  gap: var(--s3);
+  margin-top: var(--s6);
+}
+
+/* `min-width: 0` porque los elementos flex no bajan de su ancho mínimo de
+   contenido por defecto: sin esto, "Entrar en la lista" se negaba a encoger,
+   partía el texto en tres líneas y se salía de la tarjeta en móvil. */
+.quiz__nav .btn {
+  flex: 1 1 0;
+  min-width: 0;
+  padding-inline: var(--s4);
+}
+
+/* "Atrás" es secundario: solo ocupa lo que mide su texto. */
+#quizBack {
+  flex: 0 0 auto;
+}
+
+.quiz__done {
+  max-width: 520px;
+  margin: var(--s12) auto 0;
+  padding: var(--s12) var(--s6);
+  border: 1px solid var(--accent-soft-border);
+  background: var(--accent-soft-bg);
+  border-radius: var(--r-card);
+}
+
+.quiz__done-title {
+  font-family: var(--font-display);
+  font-size: 48px;
+  line-height: 1;
+  text-transform: uppercase;
+  margin: 0 0 var(--s4);
+  color: var(--accent);
+}
+
+/* ══════════════════════════════════════════════════════ Footer */
+
+.footer {
+  border-top: 1px solid var(--border-default);
+  padding-block: var(--s8);
+  font-size: var(--fs-meta);
+  color: var(--text-secondary);
+}
+
+.footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s4) var(--s6);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s4);
+}
+
+.footer a:hover {
+  color: var(--text-primary);
+}
+
+/* Sin caja: el icono va en línea y a la misma altura que los enlaces de texto,
+   alineado con ellos en la misma fila. */
+.footer .social {
+  display: inline-flex;
+  align-items: center;
+  color: var(--text-secondary);
+  transition: color var(--t-standard) var(--ease);
+}
+
+.footer .social svg {
+  width: 1.15em;
+  height: 1.15em;
+}
+
+.footer .social:hover {
+  color: var(--text-primary);
+}
+
+/* ══════════════════════════════════════════════════════ Páginas legales */
+
+.legal {
+  /* Posicionado para que `.grid-bg`, que es absoluto, se ancle a este bloque y
+     no al viewport (donde quedaría fijo al hacer scroll). */
+  position: relative;
+  padding-block: var(--s12) var(--s16);
+}
+
+.legal__grid {
+  display: grid;
+  gap: var(--s8);
+}
+
+.legal h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 0.95;
+  font-size: clamp(34px, 8vw, 62px);
+  margin: 0 0 var(--s3);
+}
+
+.legal__updated {
+  margin: 0 0 var(--s8);
+  font-size: var(--fs-meta);
+  color: var(--text-secondary);
+}
+
+.legal__intro {
+  font-size: clamp(16px, 4vw, 18px);
+  color: var(--text-secondary);
+  margin: 0 0 var(--s8);
+  padding-bottom: var(--s8);
+  border-bottom: 1px solid var(--border-default);
+  max-width: 62ch;
+}
+
+/* Índice lateral. En móvil se pliega en un <details>. */
+.toc {
+  align-self: start;
+  border: 1px solid var(--border-default);
+  border-radius: var(--r-card);
+  background: var(--surface-card);
+  padding: var(--s4);
+}
+
+.toc > summary {
+  list-style: none;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.toc > summary::-webkit-details-marker {
+  display: none;
+}
+
+.toc > summary::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-right: 1.5px solid var(--text-secondary);
+  border-bottom: 1.5px solid var(--text-secondary);
+  transform: rotate(45deg);
+  transition: transform var(--t-standard) var(--ease);
+}
+
+.toc[open] > summary::after {
+  transform: rotate(225deg);
+}
+
+.toc ol {
+  list-style: none;
+  margin: var(--s4) 0 0;
+  padding: 0;
+  display: grid;
+  gap: 2px;
+  counter-reset: toc;
+}
+
+.toc a {
+  display: block;
+  padding: 7px var(--s2);
+  border-radius: 6px;
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  border-left: 2px solid transparent;
+  transition: color var(--t-standard) var(--ease),
+    border-color var(--t-standard) var(--ease), background var(--t-standard) var(--ease);
+}
+
+.toc a:hover {
+  color: var(--text-primary);
+  background: var(--surface-hover);
+}
+
+.toc a.is-current {
+  color: var(--accent);
+  border-left-color: var(--accent);
+  background: var(--accent-soft-bg);
+}
+
+/* Cuerpo del documento */
+.legal__body section {
+  padding: 0 0 var(--s8);
+  scroll-margin-top: 96px;
+}
+
+.legal__body h2 {
+  font-size: clamp(19px, 4.6vw, 23px);
+  margin: 0 0 var(--s4);
+  display: flex;
+  gap: var(--s3);
+  align-items: baseline;
+}
+
+.legal__body h2 .num {
+  font-family: var(--font-display);
+  font-size: 26px;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.legal__body p {
+  margin: 0 0 var(--s4);
+  color: var(--text-secondary);
+  max-width: 64ch;
+}
+
+.legal__body a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.legal__body ul {
+  margin: 0 0 var(--s4);
+  padding-left: var(--s6);
+  color: var(--text-secondary);
+  max-width: 64ch;
+}
+
+.legal__body li {
+  margin-bottom: var(--s2);
+}
+
+.legal__body strong {
+  color: var(--text-primary);
+}
+
+/* Definiciones (bases legales, derechos, proveedores) */
+.deflist {
+  display: grid;
+  gap: var(--s4);
+  margin: 0 0 var(--s6);
+  max-width: 64ch;
+}
+
+.deflist > div {
+  border-left: 2px solid var(--border-default);
+  padding-left: var(--s4);
+}
+
+.deflist dt,
+.deflist strong.term {
+  display: block;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 3px;
+}
+
+.deflist p {
+  margin: 0;
+}
+
+/* Tabla de datos: en móvil cada fila se convierte en ficha. */
+.datatable {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 var(--s6);
+  font-size: 14px;
+}
+
+.datatable thead {
+  display: none;
+}
+
+.datatable tr {
+  display: grid;
+  gap: var(--s2);
+  padding: var(--s4);
+  border: 1px solid var(--border-default);
+  border-radius: var(--r-card);
+  background: var(--surface-card);
+  margin-bottom: var(--s2);
+}
+
+.datatable td {
+  display: grid;
+  gap: 2px;
+}
+
+.datatable td::before {
+  content: attr(data-label);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.datatable td:first-child {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.datatable td {
+  color: var(--text-secondary);
+}
+
+/* Fichas de método y avisos */
+.method-card,
+.note-card {
+  border: 1px solid var(--border-default);
+  background: var(--surface-card);
+  border-radius: var(--r-card);
+  padding: var(--s4);
+  margin: 0 0 var(--s3);
+  max-width: 64ch;
+}
+
+.note-card {
+  border-color: var(--accent-soft-border);
+  background: var(--accent-soft-bg);
+}
+
+.method-card strong {
+  display: block;
+  margin-bottom: var(--s2);
+}
+
+.method-card p:last-child,
+.note-card p:last-child {
+  margin-bottom: 0;
+}
+
+.legal__contact {
+  margin-top: var(--s8);
+  padding-top: var(--s8);
+  border-top: 1px solid var(--border-default);
+  color: var(--text-secondary);
+}
+
+.legal__contact a {
+  color: var(--accent);
+}
+
+/* ── Página de feedback ── */
+
+.feedback h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 0.92;
+  font-size: clamp(38px, 9vw, 76px);
+  margin: 0 0 var(--s6);
+}
+
+.feedback__grid {
+  display: grid;
+  gap: var(--s3);
+}
+
+.feedback-card {
+  display: grid;
+  gap: var(--s2);
+  padding: var(--s6);
+  background: var(--surface-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--r-card);
+  transition: background var(--t-standard) var(--ease),
+    border-color var(--t-standard) var(--ease), transform var(--t-standard) var(--ease);
+}
+
+.feedback-card:hover {
+  background: var(--surface-hover);
+  border-color: var(--accent-soft-border);
+  transform: translateY(-2px);
+}
+
+.feedback-card__tag {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.feedback-card__title {
+  font-size: 19px;
+  font-weight: 600;
+}
+
+.feedback-card__body {
+  font-size: 14.5px;
+  color: var(--text-secondary);
+  max-width: 46ch;
+}
+
+@media (min-width: 720px) {
+  .feedback__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ══════════════════════════════════════════════════════ Escritorio */
+
+@media (min-width: 860px) {
+  .hero__grid {
+    grid-template-columns: 1.05fr 0.95fr;
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: var(--s16);
+    align-items: start;
+  }
+
+  .steps__phone {
+    display: block;
+    position: sticky;
+    top: 120px;
+  }
+
+  .step {
+    min-height: 62vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .step__visual {
+    display: none;
+  }
+
+  .sim {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+
+  .ranks {
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items: start;
+    gap: var(--s8);
+  }
+
+  .rank {
+    --rank-step: 15px;
+  }
+
+  .rank-detail {
+    position: sticky;
+    top: 120px;
+    min-height: 320px;
+  }
+
+  /* Páginas legales: índice fijo a la izquierda, documento a la derecha. */
+  .legal__grid {
+    grid-template-columns: 250px 1fr;
+    gap: var(--s16);
+    align-items: start;
+  }
+
+  .toc {
+    position: sticky;
+    top: 104px;
+  }
+
+  .toc > summary {
+    cursor: default;
+    pointer-events: none;
+  }
+
+  .toc > summary::after {
+    display: none;
+  }
+
+  .datatable {
+    font-size: 14.5px;
+  }
+
+  .datatable thead {
+    display: table-header-group;
+  }
+
+  .datatable tr {
+    display: table-row;
+    border: 0;
+    border-bottom: 1px solid var(--border-default);
+    border-radius: 0;
+    background: none;
+    padding: 0;
+  }
+
+  .datatable th {
+    text-align: left;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    padding: 0 var(--s4) var(--s3) 0;
+    border-bottom: 1px solid var(--border-default);
+  }
+
+  .datatable td {
+    display: table-cell;
+    padding: var(--s4) var(--s4) var(--s4) 0;
+    vertical-align: top;
+  }
+
+  .datatable td::before {
+    display: none;
+  }
+}
+
+/* ══════════════════════════════════════════════════════ Accesibilidad */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  .shard {
+    display: none;
+  }
+
+  .streak-day.is-on {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+
+  /* Sin inclinado: el móvil se queda recto. */
+  .phone--tilt {
+    transform: none !important;
+  }
+}
