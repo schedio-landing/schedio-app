@@ -9,6 +9,13 @@
 
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* Único punto de bifurcación por idioma en todo el fichero: casi todo el
+     texto vive en el HTML (index.html vs en/index.html), pero el simulador
+     genera parte de su marcado desde aquí, así que ese puñado de cadenas
+     necesita las dos versiones. Se lee de <html lang="…">, que cada página
+     ya declara por su cuenta. */
+  var isEN = document.documentElement.lang === 'en';
+
   /* Marca de "hay JS". Sin ella el CSS no oculta nada: el contenido es legible
      aunque este script no llegue a ejecutarse nunca. */
   if (!reduceMotion) document.documentElement.classList.add('js');
@@ -152,14 +159,17 @@
             rankDetail.style.setProperty(prop, button.style.getPropertyValue(prop));
           });
 
-          // Leyenda es el último: no hay siguiente que enseñar.
+          // Leyenda es el último: no hay siguiente que enseñar. El nombre del
+          // rango (next) es dato real de gamification.js y se queda en
+          // español en las dos versiones — la etiqueta "Siguiente"/"Next" es
+          // chrome nuestro, esa sí traduce.
           var next = button.dataset.next;
           if (next) {
-            detailNext.innerHTML = 'Siguiente: <strong></strong>';
+            detailNext.innerHTML = (isEN ? 'Next: ' : 'Siguiente: ') + '<strong></strong>';
             detailNext.querySelector('strong').textContent = next;
             detailNext.hidden = false;
           } else {
-            detailNext.textContent = 'No hay nada por encima.';
+            detailNext.textContent = isEN ? 'Nothing above this.' : 'No hay nada por encima.';
             detailNext.hidden = false;
           }
 
@@ -190,6 +200,13 @@
   var stepScreen = document.getElementById('stepScreen');
   var steps = document.querySelectorAll('.step');
 
+  /* Estas escenas reproducen la interfaz real de la app (mismas clases que
+     usa la app de verdad: app-card, subject-chip, timer…), así que se quedan
+     en español SIEMPRE, en las dos versiones del sitio — la app en sí es
+     solo en español hoy. Traducirlas mostraría una interfaz que no existe.
+     Lo que sí cambia por idioma es el texto alrededor (main.js T dict), no
+     esto. Ver también el simulador más abajo, que es un widget propio de la
+     web y no una réplica de pantalla — a ese sí le toca su versión inglesa. */
   var STEP_SCREENS = [
     // 1 · Tus asignaturas
     '<p class="app-section-title">Tus asignaturas</p>' +
@@ -326,21 +343,28 @@
   var resultEl = document.getElementById('simResult');
 
   if (inputsEl && resultEl && window.SchedioPriority) {
-    var exams = [
-      { id: 'historia', name: 'Historia', color: '--subject-historia', days: 3, difficulty: 7, grade: 5.5 },
-      { id: 'mates', name: 'Matemáticas', color: '--subject-mates', days: 6, difficulty: 8, grade: 7.5 },
-      { id: 'quimica', name: 'Química', color: '--subject-quimica', days: 11, difficulty: 5, grade: 8.5 },
-    ];
+    var exams = isEN
+      ? [
+          { id: 'historia', name: 'History', color: '--subject-historia', days: 3, difficulty: 7, grade: 5.5 },
+          { id: 'mates', name: 'Math', color: '--subject-mates', days: 6, difficulty: 8, grade: 7.5 },
+          { id: 'quimica', name: 'Chemistry', color: '--subject-quimica', days: 11, difficulty: 5, grade: 8.5 },
+        ]
+      : [
+          { id: 'historia', name: 'Historia', color: '--subject-historia', days: 3, difficulty: 7, grade: 5.5 },
+          { id: 'mates', name: 'Matemáticas', color: '--subject-mates', days: 6, difficulty: 8, grade: 7.5 },
+          { id: 'quimica', name: 'Química', color: '--subject-quimica', days: 11, difficulty: 5, grade: 8.5 },
+        ];
 
-    var FACTOR_LABELS = {
-      urgency: 'Urgencia',
-      risk: 'Tu nota',
-      difficulty: 'Dificultad',
-      coverage: 'Sin tocar',
-    };
+    var FACTOR_LABELS = isEN
+      ? { urgency: 'Urgency', risk: 'Your grade', difficulty: 'Difficulty', coverage: 'Untouched' }
+      : { urgency: 'Urgencia', risk: 'Tu nota', difficulty: 'Dificultad', coverage: 'Sin tocar' };
+
+    var T = isEN
+      ? { exams: 'Your exams', left: 'Due in', difficulty: 'Difficulty', grade: 'Your average grade', day: ' day', days: ' days' }
+      : { exams: 'Tus exámenes', left: 'Faltan', difficulty: 'Dificultad', grade: 'Tu nota media', day: ' día', days: ' días' };
 
     inputsEl.innerHTML =
-      '<h3>Tus exámenes</h3>' +
+      '<h3>' + T.exams + '</h3>' +
       exams
         .map(function (exam, i) {
           return (
@@ -350,17 +374,17 @@
             ')"></span>' +
             exam.name +
             '</div>' +
-            field(i, 'days', 'Faltan', exam.days, 0, 30, 1, ' días') +
-            field(i, 'difficulty', 'Dificultad', exam.difficulty, 1, 10, 1, ' / 10') +
-            field(i, 'grade', 'Tu nota media', exam.grade, 0, 10, 0.5, '') +
+            field(i, 'days', T.left, exam.days, 0, 30, 1, T.days) +
+            field(i, 'difficulty', T.difficulty, exam.difficulty, 1, 10, 1, ' / 10') +
+            field(i, 'grade', T.grade, exam.grade, 0, 10, 0.5, '') +
             '</div>'
           );
         })
         .join('');
 
-    /** Los decimales van con coma: esto se lee en español. */
+    /** Coma decimal en español, punto en inglés — cada uno se lee como toca. */
     function num(value) {
-      return Number(value).toLocaleString('es-ES');
+      return Number(value).toLocaleString(isEN ? 'en-US' : 'es-ES');
     }
 
     function field(index, key, label, value, min, max, step, suffix) {
@@ -384,22 +408,27 @@
       var out = document.getElementById('out-' + index + '-' + key);
       if (out) {
         var suffix = input.dataset.suffix || '';
-        if (key === 'days' && Number(input.value) === 1) suffix = ' día';
+        if (key === 'days' && Number(input.value) === 1) suffix = T.day;
         out.textContent = num(input.value) + suffix;
       }
       render();
     });
 
-    /** "Es hoy" / "Mañana" / "En N días". */
+    /** "Es hoy" / "Mañana" / "En N días" — "Today" / "Tomorrow" / "In N days". */
     function plural(days) {
+      if (isEN) {
+        if (days === 0) return 'Today';
+        if (days === 1) return 'Tomorrow';
+        return 'In ' + days + ' days';
+      }
       if (days === 0) return 'Es hoy';
       if (days === 1) return 'Mañana';
       return 'En ' + days + ' días';
     }
 
-    /** Coma decimal, que esto va en español. */
+    /** Coma decimal en español, punto en inglés. */
     function hours(minutes) {
-      return (Math.round((minutes / 60) * 10) / 10).toLocaleString('es-ES') + ' h';
+      return (Math.round((minutes / 60) * 10) / 10).toLocaleString(isEN ? 'en-US' : 'es-ES') + ' h';
     }
 
     /* Las tarjetas se crean UNA vez y se reordenan, en vez de reconstruir el
@@ -499,7 +528,8 @@
         card.classList.toggle('is-top', position === 0);
         countTo(card.querySelector('.sim-card__score'), Math.round(detail.score));
         card.querySelector('.sim-card__meta').textContent =
-          plural(detail.daysUntil) + ' · ' + hours(detail.effortMinutes) + ' de estudio estimadas';
+          plural(detail.daysUntil) + ' · ' + hours(detail.effortMinutes) +
+          (isEN ? ' of study estimated' : ' de estudio estimadas');
 
         card.querySelectorAll('.factor').forEach(function (row) {
           var pct = Math.round(detail.contributions[row.dataset.factor] * 100);

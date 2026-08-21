@@ -7,18 +7,34 @@ en `Schedio/Documentos/landing-plan-y-copy.md`.
 ## Cómo verlo en local
 
 ```bash
-python -m http.server 4173 --directory schedio-landing
+python serve.py
 ```
+
+Servidor propio (`serve.py`), no `http.server` a secas: manda
+`Cache-Control: no-store` en todo. El `index.html` no puede llevar `?v=` en su
+propia URL, así que sin esto el navegador te sigue sirviendo la versión
+anterior después de cada cambio — costó tiempo real de depuración antes de
+cambiarlo.
 
 ## Estructura
 
 ```
-index.html          La página entera
-css/tokens.css      Tokens portados 1:1 desde schedio-mobile/theme/tokens.js
-css/styles.css      Todo lo demás
-js/priority.js      Puerto de schedio-mobile/services/priority.js
-js/main.js          Nav, revelado, móvil pegajoso y simulador
-assets/             Mark, wordmark y capturas de Play Store a 720px
+index.html               Home en español
+iphone/index.html        Guía de instalación PWA — huérfana hasta agosto,
+                          ahora enlazada desde la FAQ y el aviso "no Android"
+en/index.html            Home en inglés
+en/iphone/index.html     Guía de iPhone en inglés
+privacidad/, terminos/, eliminar-cuenta/, feedback/
+                          index.html cada una — patrón carpeta+index para
+                          URLs limpias en GitHub Pages
+css/tokens.css            Tokens portados 1:1 desde schedio-mobile/theme/tokens.js
+css/styles.css            Todo lo demás
+js/priority.js            Puerto de schedio-mobile/services/priority.js
+js/main.js                Nav, revelado, móvil pegajoso, rangos y simulador —
+                          bilingüe vía `document.documentElement.lang`
+js/beta-form.js           El formulario de lista de espera — también bilingüe
+js/config.js              Claves públicas de Firebase para el formulario
+assets/                   Mark, capturas de Play Store, fuentes, OG
 ```
 
 ## Las tres reglas que no se rompen
@@ -31,6 +47,57 @@ assets/             Mark, wordmark y capturas de Play Store a 720px
 3. **Nada que no sea cierto.** Los rangos son los seis reales de
    `services/gamification.js` y van por nivel, no por horas. El simulador corre
    el algoritmo de verdad, no una maqueta.
+
+## Bilingüe (ES/EN)
+
+Un árbol de páginas aparte en `en/`, no un interruptor con JavaScript. Cada
+página enlaza a su pareja del otro idioma vía `.lang-switch` en el nav, con
+`hreflang` recíproco en el `<head>` de las dos y en `sitemap.xml`. Español es
+el idioma por defecto (`x-default`).
+
+**La regla 1 de arriba se aplica también entre idiomas, y es la que más
+cuesta recordar:** cualquier cosa que reproduzca la interfaz real de la app
+—el teléfono del hero, las escenas de "Cómo funciona", los nombres y
+descripciones de los rangos (dato real de `gamification.js`)— se queda en
+**español en las dos versiones del sitio**. La app en sí es solo en español
+hoy; traducir esos fragmentos mostraría una interfaz que no existe. Ya pasó
+una vez con las escenas de `STEP_SCREENS` en `main.js` — se tradujeron y hubo
+que revertirlo.
+
+Lo que sí traduce: todo el copy de marketing, la FAQ, el formulario, y el
+**simulador** (es un widget propio construido para la web, no una captura de
+la app, así que sus etiquetas — "Urgencia"/"Urgency", los nombres de examen de
+ejemplo — cambian de idioma libremente). El chrome que yo mismo añadí sobre
+datos reales (la etiqueta "Nivel"/"Level", "Siguiente:"/"Next:") también
+traduce; el dato que envuelve (el nombre del rango) no.
+
+`main.js` y `beta-form.js` no están duplicados: leen
+`document.documentElement.lang` una vez al principio y usan un diccionario
+`T`/`isEN` para el puñado de cadenas que generan por JS. `priority.js` no
+necesita nada — no tiene ni una palabra de texto.
+
+**Las tres legales ya están traducidas** (`en/privacidad`, `en/terminos`,
+`en/eliminar-cuenta`), con terminología real del GDPR en inglés (controller,
+processor, legal basis...), no inventada. Cada una lleva una nota destacada
+arriba: *"esta es una traducción informativa; la versión española es la
+vinculante"* — es la práctica estándar para esto, y cubre que un matiz de
+traducción se escape.
+
+"Mochila" se queda sin traducir en las tres, a propósito: es el nombre real
+de una función de la app, y la app en sí es solo en español — traducirlo a
+"Backpack" haría que alguien buscara en la app algo que no existe con ese
+nombre. Mismo principio que con los rangos.
+
+**`/feedback` también está traducida.** Sus cuatro `mailto` (asunto y cuerpo)
+se recalcularon con `encodeURIComponent`, no a mano — traducir uno a mano fue
+justo el fallo que se encontró y corrigió en `eliminar-cuenta` (el asunto se
+quedó en español pese a que el texto de al lado ya decía "Delete account" en
+inglés). Verificado con `decodeURIComponent` en el navegador, no solo
+leyendo el HTML.
+
+El sitio bilingüe está completo: las ocho páginas (home, iphone, privacidad,
+terminos, eliminar-cuenta, feedback × 2 idiomas) tienen su pareja, sin ningún
+`(ES)` suelto.
 
 ## Dos ficheros que hay que mantener a mano
 
@@ -88,14 +155,21 @@ se le pase.
       producción llevan tiempo desincronizadas, así que `firebase deploy
       --only firestore:rules` no es inocente — repasa el diff completo, no solo
       este bloque.
-- [ ] **`/privacidad`, `/terminos` y `/borrar-datos`**, generadas desde
-      `schedio-mobile/legal/*.md`. Más `privacidad.html` y `terminos.html` que
-      redirijan, para no romper el legal de los APK de beta ya repartidos.
+- [x] ~~`/privacidad`, `/terminos` y `/eliminar-cuenta`.~~ Hechas — no
+      generadas automáticamente desde `schedio-mobile/legal/*.md` como se
+      planteó aquí en un principio, se escribieron a mano a partir de ese
+      contenido. Ya divergen del `.md` (privacidad.html tiene el apartado del
+      formulario de la web, que el `.md` no tiene) — es una decisión asumida,
+      no un descuido: ver la nota en `constants/legal.js` de la app.
 - [x] ~~Imagen OG.~~ `assets/og.png`, 1200×630, 43 KB. Generada con
       System.Drawing a partir de los tokens y las TTF reales de Bebas e Inter,
       no de una interpretación. Declarada con `width`/`height`/`alt` en las
       cinco páginas.
-- [ ] **`CNAME`** con `schedio.es` y el DNS del registrador.
+- [x] ~~`CNAME` y DNS.~~ En vivo en `schedio.es`, detrás de Cloudflare →
+      GitHub Pages, publicado desde `schedio-landing/schedio-app` (repo
+      distinto de este directorio local — el despliegue se hace vía PR desde
+      un fork de `hugo-divi`, ver el historial de la conversación para el
+      porqué).
 
 ### Mejoras, no bloquean
 
