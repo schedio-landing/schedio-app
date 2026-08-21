@@ -1,28 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://schedio.es/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://schedio.es/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://schedio.es/en/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://schedio.es/" />
+  </url>
+  <url>
+    <loc>https://schedio.es/en/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://schedio.es/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://schedio.es/en/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://schedio.es/" />
+  </url>
+  <url>
+    <loc>https://schedio.es/iphone</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://schedio.es/iphone" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://schedio.es/en/iphone" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://schedio.es/iphone" />
+  </url>
+  <url>
+    <loc>https://schedio.es/en/iphone</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://schedio.es/iphone" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://schedio.es/en/iphone" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://schedio.es/iphone" />
   </url>
   <url>
     <loc>https://schedio.es/privacidad</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://schedio.es/privacidad" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://schedio.es/en/privacidad" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://schedio.es/privacidad" />
+  </url>
+  <url>
+    <loc>https://schedio.es/en/privacidad</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://schedio.es/privacidad" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://schedio.es/en/privacidad" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://schedio.es/privacidad" />
   </url>
   <url>
     <loc>https://schedio.es/terminos</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://schedio.es/terminos" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://schedio.es/en/terminos" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://schedio.es/terminos" />
+  </url>
+  <url>
+    <loc>https://schedio.es/en/terminos</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://schedio.es/terminos" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://schedio.es/en/terminos" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://schedio.es/terminos" />
   </url>
   <url>
     <loc>https://schedio.es/eliminar-cuenta</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://schedio.es/eliminar-cuenta" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://schedio.es/en/eliminar-cuenta" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://schedio.es/eliminar-cuenta" />
+  </url>
+  <url>
+    <loc>https://schedio.es/en/eliminar-cuenta</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://schedio.es/eliminar-cuenta" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://schedio.es/en/eliminar-cuenta" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://schedio.es/eliminar-cuenta" />
   </url>
   <url>
     <loc>https://schedio.es/feedback</loc>
     <changefreq>monthly</changefreq>
     <priority>0.2</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://schedio.es/feedback" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://schedio.es/en/feedback" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://schedio.es/feedback" />
+  </url>
+  <url>
+    <loc>https://schedio.es/en/feedback</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.2</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://schedio.es/feedback" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://schedio.es/en/feedback" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://schedio.es/feedback" />
   </url>
 </urlset>

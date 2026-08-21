@@ -12,6 +12,41 @@
   var form = document.getElementById('betaForm');
   if (!form) return;
 
+  var isEN = document.documentElement.lang === 'en';
+  var T = isEN
+    ? {
+        question: 'Question',
+        of: ' of ',
+        emailRequired: "We need an email to let you know.",
+        emailInvalid: "That email doesn't look right.",
+        pickOption: 'Pick an option to continue.',
+        needConsent: 'We need your permission to save the email.',
+        sending: 'Sending',
+        joinList: 'Join the waitlist',
+        sendFailed: "Couldn't send it. Email us at ",
+        sendFailedEnd: ' and we’ll add you.',
+        mailSubject: 'I want to join the Schedio waitlist',
+        mailWhatStudying: 'What are you studying: ',
+        mailAndroid: 'Android: ',
+        mailWorst: 'Worst part of staying organized: ',
+      }
+    : {
+        question: 'Pregunta',
+        of: ' de ',
+        emailRequired: 'Necesitamos un email para poder avisarte.',
+        emailInvalid: 'Ese email no parece válido.',
+        pickOption: 'Elige una opción para seguir.',
+        needConsent: 'Necesitamos tu permiso para guardar el email.',
+        sending: 'Enviando',
+        joinList: 'Entrar en la lista',
+        sendFailed: 'No se ha podido enviar. Escríbenos a ',
+        sendFailedEnd: ' y te apuntamos.',
+        mailSubject: 'Quiero entrar en la lista de espera de Schedio',
+        mailWhatStudying: 'Curso: ',
+        mailAndroid: 'Android: ',
+        mailWorst: 'Que peor lleva: ',
+      };
+
   var cfg = window.SCHEDIO_CONFIG || {};
   var steps = [].slice.call(form.querySelectorAll('.quiz__step'));
   var bar = document.getElementById('quizBar');
@@ -36,7 +71,7 @@
     });
 
     bar.style.width = ((current + 1) / steps.length) * 100 + '%';
-    count.textContent = 'Pregunta ' + (current + 1) + ' de ' + steps.length;
+    count.textContent = T.question + ' ' + (current + 1) + T.of + steps.length;
 
     backBtn.hidden = current === 0;
     var last = current === steps.length - 1;
@@ -57,8 +92,8 @@
     var email = step.querySelector('#q-email');
     if (email) {
       var value = email.value.trim();
-      if (!value) return 'Necesitamos un email para poder avisarte.';
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value)) return 'Ese email no parece válido.';
+      if (!value) return T.emailRequired;
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value)) return T.emailInvalid;
       return null;
     }
 
@@ -67,12 +102,12 @@
       var picked = [].slice.call(radios).some(function (r) {
         return r.checked;
       });
-      return picked ? null : 'Elige una opción para seguir.';
+      return picked ? null : T.pickOption;
     }
 
     var consent = step.querySelector('#q-consent');
     if (consent && !consent.checked) {
-      return 'Necesitamos tu permiso para guardar el email.';
+      return T.needConsent;
     }
 
     return null;
@@ -122,12 +157,12 @@
   function mailtoFallback(data) {
     var body =
       'Email: ' + data.email +
-      '\nCurso: ' + data.curso +
-      '\nAndroid: ' + (data.android ? 'si' : 'no') +
-      '\nQue peor lleva: ' + (data.dolor || '-');
+      '\n' + T.mailWhatStudying + data.curso +
+      '\n' + T.mailAndroid + (data.android ? 'si' : 'no') +
+      '\n' + T.mailWorst + (data.dolor || '-');
     return (
       'mailto:' + cfg.contactEmail +
-      '?subject=' + encodeURIComponent('Quiero entrar en la lista de espera de Schedio') +
+      '?subject=' + encodeURIComponent(T.mailSubject) +
       '&body=' + encodeURIComponent(body)
     );
   }
@@ -163,7 +198,7 @@
     }
 
     sendBtn.disabled = true;
-    sendBtn.textContent = 'Enviando';
+    sendBtn.textContent = T.sending;
     showError('');
 
     var url =
@@ -183,8 +218,8 @@
       })
       .catch(function () {
         sendBtn.disabled = false;
-        sendBtn.textContent = 'Entrar en la lista';
-        showError('No se ha podido enviar. Escríbenos a ' + cfg.contactEmail + ' y te apuntamos.');
+        sendBtn.textContent = T.joinList;
+        showError(T.sendFailed + cfg.contactEmail + T.sendFailedEnd);
       });
   });
 

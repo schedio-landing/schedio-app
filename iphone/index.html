@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Instalar Schedio en iPhone — Schedio</title>
+    <meta
+      name="description"
+      content="Cómo instalar Schedio en tu iPhone como aplicación web, paso a paso, mientras llega la versión de la App Store."
+    />
+    <link rel="canonical" href="https://schedio.es/iphone" />
+    <meta name="theme-color" content="#0f0f0f" />
+
+    <link rel="alternate" hreflang="es" href="https://schedio.es/iphone" />
+    <link rel="alternate" hreflang="en" href="https://schedio.es/en/iphone" />
+    <link rel="alternate" hreflang="x-default" href="https://schedio.es/iphone" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://schedio.es/iphone" />
+    <meta property="og:site_name" content="Schedio" />
+    <meta property="og:title" content="Instalar Schedio en iPhone" />
+    <meta property="og:description" content="Paso a paso, con Safari: cómo tener Schedio en tu pantalla de inicio antes de que llegue a la App Store." />
+    <meta property="og:image" content="https://schedio.es/assets/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" href="../assets/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png" />
+    <link rel="preload" href="../assets/fonts/bebas-neue-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="../assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="../css/tokens.css?v=19" />
+    <link rel="stylesheet" href="../css/styles.css?v=19" />
+  </head>
+
+  <body>
+    <a class="skip-link" href="#doc">Saltar al contenido</a>
+
+    <!-- Iconos de iOS/Safari, dibujados fieles a la forma real del sistema.
+         Son iconografía estándar de Apple usada con fin instructivo — no
+         forman parte de la interfaz de Schedio. -->
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
+      <!-- Icono de compartir de iOS: cuadrado con flecha hacia arriba. -->
+      <symbol id="ios-share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3v13" />
+        <path d="M8 7l4-4 4 4" />
+        <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7" />
+      </symbol>
+      <!-- "Añadir a pantalla de inicio": cuadrado redondeado con un +. -->
+      <symbol id="ios-a2hs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="18" height="18" rx="5" />
+        <path d="M12 8v8M8 12h8" />
+      </symbol>
+      <!-- Candado del icono de "web segura" en la barra de direcciones. -->
+      <symbol id="ios-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="5" y="11" width="14" height="9" rx="2" />
+        <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+      </symbol>
+    </svg>
+
+    <header class="nav" id="nav">
+      <div class="wrap nav__inner">
+        <a class="brand" href="/">
+          <img src="../assets/mark-96.png" alt="" width="30" height="30" />
+          Schedio
+        </a>
+        <div class="nav__actions">
+          <a class="lang-switch" href="/en/iphone" hreflang="en" lang="en">EN</a>
+          <a class="btn btn--primary" href="/#lista">Lista de espera</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="guide wrap" id="doc">
+      <div class="guide__intro">
+        <span class="overline">Para iPhone</span>
+        <h1>Instalar Schedio<br />sin pasar por la App Store</h1>
+        <p>
+          Schedio todavía no está en la App Store. Mientras tanto, se instala como aplicación
+          web: <strong>el icono acaba en tu pantalla de inicio igual que cualquier otra app</strong>,
+          se abre a pantalla completa y no lleva la barra de Safari por encima. Son cuatro pasos,
+          dos minutos.
+        </p>
+        <p>
+          Solo funciona desde <strong>Safari</strong> — es una limitación de iOS, no nuestra: si
+          abres schedio.es desde Chrome o desde Instagram, no vas a encontrar la opción de
+          añadir a inicio.
+        </p>
+      </div>
+
+      <ol class="guide-steps">
+        <li class="guide-step">
+          <div class="guide-step__text">
+            <span class="guide-step__num">PASO 1</span>
+            <h2>Abre schedio.es en Safari</h2>
+            <p>
+              Si ya estás leyendo esto desde el propio iPhone y en Safari, perfecto — puedes
+              seguir los pasos según los lees. Si no, abre Safari y escribe <strong>schedio.es</strong>
+              en la barra de arriba.
+            </p>
+          </div>
+          <div class="guide-step__visual">
+            <div class="iosframe">
+              <div class="iosframe__screen">
+                <div class="safari-chrome">
+                  <div class="safari-chrome__page">
+                    <img src="../assets/mark-96.png" alt="" />
+                  </div>
+                  <div class="safari-chrome__bar">
+                    <span class="safari-chrome__url">
+                      <svg viewBox="0 0 24 24"><use href="#ios-lock"></use></svg>
+                      schedio.es
+                    </span>
+                    <span class="safari-chrome__share"><svg viewBox="0 0 24 24"><use href="#ios-share"></use></svg></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="guide-step">
+          <div class="guide-step__text">
+            <span class="guide-step__num">PASO 2</span>
+            <h2>Toca el icono de compartir</h2>
+            <p>
+              Es el cuadrado con la flecha hacia arriba, en la barra de abajo (en iPad está
+              arriba a la derecha). Se abre un panel desde el borde inferior de la pantalla.
+            </p>
+          </div>
+          <div class="guide-step__visual">
+            <div class="iosframe">
+              <div class="iosframe__screen">
+                <div class="safari-chrome">
+                  <div class="safari-chrome__page">
+                    <img src="../assets/mark-96.png" alt="" />
+                  </div>
+                  <div class="safari-chrome__bar">
+                    <span class="safari-chrome__url">
+                      <svg viewBox="0 0 24 24"><use href="#ios-lock"></use></svg>
+                      schedio.es
+                    </span>
+                    <span class="safari-chrome__share is-active"><svg viewBox="0 0 24 24"><use href="#ios-share"></use></svg></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="guide-step">
+          <div class="guide-step__text">
+            <span class="guide-step__num">PASO 3</span>
+            <h2>Busca "Añadir a pantalla de inicio"</h2>
+            <p>
+              En la fila de iconos de arriba salen apps para compartir — no es eso. Baja por la
+              lista de acciones hasta encontrar <strong>"Añadir a pantalla de inicio"</strong>, con
+              un icono de un cuadrado con un signo +.
+            </p>
+            <span class="tip">Si no la ves a la primera, es que hay que desplazar la lista hacia abajo</span>
+          </div>
+          <div class="guide-step__visual">
+            <div class="iosframe">
+              <div class="iosframe__screen">
+                <div class="sharesheet">
+                  <span class="sharesheet__handle"></span>
+                  <div class="sharesheet__apps">
+                    <span></span><span></span><span></span><span></span><span></span>
+                  </div>
+                  <div class="sharesheet__actions">
+                    <div class="sharesheet__action"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14" /></svg> Añadir a favoritos</div>
+                    <div class="sharesheet__action"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="3" /></svg> Añadir a inicio rápido</div>
+                    <div class="sharesheet__action is-target"><svg viewBox="0 0 24 24"><use href="#ios-a2hs"></use></svg> Añadir a pantalla de inicio</div>
+                    <div class="sharesheet__action"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h16M4 6h16M4 18h16" /></svg> Buscar en la página</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="guide-step">
+          <div class="guide-step__text">
+            <span class="guide-step__num">PASO 4</span>
+            <h2>Confirma con "Añadir"</h2>
+            <p>
+              iOS te enseña cómo va a quedar el icono y su nombre — puedes dejarlo tal cual, dice
+              "Schedio". Toca <strong>"Añadir"</strong> arriba a la derecha, y ya está: el icono
+              aparece en tu pantalla de inicio, listo para abrir como cualquier otra app.
+            </p>
+          </div>
+          <div class="guide-step__visual">
+            <div class="iosframe">
+              <div class="iosframe__screen">
+                <div class="a2hs">
+                  <div class="a2hs__sheet">
+                    <div class="a2hs__header">
+                      <span class="cancel">Cancelar</span>
+                      <span>Añadir a inicio</span>
+                      <span class="add">Añadir</span>
+                    </div>
+                    <div class="a2hs__preview">
+                      <img src="../assets/mark-96.png" alt="" />
+                      <div>
+                        <input type="text" value="Schedio" readonly />
+                        <span>Se abrirá a pantalla completa</span>
+                      </div>
+                    </div>
+                    <p class="a2hs__url">schedio.es</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ol>
+
+      <div class="guide-note reveal is-in">
+        <div class="method-card" style="max-width: none">
+          <strong>Y ya está — así queda</strong>
+          <p>
+            El icono de Schedio en tu pantalla de inicio, igual que cualquier otra app. Al
+            tocarlo se abre a pantalla completa, sin la barra de Safari.
+          </p>
+        </div>
+        <div class="iosframe" style="margin: var(--s6) auto 0">
+          <div class="iosframe__screen">
+            <div class="homescreen">
+              <span class="homescreen__icon"></span>
+              <span class="homescreen__icon"></span>
+              <span class="homescreen__icon"></span>
+              <div class="homescreen__added">
+                <img src="../assets/mark-96.png" alt="" />
+                <span>Schedio</span>
+              </div>
+              <span class="homescreen__icon"></span>
+              <span class="homescreen__icon"></span>
+              <span class="homescreen__icon"></span>
+              <span class="homescreen__icon"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="guide-note">
+        <h2>Antes de que preguntes por qué no te llegan notificaciones</h2>
+        <p style="color: var(--text-secondary); max-width: 56ch">
+          En iPhone, las notificaciones de una app instalada así solo funcionan si tienes
+          <strong>iOS 16.4 o más reciente</strong>, y solo <strong>después de abrirla al menos
+          una vez desde el icono</strong> (no desde Safari) y aceptar el permiso cuando te lo
+          pida. Es una limitación de iOS para las apps web, no algo que dependa de Schedio.
+        </p>
+      </div>
+
+      <p class="guide-closing legal__contact">
+        Esto es una solución mientras llega la versión nativa. En cuanto Schedio esté en la App
+        Store, lo cambiamos aquí mismo — y si estás en la
+        <a href="/#lista">lista de espera</a>, te avisamos por email.
+        ¿Algo no te ha funcionado? Escríbenos a
+        <a href="mailto:schedio.contacto@gmail.com">schedio.contacto@gmail.com</a>.
+      </p>
+    </main>
+
+    <footer class="footer">
+      <div class="wrap footer__inner">
+        <span>© 2026 Schedio</span>
+        <nav>
+          <a href="/privacidad">Privacidad</a>
+          <a href="/terminos">Términos</a>
+          <a href="/eliminar-cuenta">Eliminar cuenta</a>
+          <a href="/feedback">Enviar feedback</a>
+          <a class="social" href="https://www.instagram.com/schedio.app" target="_blank" rel="noopener noreferrer" aria-label="Schedio en Instagram">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" />
+              <circle cx="12" cy="12" r="4" />
+              <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none" />
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </footer>
+  </body>
+</html>

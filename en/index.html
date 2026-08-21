@@ -1,54 +1,48 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Schedio — Que el estudio sea fácil</title>
+    <title>Schedio — Make Studying Easy</title>
     <meta
       name="description"
-      content="La app que ordena tus asignaturas, tus exámenes y tus horas de estudio. Para ESO, Bachillerato y universidad. Gratis en Android."
+      content="The app that organizes your subjects, your exams, and your study hours. For high school and university. Free on Android."
     />
-    <link rel="canonical" href="https://schedio.es/" />
+    <link rel="canonical" href="https://schedio.es/en/" />
     <meta name="theme-color" content="#0f0f0f" />
 
-    <!-- Le dice a Google que esta página y su versión en inglés son la misma
-         página en dos idiomas, no contenido duplicado. x-default es la que
-         se sirve cuando el idioma del visitante no es ni es ni en. -->
+    <!-- Tells Google this page and its Spanish version are the same page in
+         two languages, not duplicate content. x-default is served when the
+         visitor's language is neither es nor en. -->
     <link rel="alternate" hreflang="es" href="https://schedio.es/" />
     <link rel="alternate" hreflang="en" href="https://schedio.es/en/" />
     <link rel="alternate" hreflang="x-default" href="https://schedio.es/" />
 
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://schedio.es/" />
+    <meta property="og:url" content="https://schedio.es/en/" />
     <meta property="og:site_name" content="Schedio" />
-    <meta property="og:title" content="Schedio — Que el estudio sea fácil" />
+    <meta property="og:title" content="Schedio — Make Studying Easy" />
     <meta
       property="og:description"
-      content="Exámenes, tareas y progreso — sin buscar en cinco sitios distintos."
+      content="Exams, assignments, and progress — without digging through five different places."
     />
     <meta property="og:image" content="https://schedio.es/assets/og.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Schedio — Todo tu curso, en una pantalla" />
-    <meta property="og:locale" content="es_ES" />
-    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:image:alt" content="Schedio — Your whole course, on one screen" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="es_ES" />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png" />
-    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
-    <link rel="manifest" href="site.webmanifest" />
+    <link rel="icon" href="../assets/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png" />
+    <link rel="manifest" href="../site.webmanifest" />
 
-    <!-- Precarga de las dos fuentes: sin esto el navegador no las descubre
-         hasta haber parseado el CSS, y el titular del hero parpadea con la
-         tipografía de respaldo antes de asentarse. -->
-    <link rel="preload" href="assets/fonts/bebas-neue-400.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="../assets/fonts/bebas-neue-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="../assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
 
-    <!-- El `?v=` es la única forma de invalidar caché sin build: al desplegar un
-         cambio en CSS o JS hay que subir el número, o los visitantes que ya
-         han estado siguen con la versión vieja. -->
-    <link rel="stylesheet" href="css/tokens.css?v=19" />
-    <link rel="stylesheet" href="css/styles.css?v=19" />
+    <link rel="stylesheet" href="../css/tokens.css?v=19" />
+    <link rel="stylesheet" href="../css/styles.css?v=19" />
 
     <script type="application/ld+json">
       {
@@ -57,21 +51,18 @@
         "name": "Schedio",
         "applicationCategory": "EducationalApplication",
         "operatingSystem": "Android",
-        "url": "https://schedio.es/",
-        "inLanguage": "es-ES",
-        "description": "Organiza tus asignaturas, exámenes y sesiones de estudio en una sola pantalla."
+        "url": "https://schedio.es/en/",
+        "inLanguage": "en-US",
+        "description": "Organize your subjects, exams, and study sessions on a single screen."
       }
     </script>
   </head>
 
   <body>
-    <a class="skip-link" href="#top">Saltar al contenido</a>
+    <a class="skip-link" href="#top">Skip to content</a>
 
-    <!-- Iconos de rango. Son los mismos de lucide que usa la app
-         (services/gamification.js guarda el nombre del componente). -->
-    <!-- Van en <symbol> y no en <g>: el <g> no lleva viewBox, así que el <use>
-         pintaba el dibujo de 24×24 a escala 1:1 dentro de un hueco de 19px y
-         solo se veía su esquina superior izquierda. -->
+    <!-- Rank icons. Same lucide set the app uses (services/gamification.js
+         stores the component name). -->
     <svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
       <symbol id="i-zap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
         <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
@@ -104,12 +95,12 @@
     <header class="nav" id="nav">
       <div class="wrap nav__inner">
         <a class="brand" href="#top">
-          <img src="assets/mark-96.png" alt="" width="30" height="30" />
+          <img src="../assets/mark-96.png" alt="" width="30" height="30" />
           Schedio
         </a>
         <div class="nav__actions">
-          <a class="lang-switch" href="/en/" hreflang="en" lang="en">EN</a>
-          <a class="btn btn--primary" href="#lista">Lista de espera</a>
+          <a class="lang-switch" href="/" hreflang="es" lang="es">ES</a>
+          <a class="btn btn--primary" href="#waitlist">Join the waitlist</a>
         </div>
       </div>
     </header>
@@ -120,34 +111,36 @@
         <div class="grid-bg"></div>
         <div class="wrap section-inner hero__grid">
           <div>
-            <h1 class="display">Todo tu curso,<br />en una pantalla</h1>
+            <h1 class="display">Your whole course,<br />on one screen</h1>
             <p class="lede">
-              Exámenes, tareas y progreso — sin buscar en cinco sitios distintos.
+              Exams, assignments, and progress — without digging through five different places.
             </p>
             <p style="margin-top: var(--s8)">
-              <a class="btn btn--primary has-arrow" href="#lista">Lista de espera</a>
+              <a class="btn btn--primary has-arrow" href="#waitlist">Join the waitlist</a>
             </p>
-            <p class="cta-note">Gratis · Android · Ventajas exclusivas al salir</p>
+            <p class="cta-note">Free · Android · Exclusive perks when it launches</p>
           </div>
 
           <div class="hero__stage">
-            <!-- Fragmentos de desorden. Se recolocan sobre la pantalla siguiendo
-                 la diagonal ascendente del mark. Un solo pase al cargar. -->
-            <span class="shard" style="--x: -150px; --y: -120px; --rot: -7deg; --i: 0; --shard-color: var(--subject-mates)">¿examen mates?</span>
-            <span class="shard" style="--x: 130px; --y: -150px; --rot: 5deg; --i: 1; --shard-color: var(--subject-historia)">Historia — ¿qué entra?</span>
-            <span class="shard" style="--x: -175px; --y: 30px; --rot: 4deg; --i: 2; --shard-color: var(--subject-tic)">aula virtual</span>
-            <span class="shard" style="--x: 160px; --y: 60px; --rot: -6deg; --i: 3; --shard-color: var(--subject-lengua)">apuntes en el móvil</span>
-            <span class="shard" style="--x: -120px; --y: 175px; --rot: -3deg; --i: 4; --shard-color: var(--subject-quimica)">tema 6 sin empezar</span>
-            <span class="shard" style="--x: 140px; --y: 195px; --rot: 8deg; --i: 5; --shard-color: var(--subject-filosofia)">27 jul</span>
-            <span class="shard" style="--x: -60px; --y: -195px; --rot: 6deg; --i: 6; --shard-color: var(--subject-ingles)">grupo de clase</span>
-            <span class="shard" style="--x: 55px; --y: 235px; --rot: -5deg; --i: 7; --shard-color: var(--subject-tecno)">la agenda de papel</span>
+            <!-- Scattered fragments. They settle onto the screen following the
+                 mark's upward diagonal. One pass, on load. -->
+            <span class="shard" style="--x: -150px; --y: -120px; --rot: -7deg; --i: 0; --shard-color: var(--subject-mates)">math exam?</span>
+            <span class="shard" style="--x: 130px; --y: -150px; --rot: 5deg; --i: 1; --shard-color: var(--subject-historia)">History — what's on it?</span>
+            <span class="shard" style="--x: -175px; --y: 30px; --rot: 4deg; --i: 2; --shard-color: var(--subject-tic)">school portal</span>
+            <span class="shard" style="--x: 160px; --y: 60px; --rot: -6deg; --i: 3; --shard-color: var(--subject-lengua)">notes app</span>
+            <span class="shard" style="--x: -120px; --y: 175px; --rot: -3deg; --i: 4; --shard-color: var(--subject-quimica)">chapter 6, not started</span>
+            <span class="shard" style="--x: 140px; --y: 195px; --rot: 8deg; --i: 5; --shard-color: var(--subject-filosofia)">Jul 27</span>
+            <span class="shard" style="--x: -60px; --y: -195px; --rot: 6deg; --i: 6; --shard-color: var(--subject-ingles)">class group chat</span>
+            <span class="shard" style="--x: 55px; --y: 235px; --rot: -5deg; --i: 7; --shard-color: var(--subject-tecno)">paper planner</span>
 
-            <!-- Réplica de la pantalla de Inicio. Reproduce PlayStore-01-inicio
-                 y nada más: ni se añade ni se idealiza. -->
-            <div class="phone phone--tilt" id="heroPhone" role="img" aria-label="Pantalla de inicio de Schedio: racha, nivel y nota media, la sesión de hoy, el calendario del mes, los próximos exámenes y los exámenes por calificar.">
+            <!-- Faithful replica of the real Home screen. This mirrors the
+                 actual (Spanish-only) app UI exactly, so it stays in Spanish
+                 here too — translating it would show an interface that
+                 doesn't really exist. -->
+            <div class="phone phone--tilt" id="heroPhone" role="img" aria-label="Schedio's Home screen: streak, level and average grade, today's session, the month's calendar, upcoming exams, and exams pending a grade. The app's interface is in Spanish today.">
               <div class="phone__screen" aria-hidden="true">
                 <div class="app-bar">
-                  <span class="app-logo"><img src="assets/mark-96.png" alt="" />chedio</span>
+                  <span class="app-logo"><img src="../assets/mark-96.png" alt="" />chedio</span>
                   <span class="badge-prime">PRIME</span>
                 </div>
 
@@ -240,43 +233,44 @@
         </div>
       </section>
 
-      <!-- ══════════════════════════════════════════════ 2 · El problema -->
+      <!-- ══════════════════════════════════════════════ 2 · The problem -->
       <section>
         <div class="grid-bg grid-bg--broken"></div>
         <div class="wrap section-inner">
-          <span class="overline reveal">El problema</span>
-          <h2 class="display reveal">Tienes el curso<br />repartido en cinco sitios</h2>
+          <span class="overline reveal">The problem</span>
+          <h2 class="display reveal">Your course is<br />scattered across five places</h2>
           <p class="body-lg reveal" style="margin-top: var(--s6)">
-            El aula virtual, las notas del móvil, el grupo de clase, la agenda de papel y lo que
-            te acuerdas. Cuando llega la semana de exámenes no sabes por dónde empezar, porque no
-            lo ves entero en ningún lado.
+            The school portal, notes on your phone, the class group chat, a paper planner, and
+            whatever you remember. When exam week hits, you don't know where to start, because
+            you can't see it all in one place.
           </p>
 
           <div class="shards-field" aria-hidden="true">
-            <span class="shard" style="--x: -280px; --y: -70px; --rot: -9deg; --shard-color: var(--subject-mates)">¿examen mates?</span>
-            <span class="shard" style="--x: 190px; --y: -95px; --rot: 7deg; --shard-color: var(--subject-historia)">Historia — ¿qué entra?</span>
-            <span class="shard" style="--x: -230px; --y: 55px; --rot: 5deg; --shard-color: var(--subject-tic)">aula virtual</span>
-            <span class="shard" style="--x: 250px; --y: 30px; --rot: -8deg; --shard-color: var(--subject-lengua)">apuntes en el móvil</span>
-            <span class="shard" style="--x: -110px; --y: 105px; --rot: -4deg; --shard-color: var(--subject-quimica)">tema 6 sin empezar</span>
-            <span class="shard" style="--x: 90px; --y: 120px; --rot: 9deg; --shard-color: var(--subject-filosofia)">27 jul</span>
-            <span class="shard" style="--x: -40px; --y: -115px; --rot: 6deg; --shard-color: var(--subject-ingles)">grupo de clase</span>
+            <span class="shard" style="--x: -280px; --y: -70px; --rot: -9deg; --shard-color: var(--subject-mates)">math exam?</span>
+            <span class="shard" style="--x: 190px; --y: -95px; --rot: 7deg; --shard-color: var(--subject-historia)">History — what's on it?</span>
+            <span class="shard" style="--x: -230px; --y: 55px; --rot: 5deg; --shard-color: var(--subject-tic)">school portal</span>
+            <span class="shard" style="--x: 250px; --y: 30px; --rot: -8deg; --shard-color: var(--subject-lengua)">notes app</span>
+            <span class="shard" style="--x: -110px; --y: 105px; --rot: -4deg; --shard-color: var(--subject-quimica)">chapter 6, not started</span>
+            <span class="shard" style="--x: 90px; --y: 120px; --rot: 9deg; --shard-color: var(--subject-filosofia)">Jul 27</span>
+            <span class="shard" style="--x: -40px; --y: -115px; --rot: 6deg; --shard-color: var(--subject-ingles)">class group chat</span>
           </div>
 
           <p class="body-lg reveal" style="font-size: 20px; color: var(--text-primary)">
-            <strong>Schedio lo junta todo en un sitio.</strong>
+            <strong>Schedio puts it all in one place.</strong>
           </p>
         </div>
       </section>
 
-      <!-- ══════════════════════════════════════════════ 3 · Cómo funciona -->
-      <section id="como-funciona">
+      <!-- ══════════════════════════════════════════════ 3 · How it works -->
+      <section id="how-it-works">
         <div class="grid-bg"></div>
         <div class="wrap section-inner">
-          <span class="overline reveal">Cómo funciona</span>
-          <h2 class="display reveal" style="margin-bottom: var(--s12)">Tres pasos</h2>
+          <span class="overline reveal">How it works</span>
+          <h2 class="display reveal" style="margin-bottom: var(--s12)">Three steps</h2>
 
           <div class="steps">
-            <!-- Móvil pegajoso: su pantalla cambia con cada paso. -->
+            <!-- Sticky phone: its screen changes with each step. Kept in
+                 Spanish — same reasoning as the hero, it's the real app. -->
             <div class="steps__phone">
               <div class="phone">
                 <div class="phone__screen" id="stepScreen" aria-hidden="true"></div>
@@ -286,8 +280,8 @@
             <div>
               <article class="step reveal" data-step="0">
                 <span class="step__num">01</span>
-                <h3>Mete tus asignaturas y tus exámenes</h3>
-                <p>Una vez, al empezar el trimestre. Cinco minutos y ya no lo tocas.</p>
+                <h3>Add your subjects and exams</h3>
+                <p>Once, at the start of the term. Five minutes, and you won't touch it again.</p>
                 <div class="step__visual">
                   <div class="scene">
                     <div class="subject-chip"><span class="dot" style="--subject: var(--subject-mates)"></span>Matemáticas</div>
@@ -299,11 +293,11 @@
 
               <article class="step reveal" data-step="1">
                 <span class="step__num">02</span>
-                <h3>Schedio decide qué toca hoy</h3>
+                <h3>Schedio decides what's next today</h3>
                 <p>
-                  Ordena lo que tienes pendiente por lo cerca que está el examen, por tu nota en
-                  esa asignatura y por lo que te cuesta. Tú no decides nada: abres la app y ya
-                  está puesto.
+                  It sorts what's pending by how close the exam is, your grade in that subject,
+                  and how hard it is for you. You don't decide anything: open the app and it's
+                  already laid out.
                 </p>
                 <div class="step__visual">
                   <div class="scene">
@@ -315,10 +309,10 @@
 
               <article class="step reveal" data-step="2">
                 <span class="step__num">03</span>
-                <h3>Estudias, y queda registrado</h3>
+                <h3>You study, and it gets logged</h3>
                 <p>
-                  Le das al temporizador y esa sesión cuenta. Al final del trimestre ves las horas
-                  que has echado de verdad, no las que crees que has echado.
+                  Hit the timer and that session counts. By the end of the term you see the hours
+                  you actually put in — not the ones you think you did.
                 </p>
                 <div class="step__visual">
                   <div class="scene">
@@ -334,20 +328,20 @@
         </div>
       </section>
 
-      <!-- ══════════════════════════════════════════════ 4 · Racha y rangos -->
+      <!-- ══════════════════════════════════════════════ 4 · Streak & ranks -->
       <section>
         <div class="grid-bg"></div>
         <div class="wrap section-inner">
-          <span class="overline reveal">Lo que te hace volver</span>
+          <span class="overline reveal">What brings you back</span>
           <h2 class="display reveal">
-            Estudiar un día es fácil.<br />El problema es el martes<br />de la semana que viene
+            Studying one day is easy.<br />The hard part is next<br />Tuesday
           </h2>
 
           <div class="reveal" style="margin-top: var(--s8)">
             <p class="body-lg">
-              Schedio lleva la cuenta de los días que no fallas y te sube de nivel con cada
-              sesión. De nivel en nivel se sube de rango. No es un adorno: es la razón por la que
-              abres la app un martes cualquiera de noviembre.
+              Schedio keeps count of the days you don't miss and levels you up with every
+              session. Level by level, you climb ranks. It's not decoration: it's the reason you
+              open the app on a random Tuesday in November.
             </p>
 
             <div class="streak-days">
@@ -360,17 +354,14 @@
               <span class="streak-day">D</span>
             </div>
             <p class="cta-note">
-              La <strong>V</strong> es un día de descanso: una tarde libre no te tira abajo tres
-              semanas de racha.
+              The day marked as a rest day — a night off doesn't wipe out three weeks of streak.
             </p>
 
-            <!-- Rangos reales de services/gamification.js: icono, nivel mínimo,
-                 descripción y color, tal cual.
-
-                 Los colores del código son la paleta de iOS (#FF2D55, #30D158…),
-                 muy saturados para un fondo oscuro. Aquí van mapeados a su tono
-                 equivalente en la paleta de asignaturas de tokens.js, que está
-                 desaturada a propósito. Mismo significado, registro correcto. -->
+            <!-- Real ranks from services/gamification.js: name and
+                 description kept in Spanish on purpose, both languages — this
+                 is literal copy from the shipped app, not our own marketing
+                 text, so it stays exactly as the app says it. Only the
+                 widget's own chrome ("Level", "Next:") translates. -->
             <div class="ranks">
               <ol class="ranks__list">
                 <li>
@@ -445,133 +436,122 @@
                 style="--rank-color: #9b9b9b; --rank-soft: rgba(155,155,155,0.12); --rank-line: rgba(155,155,155,0.32)">
                 <span class="rank-detail__badge"><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#i-zap"></use></svg></span>
                 <p class="rank-detail__name">Novato</p>
-                <p class="rank-detail__level"><span>Nivel</span><strong>1</strong></p>
+                <p class="rank-detail__level"><span>Level</span><strong>1</strong></p>
                 <p class="rank-detail__desc">
                   Tus primeros pasos en el mundo del conocimiento. Sigue así.
                 </p>
-                <p class="rank-detail__next">Siguiente: <strong>Aprendiz</strong></p>
+                <p class="rank-detail__next">Next: <strong>Aprendiz</strong></p>
               </aside>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- ══════════════════════════════════════════════ 5 · Simulador
-           Es el MISMO algoritmo de services/priority.js, no una maqueta. -->
-      <section id="prioridad">
+      <!-- ══════════════════════════════════════════════ 5 · Simulator
+           Same real algorithm as services/priority.js — this widget is our
+           own, built for the web, not a screenshot of the app, so its
+           labels translate freely. -->
+      <section id="priority">
         <div class="grid-bg"></div>
         <div class="wrap section-inner">
-          <span class="overline reveal">El motor</span>
-          <h2 class="display reveal">Pruébalo sin instalar nada</h2>
+          <span class="overline reveal">The engine</span>
+          <h2 class="display reveal">Try it without installing anything</h2>
           <p class="body-lg reveal" style="margin-top: var(--s6)">
-            Esto es el algoritmo de Schedio corriendo aquí mismo, el mismo que ordena tu plan
-            dentro de la app. Mueve lo que quieras y mira cómo cambia el orden.
+            This is Schedio's algorithm running right here — the same one that sorts your plan
+            inside the app. Move anything you want and watch the order change.
           </p>
 
           <div class="sim">
             <div class="sim__panel reveal" id="simInputs"></div>
             <div class="sim__panel reveal">
-              <h3>Qué estudiarías hoy</h3>
+              <h3>What you'd study today</h3>
               <div class="sim-result" id="simResult">
                 <p class="sim-fallback">
-                  El simulador necesita JavaScript. Con los valores de partida, Schedio pondría
-                  <strong>Historia</strong> por delante de Matemáticas: está más cerca y tu nota
-                  es más baja.
+                  The simulator needs JavaScript. With the starting values, Schedio would put
+                  <strong>History</strong> ahead of Math: it's closer and your grade is lower.
                 </p>
               </div>
               <p class="sim-fallback">
-                Pesos reales: urgencia 40 · riesgo por nota 20 · dificultad 15 · cobertura 15 ·
-                tipo 10.
+                Real weights: urgency 40 · risk from your grade 20 · difficulty 15 · coverage 15 ·
+                type 10.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- ══════════════════════════════════════════════ 6 · Ecosistema -->
+      <!-- ══════════════════════════════════════════════ 6 · Ecosystem -->
       <section>
         <div class="grid-bg"></div>
         <div class="wrap section-inner">
-          <span class="overline reveal">La app</span>
-          <h2 class="display reveal">Todo el sistema</h2>
+          <span class="overline reveal">The app</span>
+          <h2 class="display reveal">The whole system</h2>
           <p class="body-lg reveal" style="margin-top: var(--s6)">
-            Cinco pantallas, un solo sitio. Esto es lo que te llevas.
+            Five screens, one place. This is what you get.
           </p>
         </div>
 
-        <!-- Cascada diagonal ascendente: el mismo motivo del mark. En móvil se
-             convierte en tira con scroll y snap. -->
         <div class="cascade reveal">
-          <!-- WebP con PNG de respaldo. El WebP ahorra un 77% y el <picture>
-               cuesta tres líneas: no hay razón para dejar navegadores fuera. -->
           <figure class="cascade__item" style="--i: 0">
             <picture>
-              <source srcset="assets/screens/playstore-02-plan-crop.webp" type="image/webp" />
-              <img src="assets/screens/playstore-02-plan-crop.png" alt="La pantalla de Plan, con las sesiones repartidas por día" loading="lazy" width="460" height="965" />
+              <source srcset="../assets/screens/playstore-02-plan-crop.webp" type="image/webp" />
+              <img src="../assets/screens/playstore-02-plan-crop.png" alt="The Plan screen, with sessions laid out by day" loading="lazy" width="460" height="965" />
             </picture>
             <figcaption>Plan</figcaption>
           </figure>
           <figure class="cascade__item" style="--i: 1">
             <picture>
-              <source srcset="assets/screens/playstore-03-estudio-timer-crop.webp" type="image/webp" />
-              <img src="assets/screens/playstore-03-estudio-timer-crop.png" alt="El temporizador de una sesión de estudio" loading="lazy" width="460" height="965" />
+              <source srcset="../assets/screens/playstore-03-estudio-timer-crop.webp" type="image/webp" />
+              <img src="../assets/screens/playstore-03-estudio-timer-crop.png" alt="The study session timer" loading="lazy" width="460" height="965" />
             </picture>
-            <figcaption>Estudiar</figcaption>
+            <figcaption>Study</figcaption>
           </figure>
           <figure class="cascade__item" style="--i: 2">
             <picture>
-              <source srcset="assets/screens/playstore-04-mochila-crop.webp" type="image/webp" />
-              <img src="assets/screens/playstore-04-mochila-crop.png" alt="La Mochila, con tus apuntes y archivos" loading="lazy" width="460" height="965" />
+              <source srcset="../assets/screens/playstore-04-mochila-crop.webp" type="image/webp" />
+              <img src="../assets/screens/playstore-04-mochila-crop.png" alt="The Backpack, with your notes and files" loading="lazy" width="460" height="965" />
             </picture>
-            <figcaption>Mochila</figcaption>
+            <figcaption>Backpack</figcaption>
           </figure>
-          <!-- La captura de Rangos está fuera a propósito: la que hay muestra
-               cinco rangos por XP y sin "Estudiante", y la app tiene seis por
-               nivel. Volverá en cuanto se regenere desde la app actual. -->
           <figure class="cascade__item" style="--i: 3">
             <picture>
-              <source srcset="assets/screens/playstore-07-estad-sticas-crop.webp" type="image/webp" />
-              <img src="assets/screens/playstore-07-estad-sticas-crop.png" alt="Las estadísticas de estudio" loading="lazy" width="460" height="965" />
+              <source srcset="../assets/screens/playstore-07-estad-sticas-crop.webp" type="image/webp" />
+              <img src="../assets/screens/playstore-07-estad-sticas-crop.png" alt="Study statistics" loading="lazy" width="460" height="965" />
             </picture>
-            <figcaption>Estadísticas</figcaption>
+            <figcaption>Stats</figcaption>
           </figure>
         </div>
 
-        <!-- Solo aparece si la tira desborda, es decir en móvil. En escritorio
-             la cascada cabe entera y el JS lo deja oculto. -->
         <div class="wrap cascade-scroll" id="cascadeHint" hidden>
-          <p class="cascade-scroll__label has-arrow">Desliza para verlas todas</p>
+          <p class="cascade-scroll__label has-arrow">Swipe to see them all</p>
           <div class="cascade-scroll__rail">
             <span class="cascade-scroll__thumb"></span>
           </div>
         </div>
       </section>
 
-      <!-- ══════════════════════════════════════════════ 7 · Por qué existe
-           Sección permanente. No menciona la beta: el día del lanzamiento se
-           queda tal cual. Lo único que cambia en toda la página es la ranura
-           de conversión del cierre. -->
-      <section id="filosofia">
+      <!-- ══════════════════════════════════════════════ 7 · Why it exists -->
+      <section id="why">
         <div class="grid-bg"></div>
         <div class="wrap section-inner">
-          <span class="overline reveal">Por qué existe</span>
-          <h2 class="display reveal">Que el estudio<br />sea fácil</h2>
+          <span class="overline reveal">Why it exists</span>
+          <h2 class="display reveal">Make studying<br />easy</h2>
           <div class="reveal" style="margin-top: var(--s6)">
             <p class="body-lg" style="color: var(--text-primary); font-size: 20px">
-              No la ha hecho una empresa. La hago yo, y hace nada estaba donde estás tú.
+              A company didn't make this. I'm making it, and I was just where you are.
             </p>
             <p class="body-lg">
-              Acabo de terminar Bachillerato y empiezo el grado de Inteligencia Artificial.
-              Schedio no intenta enseñarte nada, porque lo que a mí me faltaba no eran apuntes:
-              era saber qué tocaba hoy.
+              I just finished high school and I'm starting a degree in Artificial Intelligence.
+              Schedio isn't trying to teach you anything, because what I was missing wasn't
+              notes — it was knowing what came next today.
             </p>
             <p class="body-lg">
-              Por eso la app no tiene temario, ni vídeos, ni un chat que te resuelva el
-              ejercicio. Solo quita de en medio lo que te frena antes de empezar: decidir.
+              That's why the app has no lessons, no videos, no chat that solves the exercise for
+              you. It just clears out the one thing that stops you before you start: deciding.
             </p>
             <p class="body-lg">
-              Y se sigue haciendo con estudiantes. Lo que dicen los que la usan cambia la app:
-              las últimas tres cosas que se han añadido las pidieron ellos.
+              And it's still being built with students. What the people using it say changes the
+              app: the last three things added were requested by them.
             </p>
           </div>
         </div>
@@ -581,160 +561,160 @@
       <section>
         <div class="grid-bg"></div>
         <div class="wrap section-inner">
-          <span class="overline reveal">Dudas</span>
-          <h2 class="display reveal">Lo que sueles preguntar</h2>
+          <span class="overline reveal">FAQ</span>
+          <h2 class="display reveal">Common questions</h2>
 
           <div class="faq reveal">
             <details>
-              <summary>¿Cuándo sale? ¿Y qué gano por apuntarme antes?</summary>
+              <summary>When does it launch? What do I get for joining early?</summary>
               <p>
-                En septiembre, a tiempo para el arranque de curso. Si estás en la lista de
-                espera, te avisamos el mismo día y entras con ventajas exclusivas que no van a
-                estar disponibles después.
+                In September, in time for the start of the school year. If you're on the
+                waitlist, we'll email you the same day and you'll get exclusive perks that won't
+                be available afterward.
               </p>
             </details>
             <details>
-              <summary>¿Hay versión para iPhone?</summary>
+              <summary>Is there an iPhone version?</summary>
               <p>
-                Sí. En iPhone, Schedio funcionará como aplicación web: la añades a la pantalla de
-                inicio y se comporta igual que una app, sin pasar por ninguna tienda. Más
-                adelante estará también en la App Store. La primera versión nativa es para
-                Android. <a href="/iphone">Mira cómo se instala</a>.
+                Yes. On iPhone, Schedio works as a web app: you add it to your home screen and it
+                behaves just like an app, no App Store needed. A native version is coming later.
+                The first native release is for Android.
+                <a href="/en/iphone">See how to install it</a>.
               </p>
             </details>
             <details>
-              <summary>Ya uso el calendario del móvil. ¿Qué me da esto que no tenga?</summary>
+              <summary>I already use my phone's calendar. What does this give me that it doesn't?</summary>
               <p>
-                Un calendario guarda lo que tú le metes y te lo devuelve igual: sabe que tienes
-                un examen el jueves, pero no sabe qué hacer con esa tarde. Schedio decide en qué
-                orden estudiar, cuánto tiempo dedicarle a cada cosa y qué toca hoy, cruzando lo
-                cerca que está cada examen con tu nota y con lo que te cuesta esa asignatura.
-                Eso es la diferencia entre apuntar y organizarte.
+                A calendar stores what you put into it and hands it back unchanged: it knows you
+                have an exam on Thursday, but it has no idea what to do with that afternoon.
+                Schedio decides what order to study in, how much time to give each thing, and
+                what's next today, by weighing how close each exam is against your grade and how
+                hard that subject is for you. That's the difference between writing something
+                down and actually being organized.
               </p>
             </details>
             <details>
-              <summary>Estoy en la universidad. ¿Me sirve igual?</summary>
+              <summary>I'm in university. Does it still work for me?</summary>
               <p>
-                Sí. Cambias trimestres por cuatrimestres y exámenes por parciales y finales, y
-                funciona igual: Schedio no entiende de cursos, entiende de fechas, de horas y de
-                cuánto te juegas en cada asignatura. De hecho en la uni suele hacer más falta,
-                porque nadie te va marcando el ritmo.
+                Yes. Swap terms for semesters and exams for midterms and finals, and it works the
+                same: Schedio doesn't care what year you're in — it cares about dates, hours, and
+                how much is riding on each subject. It's usually even more useful in university,
+                because nobody's setting the pace for you anymore.
               </p>
             </details>
             <details>
-              <summary>¿Me sirve si estoy en la ESO? ¿Y para la EBAU?</summary>
+              <summary>Does it work for high school? What about university entrance exams?</summary>
               <p>
-                Sí a las dos. Schedio no depende del temario: organiza asignaturas, exámenes y
-                horas, y eso es igual en 3º de la ESO que preparando la EBAU.
+                Yes to both. Schedio doesn't depend on any specific curriculum: it organizes
+                subjects, exams, and hours, and that works the same whether you're a freshman or
+                cramming for a university entrance exam.
               </p>
             </details>
             <details>
-              <summary>¿Schedio me explica el temario?</summary>
+              <summary>Does Schedio teach me the material?</summary>
               <p>
-                No, y es a propósito. Schedio no enseña: te quita de encima el trabajo de decidir
-                qué estudiar y cuándo, que es donde se va la energía antes de empezar.
+                No, on purpose. Schedio doesn't teach: it clears out the work of deciding what to
+                study and when, which is where most of the energy goes before you even start.
               </p>
             </details>
             <details>
-              <summary>¿Qué hacéis con mis datos?</summary>
+              <summary>What do you do with my data?</summary>
               <p>
-                Se guardan tus asignaturas, tus exámenes y tus sesiones para que la app funcione.
-                No se venden ni se ceden a terceros. Puedes borrar tu cuenta y todo lo que hay
-                dentro desde la propia app.
+                We store your subjects, exams, and sessions so the app works. We don't sell or
+                share it with third parties. You can delete your account and everything in it
+                from inside the app.
               </p>
             </details>
           </div>
         </div>
       </section>
 
-      <!-- ══════════════════════════════════════════════ 9 · Cierre
-           LA RANURA DE CONVERSIÓN. Hoy: lista de espera del lanzamiento.
-           Al publicar: badge de Google Play en lugar del formulario. -->
-      <section id="lista" class="closer">
+      <!-- ══════════════════════════════════════════════ 9 · Closer
+           THE CONVERSION SLOT. Today: launch waitlist. At launch: Google Play
+           badge instead of the form. -->
+      <section id="waitlist" class="closer">
         <div class="grid-bg"></div>
         <div class="wrap section-inner">
-          <h2 class="display reveal">Entra en la<br />lista de espera</h2>
+          <h2 class="display reveal">Join the<br />waitlist</h2>
           <p class="lede reveal">
-            Cuatro preguntas, menos de un minuto. Quien esté en la lista lo tiene antes que
-            nadie y con ventajas exclusivas el día del lanzamiento.
+            Four questions, under a minute. Everyone on the list gets it before anyone else, with
+            exclusive perks on launch day.
           </p>
 
           <form class="quiz reveal" id="betaForm" novalidate>
             <div class="quiz__bar" aria-hidden="true"><span id="quizBar"></span></div>
-            <p class="quiz__count" id="quizCount">Pregunta 1 de 4</p>
+            <p class="quiz__count" id="quizCount">Question 1 of 4</p>
 
-            <!-- Una pregunta cada vez: es lo coherente con la filosofía de la
-                 app y convierte más que un formulario apilado. -->
             <fieldset class="quiz__step is-active" data-step="0">
-              <label class="quiz__q" for="q-email">¿Cuál es tu email?</label>
-              <p class="quiz__hint">Ahí te avisamos el día que Schedio salga.</p>
+              <label class="quiz__q" for="q-email">What's your email?</label>
+              <p class="quiz__hint">That's where we'll email you the day Schedio launches.</p>
               <input class="quiz__input" type="email" id="q-email" name="email"
-                autocomplete="email" inputmode="email" placeholder="tu@email.com" required />
+                autocomplete="email" inputmode="email" placeholder="you@email.com" required />
             </fieldset>
 
             <fieldset class="quiz__step" data-step="1">
-              <legend class="quiz__q">¿Qué estás estudiando?</legend>
+              <legend class="quiz__q">What are you studying?</legend>
               <div class="quiz__options">
-                <label class="quiz__opt"><input type="radio" name="curso" value="ESO" required /><span>ESO</span></label>
-                <label class="quiz__opt"><input type="radio" name="curso" value="Bachillerato" /><span>Bachillerato</span></label>
-                <label class="quiz__opt"><input type="radio" name="curso" value="Universidad" /><span>Universidad</span></label>
-                <label class="quiz__opt"><input type="radio" name="curso" value="Otro" /><span>Otra cosa</span></label>
+                <label class="quiz__opt"><input type="radio" name="curso" value="ESO" required /><span>High school</span></label>
+                <label class="quiz__opt"><input type="radio" name="curso" value="Bachillerato" /><span>Pre-university</span></label>
+                <label class="quiz__opt"><input type="radio" name="curso" value="Universidad" /><span>University</span></label>
+                <label class="quiz__opt"><input type="radio" name="curso" value="Otro" /><span>Something else</span></label>
               </div>
             </fieldset>
 
             <fieldset class="quiz__step" data-step="2">
-              <legend class="quiz__q">¿Tienes un móvil Android?</legend>
-              <p class="quiz__hint">Schedio sale primero en Android.</p>
+              <legend class="quiz__q">Do you have an Android phone?</legend>
+              <p class="quiz__hint">Schedio launches on Android first.</p>
               <div class="quiz__options">
-                <label class="quiz__opt"><input type="radio" name="android" value="si" required /><span>Sí</span></label>
-                <label class="quiz__opt"><input type="radio" name="android" value="no" /><span>No, tengo iPhone</span></label>
+                <label class="quiz__opt"><input type="radio" name="android" value="si" required /><span>Yes</span></label>
+                <label class="quiz__opt"><input type="radio" name="android" value="no" /><span>No, I have an iPhone</span></label>
               </div>
               <p class="quiz__warn" id="quizAndroidWarn" hidden>
-                Podrás usarla igual: en iPhone, Schedio funcionará como aplicación web — la
-                añades a la pantalla de inicio y se comporta como una app. Más adelante estará
-                también en la App Store. Sigue con la lista y te avisamos.
+                You can still use it: on iPhone, Schedio works as a web app — you add it to your
+                home screen and it behaves like an app. A native version is coming later. Stick
+                with the waitlist and we'll email you.
               </p>
             </fieldset>
 
             <fieldset class="quiz__step" data-step="3">
-              <label class="quiz__q" for="q-dolor">¿Qué es lo que peor llevas de organizarte?</label>
-              <p class="quiz__hint">Opcional, pero es lo que más nos sirve.</p>
+              <label class="quiz__q" for="q-dolor">What's the worst part of staying organized for you?</label>
+              <p class="quiz__hint">Optional, but it's what helps us most.</p>
               <textarea class="quiz__input" id="q-dolor" name="dolor" rows="3" maxlength="600"
-                placeholder="Lo que sea. Sin filtros."></textarea>
+                placeholder="Anything. No filter."></textarea>
 
               <label class="quiz__consent">
                 <input type="checkbox" id="q-consent" name="consent" required />
                 <span>
-                  Acepto que Schedio guarde mi email para avisarme del lanzamiento. Puedo pedir
-                  que lo borren cuando quiera. <a href="/privacidad">Política de privacidad</a>.
+                  I agree to let Schedio store my email to notify me about the launch. I can ask
+                  for it to be deleted anytime. <a href="/en/privacidad">Privacy policy</a>.
                 </span>
               </label>
             </fieldset>
 
-            <!-- Trampa antispam: invisible para personas, la rellenan los bots. -->
+            <!-- Antispam honeypot: invisible to people, bots fill it in. -->
             <div class="quiz__trap" aria-hidden="true">
-              <label for="q-web">No rellenes esto</label>
+              <label for="q-web">Leave this blank</label>
               <input type="text" id="q-web" name="website" tabindex="-1" autocomplete="off" />
             </div>
 
             <p class="quiz__error" id="quizError" role="alert" hidden></p>
 
             <div class="quiz__nav">
-              <button class="btn btn--ghost" type="button" id="quizBack" hidden>Atrás</button>
-              <button class="btn btn--primary has-arrow" type="button" id="quizNext">Siguiente</button>
-              <button class="btn btn--primary has-arrow" type="submit" id="quizSend" hidden>Entrar en la lista</button>
+              <button class="btn btn--ghost" type="button" id="quizBack" hidden>Back</button>
+              <button class="btn btn--primary has-arrow" type="button" id="quizNext">Next</button>
+              <button class="btn btn--primary has-arrow" type="submit" id="quizSend" hidden>Join the waitlist</button>
             </div>
           </form>
 
           <div class="quiz__done" id="quizDone" hidden>
-            <p class="quiz__done-title">Estás dentro.</p>
+            <p class="quiz__done-title">You're in.</p>
             <p class="body-lg" style="margin-inline: auto">
-              Te escribimos a <strong id="quizDoneEmail"></strong> el día que Schedio salga, con
-              tus ventajas de lista de espera. Si no lo ves, mira en spam.
+              We'll email <strong id="quizDoneEmail"></strong> the day Schedio launches, with
+              your waitlist perks. If you don't see it, check spam.
             </p>
           </div>
 
-          <p class="cta-note">Gratis · Android · Sale en septiembre</p>
+          <p class="cta-note">Free · Android · Launching in September</p>
         </div>
       </section>
     </main>
@@ -743,12 +723,15 @@
     <footer class="footer">
       <div class="wrap footer__inner">
         <span>© 2026 Schedio</span>
+        <!-- Feedback doesn't have an English version yet — links to the real
+             Spanish page rather than to one that doesn't exist. A real
+             document in the "wrong" language beats a broken link. -->
         <nav>
-          <a href="/privacidad">Privacidad</a>
-          <a href="/terminos">Términos</a>
-          <a href="/eliminar-cuenta">Eliminar cuenta</a>
-          <a href="/feedback">Enviar feedback</a>
-          <a class="social" href="https://www.instagram.com/schedio.app" target="_blank" rel="noopener noreferrer" aria-label="Schedio en Instagram">
+          <a href="/en/privacidad">Privacy</a>
+          <a href="/en/terminos">Terms</a>
+          <a href="/en/eliminar-cuenta">Delete account</a>
+          <a href="/en/feedback">Send feedback</a>
+          <a class="social" href="https://www.instagram.com/schedio.app" target="_blank" rel="noopener noreferrer" aria-label="Schedio on Instagram">
             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
               <rect x="2" y="2" width="20" height="20" rx="5" />
               <circle cx="12" cy="12" r="4" />
@@ -759,9 +742,9 @@
       </div>
     </footer>
 
-    <script src="js/config.js?v=19"></script>
-    <script src="js/priority.js?v=19"></script>
-    <script src="js/main.js?v=19"></script>
-    <script src="js/beta-form.js?v=19"></script>
+    <script src="../js/config.js?v=19"></script>
+    <script src="../js/priority.js?v=19"></script>
+    <script src="../js/main.js?v=19"></script>
+    <script src="../js/beta-form.js?v=19"></script>
   </body>
 </html>

@@ -286,6 +286,28 @@ h2.display {
   font-size: 14px;
 }
 
+/* Agrupa el selector de idioma y la CTA para que `space-between` siga
+   dejando la marca a la izquierda y este bloque entero a la derecha, con el
+   selector pegado a la izquierda del botón — no como un botón propio, para
+   que no le reste peso visual a la CTA. */
+.nav__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--s4);
+}
+
+.lang-switch {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.02em;
+  transition: color var(--t-standard) var(--ease);
+}
+
+.lang-switch:hover {
+  color: var(--text-primary);
+}
+
 /* ══════════════════════════════════════════════════════ Hero */
 
 .hero {
@@ -853,6 +875,8 @@ h2.display {
   transition: color var(--t-standard) var(--ease);
 }
 
+/* "NVL"/"LVL" es chrome del widget, no dato de la app — traduce por idioma
+   vía :lang() en vez de duplicar el marcado del botón. */
 .rank__level::before {
   content: 'NVL ';
   font-family: var(--font-sans);
@@ -860,6 +884,10 @@ h2.display {
   font-weight: 600;
   letter-spacing: 0.1em;
   vertical-align: 3px;
+}
+
+:lang(en) .rank__level::before {
+  content: 'LVL ';
 }
 
 .rank.is-active {
@@ -1900,6 +1928,380 @@ input[type='range']::-moz-range-thumb {
 @media (min-width: 720px) {
   .feedback__grid {
     grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ══════════════════════════════════════════════════════ Guía de instalación (iPhone)
+   Diagramas vectoriales fieles a la interfaz real de Safari/iOS — nunca
+   capturas fingidas. Misma regla que el resto del sitio: nada que aparente
+   ser real sin serlo. */
+
+.guide {
+  position: relative;
+  padding-block: var(--s12) var(--s16);
+}
+
+.guide__intro {
+  max-width: 640px;
+  margin: 0 0 var(--s12);
+}
+
+.guide__intro .overline {
+  margin-bottom: var(--s3);
+}
+
+.guide__intro h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 0.95;
+  font-size: clamp(34px, 8vw, 58px);
+  margin: 0 0 var(--s4);
+}
+
+.guide__intro p {
+  color: var(--text-secondary);
+  font-size: clamp(15.5px, 3.8vw, 17px);
+  margin: 0 0 var(--s3);
+  max-width: 56ch;
+}
+
+.guide__intro strong {
+  color: var(--text-primary);
+}
+
+.guide-steps {
+  display: grid;
+  gap: var(--s16);
+  max-width: 980px;
+}
+
+.guide-step {
+  display: grid;
+  gap: var(--s8);
+  align-items: center;
+}
+
+.guide-step__num {
+  font-family: var(--font-display);
+  font-size: 15px;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+}
+
+.guide-step__text h2 {
+  font-size: clamp(20px, 4.6vw, 25px);
+  margin: var(--s2) 0 var(--s3);
+}
+
+.guide-step__text p {
+  color: var(--text-secondary);
+  margin: 0;
+  max-width: 46ch;
+}
+
+.guide-step__text .tip {
+  display: inline-block;
+  margin-top: var(--s4);
+  padding: 8px var(--s3);
+  border: 1px solid var(--accent-soft-border);
+  background: var(--accent-soft-bg);
+  border-radius: var(--r-btn);
+  font-size: var(--fs-meta);
+  color: var(--accent);
+}
+
+.guide-step__visual {
+  display: flex;
+  justify-content: center;
+}
+
+/* Marco de móvil reutilizando la misma geometría que .phone, pero contenedor
+   propio: aquí dentro no va la UI de la app, va la de Safari. */
+.iosframe {
+  width: min(280px, 74vw);
+  border: 1px solid var(--border-default);
+  border-radius: 34px;
+  padding: 10px;
+  background: #131313;
+}
+
+.iosframe__screen {
+  background: #000;
+  border-radius: 26px;
+  overflow: hidden;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Barra de Safari: pastilla de URL + icono de compartir, como en iOS real. */
+.safari-chrome {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #1c1c1e;
+}
+
+.safari-chrome__page {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  padding: var(--s4);
+}
+
+.safari-chrome__page img {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: #fff;
+  padding: 4px;
+}
+
+.safari-chrome__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  padding: 10px var(--s3);
+  background: #2c2c2e;
+  border-top: 1px solid #3a3a3c;
+}
+
+.safari-chrome__url {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 7px 0;
+  background: #1c1c1e;
+  border-radius: 9px;
+  font-size: 12px;
+  color: #e5e5e5;
+}
+
+.safari-chrome__url svg {
+  width: 12px;
+  height: 12px;
+  color: #8e8e93;
+}
+
+.safari-chrome__share {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: #0a84ff;
+  flex-shrink: 0;
+}
+
+.safari-chrome__share.is-active {
+  background: rgba(10, 132, 255, 0.18);
+}
+
+.safari-chrome__share svg {
+  width: 19px;
+  height: 19px;
+}
+
+/* Hoja de compartir de iOS. */
+.sharesheet {
+  background: #1c1c1e;
+  border-radius: 14px 14px 0 0;
+  margin-top: auto;
+  padding: var(--s3) 0 0;
+}
+
+.sharesheet__handle {
+  width: 34px;
+  height: 4px;
+  border-radius: var(--r-pill);
+  background: #48484a;
+  margin: 0 auto var(--s3);
+}
+
+.sharesheet__apps {
+  display: flex;
+  gap: var(--s3);
+  padding: 0 var(--s3) var(--s3);
+  overflow-x: hidden;
+}
+
+.sharesheet__apps span {
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  background: #3a3a3c;
+  flex-shrink: 0;
+}
+
+.sharesheet__actions {
+  border-top: 1px solid #3a3a3c;
+}
+
+.sharesheet__action {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  padding: 11px var(--s3);
+  font-size: 13px;
+  color: #e5e5e5;
+  border-bottom: 1px solid #2c2c2e;
+}
+
+.sharesheet__action svg {
+  width: 20px;
+  height: 20px;
+  color: #c7c7cc;
+  flex-shrink: 0;
+}
+
+.sharesheet__action.is-target {
+  color: #fff;
+  font-weight: 600;
+  background: rgba(41, 121, 255, 0.14);
+}
+
+.sharesheet__action.is-target svg {
+  color: var(--accent);
+}
+
+/* Diálogo de confirmación "Añadir a inicio". */
+.a2hs {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.a2hs__sheet {
+  background: #2c2c2e;
+  border-radius: 14px 14px 0 0;
+  padding: var(--s4) var(--s3);
+}
+
+.a2hs__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  margin-bottom: var(--s4);
+}
+
+.a2hs__header .cancel {
+  color: #0a84ff;
+}
+
+.a2hs__header .add {
+  color: #0a84ff;
+  font-weight: 600;
+}
+
+.a2hs__preview {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  padding-bottom: var(--s4);
+  border-bottom: 1px solid #3a3a3c;
+  margin-bottom: var(--s4);
+}
+
+.a2hs__preview img {
+  width: 44px;
+  height: 44px;
+  border-radius: 11px;
+  background: #fff;
+  padding: 6px;
+}
+
+.a2hs__preview input {
+  flex: 1;
+  background: #1c1c1e;
+  border: 0;
+  border-radius: 9px;
+  padding: 9px var(--s2);
+  color: #fff;
+  font-size: 13px;
+}
+
+.a2hs__preview span {
+  display: block;
+  font-size: 11px;
+  color: #8e8e93;
+  margin-top: 2px;
+}
+
+.a2hs__url {
+  font-size: 11px;
+  color: #8e8e93;
+  text-align: center;
+}
+
+/* Pantalla de inicio con el icono ya añadido. */
+.homescreen {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--s4) var(--s3);
+  padding: var(--s6) var(--s3);
+  align-content: start;
+  background: linear-gradient(180deg, #2c2c3a, #17171f);
+}
+
+.homescreen__icon {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 22%;
+  background: #3a3a3c;
+}
+
+.homescreen__added {
+  display: grid;
+  justify-items: center;
+  gap: 5px;
+}
+
+.homescreen__added img {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 22%;
+  background: #fff;
+  padding: 14%;
+  box-shadow: 0 0 0 2px var(--accent);
+}
+
+.homescreen__added span {
+  font-size: 9px;
+  color: #fff;
+}
+
+.guide-note {
+  max-width: 640px;
+  margin: var(--s16) 0 0;
+}
+
+.guide-note h2 {
+  font-size: clamp(18px, 4.4vw, 21px);
+  margin: 0 0 var(--s4);
+}
+
+.guide-closing {
+  max-width: 640px;
+  margin: var(--s12) 0 0;
+  padding-top: var(--s8);
+  border-top: 1px solid var(--border-default);
+}
+
+@media (min-width: 720px) {
+  .guide-step {
+    grid-template-columns: 1fr 280px;
+  }
+
+  .guide-step:nth-child(even) .guide-step__visual {
+    order: -1;
   }
 }
 
