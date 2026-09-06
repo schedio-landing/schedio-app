@@ -170,6 +170,53 @@ se le pase.
       distinto de este directorio local — el despliegue se hace vía PR desde
       un fork de `hugo-divi`, ver el historial de la conversación para el
       porqué).
+- [x] ~~Modo lanzamiento (Schedio ya sale).~~ Hecho el 5 sept 2026, siguiendo
+      el borrador de `preview-lanzamiento.html` (ya borrado, su contenido es
+      ahora el real):
+      - [x] FAQ actualizada ("¿Cuándo sale?" y "¿iPhone?" en modo presente, ES+EN).
+      - [x] Hero (Inicio) reconstruido para reflejar la app real de hoy: racha
+        0, nivel 4 con barra de XP, media con coma decimal, calendario de
+        septiembre con puntos de color por asignatura, y la barra de
+        navegación inferior (antes no estaba). Se quitó la sección "Por
+        calificar": la captura nueva no llegaba a mostrarla y no hay
+        confirmación de que siga ahí — si sigue existiendo, avisar para
+        reponerla con datos reales.
+      - [x] Nav + hero CTA en las 12 páginas (ES+EN): de "Lista de espera" al
+        enlace real de Play Store
+        (`play.google.com/store/apps/details?id=com.schedio.mobile`),
+        `target="_blank"`.
+      - [x] Cierre: fuera el formulario de 4 preguntas y `js/beta-form.js`
+        (ya no se carga en ninguna página). Entra el badge + "¿Tienes
+        iPhone? Instálala como app web" → `/iphone`.
+      - [x] `/iphone` y `/en/iphone`: reescrito el párrafo de cierre sin
+        mención a la lista de espera.
+      - [x] Copy de "Por qué existe": ya no menciona que Hugo acaba de
+        terminar Bachillerato ni el grado que empieza — sustituido por algo
+        más genérico y duradero, ES+EN.
+      - [x] ~~Badge provisional de texto.~~ Sustituido por el PNG oficial de
+        Google (`assets/google-play-badge-es.png`), copiado el 5 sept 2026
+        desde `Schedio/GetItOnGooglePlay_Badge_Web_color_Spanish.png`.
+      - [x] ~~Badge en inglés.~~ `assets/google-play-badge-en.png`, recortado
+        de un PNG de 5000×5000 vía detección de bordes (bounding box del
+        contenido contra el fondo blanco, no a ojo). `en/index.html` ya no
+        reutiliza el español.
+      - [x] ~~Limpieza tras quitar el formulario de 4 preguntas.~~ Borrado
+        `js/beta-form.js` (ya no lo cargaba ninguna página) y ~230 líneas de
+        CSS huérfano: todo el bloque `.quiz*`, `.nav__download`,
+        `.nav__iphone-link`, `.closer__iphone-link` y el símbolo SVG
+        `i-bar-chart` (las métricas del hero usan emoji de verdad ahora, no
+        SVG — ver más abajo).
+      - [x] ~~Cabecera y emojis del móvil del hero, a partir de una captura
+        real que pasó Hugo.~~ La pastilla blanca con el logo se quitó — ahora
+        es solo el icono (con `filter: brightness(0) invert(1)`, porque
+        `mark-96.png` es un trazo negro sobre transparente y así se pinta de
+        blanco sin necesitar un segundo asset) + "Schedio" en blanco, sin
+        fondo. Los iconos de RACHA/NIVEL/MEDIA dejaron de ser SVG a medida
+        (`i-flame`/`i-zap`/`i-bar-chart`) y ahora son los emoji reales
+        (🔥⚡📊), que es lo que se ve en la app.
+      - [ ] El enlace de instalación de `/iphone` (paso 1, "abre schedio.es
+        en Safari") va a cambiar por uno "más formal" — pendiente de que
+        Hugo lo pase.
 
 ### Mejoras, no bloquean
 
@@ -197,10 +244,33 @@ se le pase.
       de Open Graph y los formatos de icono no tratan WebP de forma fiable.
 - [ ] Logo reveal de entrada — falta el canvas original del proyecto de Claude
       Design.
-- [ ] **Regenerar la captura de Rangos.** La que había mostraba cinco rangos por
-      XP y sin "Estudiante"; la app tiene seis por nivel. Está fuera de la
-      cascada hasta entonces — y la misma captura desfasada sigue en la ficha
-      de Play Store.
+- [x] ~~Regenerar la captura de Rangos.~~ La captura real del Perfil (rango
+      Novato, nivel 4, insignias, Mis Materias) pasó a ocupar el hueco de
+      "Estadísticas" en la cascada — no hay ya una figura de "Rango" separada.
+      La misma captura desfasada sigue en la ficha de Play Store — pendiente
+      ahí.
+- [x] ~~Cascada sin cohesión de tamaño.~~ Dos pasadas: primero se reescalaron
+      Plan, Estudiar, Mochila y Estadísticas al mismo ancho (460 px — antes
+      había tres anchos nativos distintos). Después, a petición expresa de
+      Hugo ("bien alineado aunque haya que recortarlo, siempre con cabeza"),
+      Plan y Estadísticas se recortaron además en altura hasta su corte
+      natural más cercano — Plan justo después de "+ Añadir tarea suelta"
+      (1165 px, fuera queda "Esta semana"), Estadísticas justo después de la
+      primera fila de Mis Materias (1220 px, fuera quedan las otras tres
+      filas). El resultado: 630–1220 px de alto en vez de 630–1984. Mochila
+      se queda en 630 porque ya no tiene más contenido real que enseñar —
+      estirarla sería el mismo hueco vacío que se arregló antes.
+- [x] ~~El icono de Schedio no se veía en la maqueta final de `/iphone`
+      ("Y ya está — así queda").~~ No era que faltara el icono: la fila de
+      `.homescreen` desbordaba el marco del móvil y la casilla con el icono
+      quedaba cortada por el `overflow: hidden` del contenedor, dejando solo
+      las tres primeras (grises) a la vista. `repeat(4, 1fr)` no evita que un
+      `<img>` con tamaño intrínseco fuerce su columna más allá de su reparto
+      — hace falta `repeat(4, minmax(0, 1fr))` para que el mínimo automático
+      de cada columna sea 0 de verdad. Se reprodujo aislando el componente en
+      una página suelta antes de tocar el CSS, porque una lectura del DOM
+      decía que todo estaba bien (imagen cargada, estilos correctos) y solo
+      viéndolo renderizado se notaba el corte.
 
 ## Verificado
 
