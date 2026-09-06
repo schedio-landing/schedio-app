@@ -41,8 +41,8 @@
     <link rel="preload" href="../assets/fonts/bebas-neue-400.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="../assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
 
-    <link rel="stylesheet" href="../css/tokens.css?v=19" />
-    <link rel="stylesheet" href="../css/styles.css?v=19" />
+    <link rel="stylesheet" href="../css/tokens.css?v=26" />
+    <link rel="stylesheet" href="../css/styles.css?v=26" />
 
     <script type="application/ld+json">
       {
@@ -89,6 +89,25 @@
         <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
         <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
       </symbol>
+
+      <!-- App bottom nav icons. -->
+      <symbol id="i-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 11.5 12 4l8 7.5" />
+        <path d="M6 10v10h12V10" />
+        <path d="M10 20v-6h4v6" />
+      </symbol>
+      <symbol id="i-map" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2Z" />
+        <path d="M9 4v14" />
+        <path d="M15 6v14" />
+      </symbol>
+      <symbol id="i-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="8" r="4" />
+        <path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7" />
+      </symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <path d="M12 5v14M5 12h14" />
+      </symbol>
     </svg>
 
     <!-- ══════════════════════════════════════════════ Nav -->
@@ -100,7 +119,6 @@
         </a>
         <div class="nav__actions">
           <a class="lang-switch" href="/" hreflang="es" lang="es">ES</a>
-          <a class="btn btn--primary" href="#waitlist">Join the waitlist</a>
         </div>
       </div>
     </header>
@@ -115,10 +133,13 @@
             <p class="lede">
               Exams, assignments, and progress — without digging through five different places.
             </p>
-            <p style="margin-top: var(--s8)">
-              <a class="btn btn--primary has-arrow" href="#waitlist">Join the waitlist</a>
-            </p>
-            <p class="cta-note">Free · Android · Exclusive perks when it launches</p>
+            <div class="hero__cta">
+              <a class="badge-playstore" href="https://play.google.com/store/apps/details?id=com.schedio.mobile&amp;pcampaignid=web_share" target="_blank" rel="noopener">
+                <img src="../assets/google-play-badge-en.png" alt="Get it on Google Play" width="168" height="50" />
+              </a>
+              <a class="btn btn--primary" href="/en/iphone">Download for iPhone</a>
+            </div>
+            <p class="cta-note">Free · Android · Also available as a web app on iPhone</p>
           </div>
 
           <div class="hero__stage">
@@ -137,35 +158,43 @@
                  actual (Spanish-only) app UI exactly, so it stays in Spanish
                  here too — translating it would show an interface that
                  doesn't really exist. -->
-            <div class="phone phone--tilt" id="heroPhone" role="img" aria-label="Schedio's Home screen: streak, level and average grade, today's session, the month's calendar, upcoming exams, and exams pending a grade. The app's interface is in Spanish today.">
+            <div class="phone phone--tilt" id="heroPhone" role="img" aria-label="Schedio's Home screen: streak, level and average grade, today's session, the month's calendar, and upcoming exams. The app's interface is in Spanish today.">
               <div class="phone__screen" aria-hidden="true">
                 <div class="app-bar">
-                  <span class="app-logo"><img src="../assets/mark-96.png" alt="" />chedio</span>
+                  <span class="app-logo"><img src="../assets/mark-96.png" alt="" />Schedio</span>
                   <span class="badge-prime">PRIME</span>
                 </div>
 
                 <div class="app-metrics">
                   <div class="metric">
                     <span class="metric__label">RACHA</span>
-                    <span class="metric__value">4 días</span>
+                    <div class="metric__row">
+                      <span class="metric__icon" aria-hidden="true">🔥</span>
+                      <span class="metric__value">0</span>
+                    </div>
+                    <span class="metric__unit">días</span>
                   </div>
                   <div class="metric">
                     <span class="metric__label">NIVEL</span>
-                    <span class="metric__value">3</span>
+                    <div class="metric__row">
+                      <span class="metric__icon" aria-hidden="true">⚡</span>
+                      <span class="metric__value metric__value--accent">4</span>
+                    </div>
+                    <div class="metric__bar"><span class="metric__bar-fill" style="width: 10%"></span></div>
+                    <span class="metric__caption">670 XP …</span>
                   </div>
                   <div class="metric">
                     <span class="metric__label">MEDIA</span>
-                    <span class="metric__value">8.6</span>
+                    <div class="metric__row">
+                      <span class="metric__icon" aria-hidden="true">📊</span>
+                      <span class="metric__value">8,0</span>
+                    </div>
                   </div>
                 </div>
 
                 <div class="app-card">
                   <span class="app-card__overline">HOY</span>
-                  <p class="app-card__title">Rompe el hielo con una sesión</p>
-                  <p class="app-card__body">
-                    Añade tus asignaturas y haz una sesión corta de 15 min para activar tu racha
-                    y empezar a ganar XP.
-                  </p>
+                  <p class="app-card__title">Tu racha está en 0. Una sesión corta hoy ya la pone en marcha.</p>
                   <span class="app-btn has-arrow">Comenzar sesión de estudio</span>
                 </div>
 
@@ -173,7 +202,7 @@
                 <div class="app-card">
                   <div class="cal__head">
                     <span class="cal__nav">‹</span>
-                    <span>Julio 2026</span>
+                    <span>Septiembre 2026</span>
                     <span class="cal__nav">›</span>
                   </div>
                   <div class="cal__dow">
@@ -181,52 +210,54 @@
                     ><span>S</span><span>D</span>
                   </div>
                   <div class="cal__days">
-                    <span></span><span></span><span></span><span>1</span><span>2</span
-                    ><span>3</span><span>4</span> <span>5</span><span>6</span><span>7</span
-                    ><span>8</span><span>9</span><span>10</span><span>11</span> <span>12</span
-                    ><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span
-                    ><span>18</span> <span>19</span><span>20</span><span>21</span><span>22</span
-                    ><span>23</span><span class="is-today">24</span><span>25</span>
-                    <span>26</span><span class="has-event">27</span><span>28</span><span>29</span
-                    ><span class="has-event">30</span><span>31</span><span></span>
+                    <span class="is-outside">31</span><span>1</span><span>2</span><span>3</span
+                    ><span>4</span><span class="is-today">5</span><span>6</span>
+                    <span class="has-event" style="--dot-color: var(--subject-quimica)">7</span><span>8</span
+                    ><span class="has-event" style="--dot-color: var(--subject-historia)">9</span><span>10</span
+                    ><span>11</span><span>12</span><span>13</span>
+                    <span>14</span><span>15</span><span>16</span><span>17</span><span>18</span
+                    ><span>19</span><span>20</span>
+                    <span>21</span><span>22</span
+                    ><span class="has-event" style="--dot-color: var(--subject-mates)">23</span><span>24</span
+                    ><span>25</span><span>26</span><span>27</span>
+                    <span>28</span><span>29</span><span>30</span><span class="is-outside">1</span
+                    ><span class="is-outside">2</span><span class="is-outside">3</span><span class="is-outside">4</span>
                   </div>
+                  <span class="cal__week-toggle">Ver semana ^</span>
 
                   <div class="app-divider"></div>
 
                   <span class="app-card__overline">PRÓXIMOS EXÁMENES</span>
                   <div class="app-row">
                     <div>
-                      <div class="app-row__name">Historia</div>
-                      <div class="app-row__meta">27 jul · en 3 días</div>
+                      <div class="app-row__name"><span class="dot" style="--subject: var(--subject-quimica)"></span>Reyes católic…</div>
+                      <div class="app-row__meta">7 sept · en 2 días</div>
                     </div>
-                    <span class="chip chip--accent">Prioridad alta</span>
+                    <span class="chip">Prioridad alta</span>
                   </div>
                   <div class="app-row">
                     <div>
-                      <div class="app-row__name">Matemáticas</div>
-                      <div class="app-row__meta">30 jul · en 6 días</div>
+                      <div class="app-row__name"><span class="dot" style="--subject: var(--subject-historia)"></span>Movimiento re..</div>
+                      <div class="app-row__meta">9 sept · en 4 días</div>
                     </div>
-                    <span class="chip">Normal</span>
+                    <span class="chip">Prioridad alta</span>
+                  </div>
+                  <div class="app-row">
+                    <div>
+                      <div class="app-row__name"><span class="dot" style="--subject: var(--subject-mates)"></span>Integrales y derivadas</div>
+                      <div class="app-row__meta">23 sept · en 18 días</div>
+                    </div>
+                    <span class="chip">Baja</span>
                   </div>
                 </div>
 
-                <p class="app-section-title">Por calificar</p>
-                <div class="app-card">
-                  <div class="app-row">
-                    <div>
-                      <div class="app-row__name">Física</div>
-                      <div class="app-row__meta">Examen terminado · 18 jul</div>
-                    </div>
-                    <span class="chip has-arrow">Añadir nota</span>
-                  </div>
-                  <div class="app-row">
-                    <div>
-                      <div class="app-row__name">Lengua</div>
-                      <div class="app-row__meta">Examen terminado · 20 jul</div>
-                    </div>
-                    <span class="chip has-arrow">Añadir nota</span>
-                  </div>
-                </div>
+                <nav class="app-nav">
+                  <span class="app-nav__item is-active"><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#i-home"></use></svg>Inicio</span>
+                  <span class="app-nav__item"><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#i-book"></use></svg></span>
+                  <span class="app-nav__item"><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#i-map"></use></svg></span>
+                  <span class="app-nav__item"><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#i-user"></use></svg></span>
+                  <span class="app-nav__add"><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#i-plus"></use></svg></span>
+                </nav>
               </div>
             </div>
           </div>
@@ -487,7 +518,7 @@
           <span class="overline reveal">The app</span>
           <h2 class="display reveal">The whole system</h2>
           <p class="body-lg reveal" style="margin-top: var(--s6)">
-            Five screens, one place. This is what you get.
+            Four screens, one place. This is what you get.
           </p>
         </div>
 
@@ -495,28 +526,28 @@
           <figure class="cascade__item" style="--i: 0">
             <picture>
               <source srcset="../assets/screens/playstore-02-plan-crop.webp" type="image/webp" />
-              <img src="../assets/screens/playstore-02-plan-crop.png" alt="The Plan screen, with sessions laid out by day" loading="lazy" width="460" height="965" />
+              <img src="../assets/screens/playstore-02-plan-crop.png" alt="The Plan screen, with sessions laid out by day" loading="lazy" width="460" height="1165" />
             </picture>
             <figcaption>Plan</figcaption>
           </figure>
           <figure class="cascade__item" style="--i: 1">
             <picture>
               <source srcset="../assets/screens/playstore-03-estudio-timer-crop.webp" type="image/webp" />
-              <img src="../assets/screens/playstore-03-estudio-timer-crop.png" alt="The study session timer" loading="lazy" width="460" height="965" />
+              <img src="../assets/screens/playstore-03-estudio-timer-crop.png" alt="The study session timer, in focus mode, with the session's goals" loading="lazy" width="460" height="907" />
             </picture>
             <figcaption>Study</figcaption>
           </figure>
           <figure class="cascade__item" style="--i: 2">
             <picture>
               <source srcset="../assets/screens/playstore-04-mochila-crop.webp" type="image/webp" />
-              <img src="../assets/screens/playstore-04-mochila-crop.png" alt="The Backpack, with your notes and files" loading="lazy" width="460" height="965" />
+              <img src="../assets/screens/playstore-04-mochila-crop.png" alt="The Mochila, with your notes and files" loading="lazy" width="460" height="630" />
             </picture>
-            <figcaption>Backpack</figcaption>
+            <figcaption>Mochila</figcaption>
           </figure>
           <figure class="cascade__item" style="--i: 3">
             <picture>
               <source srcset="../assets/screens/playstore-07-estad-sticas-crop.webp" type="image/webp" />
-              <img src="../assets/screens/playstore-07-estad-sticas-crop.png" alt="Study statistics" loading="lazy" width="460" height="965" />
+              <img src="../assets/screens/playstore-07-estad-sticas-crop.png" alt="Your profile: level, XP, badges, and your subjects" loading="lazy" width="460" height="1220" />
             </picture>
             <figcaption>Stats</figcaption>
           </figure>
@@ -541,9 +572,9 @@
               A company didn't make this. I'm making it, and I was just where you are.
             </p>
             <p class="body-lg">
-              I just finished high school and I'm starting a degree in Artificial Intelligence.
-              Schedio isn't trying to teach you anything, because what I was missing wasn't
-              notes — it was knowing what came next today.
+              I've been exactly where you are: stressed the week before an exam, not knowing
+              where to start. Schedio isn't trying to teach you anything, because what I was
+              missing wasn't notes — it was knowing what came next today.
             </p>
             <p class="body-lg">
               That's why the app has no lessons, no videos, no chat that solves the exercise for
@@ -565,14 +596,6 @@
           <h2 class="display reveal">Common questions</h2>
 
           <div class="faq reveal">
-            <details>
-              <summary>When does it launch? What do I get for joining early?</summary>
-              <p>
-                In September, in time for the start of the school year. If you're on the
-                waitlist, we'll email you the same day and you'll get exclusive perks that won't
-                be available afterward.
-              </p>
-            </details>
             <details>
               <summary>Is there an iPhone version?</summary>
               <p>
@@ -630,91 +653,22 @@
       </section>
 
       <!-- ══════════════════════════════════════════════ 9 · Closer
-           THE CONVERSION SLOT. Today: launch waitlist. At launch: Google Play
-           badge instead of the form. -->
-      <section id="waitlist" class="closer">
+           THE CONVERSION SLOT. Already in launch mode: Google Play badge +
+           the link out to the iPhone guide, instead of the form. -->
+      <section id="download" class="closer">
         <div class="grid-bg"></div>
         <div class="wrap section-inner">
-          <h2 class="display reveal">Join the<br />waitlist</h2>
-          <p class="lede reveal">
-            Four questions, under a minute. Everyone on the list gets it before anyone else, with
-            exclusive perks on launch day.
+          <h2 class="display reveal">It's here</h2>
+          <p class="lede reveal">Free, on Google Play.</p>
+
+          <p class="closer__cta reveal">
+            <a class="badge-playstore" href="https://play.google.com/store/apps/details?id=com.schedio.mobile&amp;pcampaignid=web_share" target="_blank" rel="noopener">
+              <img src="../assets/google-play-badge-en.png" alt="Get it on Google Play" width="168" height="50" />
+            </a>
+            <a class="btn btn--primary" href="/en/iphone">Download for iPhone</a>
           </p>
 
-          <form class="quiz reveal" id="betaForm" novalidate>
-            <div class="quiz__bar" aria-hidden="true"><span id="quizBar"></span></div>
-            <p class="quiz__count" id="quizCount">Question 1 of 4</p>
-
-            <fieldset class="quiz__step is-active" data-step="0">
-              <label class="quiz__q" for="q-email">What's your email?</label>
-              <p class="quiz__hint">That's where we'll email you the day Schedio launches.</p>
-              <input class="quiz__input" type="email" id="q-email" name="email"
-                autocomplete="email" inputmode="email" placeholder="you@email.com" required />
-            </fieldset>
-
-            <fieldset class="quiz__step" data-step="1">
-              <legend class="quiz__q">What are you studying?</legend>
-              <div class="quiz__options">
-                <label class="quiz__opt"><input type="radio" name="curso" value="ESO" required /><span>High school</span></label>
-                <label class="quiz__opt"><input type="radio" name="curso" value="Bachillerato" /><span>Pre-university</span></label>
-                <label class="quiz__opt"><input type="radio" name="curso" value="Universidad" /><span>University</span></label>
-                <label class="quiz__opt"><input type="radio" name="curso" value="Otro" /><span>Something else</span></label>
-              </div>
-            </fieldset>
-
-            <fieldset class="quiz__step" data-step="2">
-              <legend class="quiz__q">Do you have an Android phone?</legend>
-              <p class="quiz__hint">Schedio launches on Android first.</p>
-              <div class="quiz__options">
-                <label class="quiz__opt"><input type="radio" name="android" value="si" required /><span>Yes</span></label>
-                <label class="quiz__opt"><input type="radio" name="android" value="no" /><span>No, I have an iPhone</span></label>
-              </div>
-              <p class="quiz__warn" id="quizAndroidWarn" hidden>
-                You can still use it: on iPhone, Schedio works as a web app — you add it to your
-                home screen and it behaves like an app. A native version is coming later. Stick
-                with the waitlist and we'll email you.
-              </p>
-            </fieldset>
-
-            <fieldset class="quiz__step" data-step="3">
-              <label class="quiz__q" for="q-dolor">What's the worst part of staying organized for you?</label>
-              <p class="quiz__hint">Optional, but it's what helps us most.</p>
-              <textarea class="quiz__input" id="q-dolor" name="dolor" rows="3" maxlength="600"
-                placeholder="Anything. No filter."></textarea>
-
-              <label class="quiz__consent">
-                <input type="checkbox" id="q-consent" name="consent" required />
-                <span>
-                  I agree to let Schedio store my email to notify me about the launch. I can ask
-                  for it to be deleted anytime. <a href="/en/privacidad">Privacy policy</a>.
-                </span>
-              </label>
-            </fieldset>
-
-            <!-- Antispam honeypot: invisible to people, bots fill it in. -->
-            <div class="quiz__trap" aria-hidden="true">
-              <label for="q-web">Leave this blank</label>
-              <input type="text" id="q-web" name="website" tabindex="-1" autocomplete="off" />
-            </div>
-
-            <p class="quiz__error" id="quizError" role="alert" hidden></p>
-
-            <div class="quiz__nav">
-              <button class="btn btn--ghost" type="button" id="quizBack" hidden>Back</button>
-              <button class="btn btn--primary has-arrow" type="button" id="quizNext">Next</button>
-              <button class="btn btn--primary has-arrow" type="submit" id="quizSend" hidden>Join the waitlist</button>
-            </div>
-          </form>
-
-          <div class="quiz__done" id="quizDone" hidden>
-            <p class="quiz__done-title">You're in.</p>
-            <p class="body-lg" style="margin-inline: auto">
-              We'll email <strong id="quizDoneEmail"></strong> the day Schedio launches, with
-              your waitlist perks. If you don't see it, check spam.
-            </p>
-          </div>
-
-          <p class="cta-note">Free · Android · Launching in September</p>
+          <p class="cta-note">Free · Android · Also available as a web app on iPhone</p>
         </div>
       </section>
     </main>
@@ -742,9 +696,8 @@
       </div>
     </footer>
 
-    <script src="../js/config.js?v=19"></script>
-    <script src="../js/priority.js?v=19"></script>
-    <script src="../js/main.js?v=19"></script>
-    <script src="../js/beta-form.js?v=19"></script>
+    <script src="../js/config.js?v=26"></script>
+    <script src="../js/priority.js?v=26"></script>
+    <script src="../js/main.js?v=26"></script>
   </body>
 </html>
