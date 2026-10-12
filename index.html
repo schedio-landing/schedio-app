@@ -47,8 +47,18 @@
     <!-- El `?v=` es la única forma de invalidar caché sin build: al desplegar un
          cambio en CSS o JS hay que subir el número, o los visitantes que ya
          han estado siguen con la versión vieja. -->
-    <link rel="stylesheet" href="css/tokens.css?v=26" />
-    <link rel="stylesheet" href="css/styles.css?v=26" />
+    <script>
+      /* Marca de "se puede animar": la pone antes de pintar para que el hero no
+         parpadee, y solo si el usuario no ha pedido menos movimiento. */
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("mo");
+      /* iPhone e iPad (iPadOS se presenta como un Mac con pantalla táctil): la home pone
+         primero su botón. Se hace aquí y no en main.js para que no se vea el salto. */
+      var ua = navigator.userAgent;
+      if (/iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1)) document.documentElement.classList.add("is-ios");
+    </script>
+    <link rel="stylesheet" href="css/tokens.css?v=27" />
+    <link rel="stylesheet" href="css/styles.css?v=27" />
+    <link rel="stylesheet" href="css/motion.css?v=27" />
 
     <script type="application/ld+json">
       {
@@ -138,17 +148,24 @@
         <div class="grid-bg"></div>
         <div class="wrap section-inner hero__grid">
           <div>
-            <h1 class="display">Todo tu curso,<br />en una pantalla</h1>
-            <p class="lede">
+            <h1 class="display"><span class="ln"><span style="--l: 0">Todo tu curso,</span></span><span class="ln"><span style="--l: 1">en una pantalla</span></span></h1>
+            <p class="lede seq" style="--d: 520ms">
               Exámenes, tareas y progreso — sin buscar en cinco sitios distintos.
             </p>
-            <div class="hero__cta">
-              <a class="badge-playstore" href="https://play.google.com/store/apps/details?id=com.schedio.mobile&amp;pcampaignid=web_share" target="_blank" rel="noopener">
+            <div class="hero__cta seq" style="--d: 680ms">
+              <a class="badge-playstore" href="https://play.google.com/store/apps/details?id=com.schedio.mobile&amp;pcampaignid=web_share&amp;referrer=utm_source%3Dschedio.es%26utm_medium%3Dweb%26utm_campaign%3Dlanding" target="_blank" rel="noopener">
                 <img src="assets/google-play-badge-es.png" alt="Disponible en Google Play" width="168" height="50" />
               </a>
               <a class="btn btn--primary" href="/iphone">Descargar en iPhone</a>
             </div>
-            <p class="cta-note">Gratis · Android · También como app web en iPhone</p>
+            <p class="cta-note seq" style="--d: 820ms">Gratis · Android · También como app web en iPhone</p>
+            <div class="desk-cta seq" style="--d: 980ms">
+              <a class="qr-card" href="/go">
+                <img src="assets/qr-go-es.svg" alt="Código QR para descargar Schedio" width="100" height="100" />
+                <span class="qr-card__text"><strong>Escanéalo con el móvil</strong><span>Te llevamos a la tienda que toca.</span></span>
+              </a>
+              <a class="desk-link has-arrow" href="https://app.schedio.es/" target="_blank" rel="noopener">O úsala ya en el navegador</a>
+            </div>
           </div>
 
           <div class="hero__stage">
@@ -165,96 +182,60 @@
 
             <!-- Réplica de la pantalla de Inicio. Reproduce PlayStore-01-inicio
                  y nada más: ni se añade ni se idealiza. -->
-            <div class="phone phone--tilt" id="heroPhone" role="img" aria-label="Pantalla de inicio de Schedio: racha, nivel y nota media, la sesión de hoy, el calendario del mes y los próximos exámenes.">
+            <div class="phone phone--tilt" id="heroPhone" role="img" aria-label="Pantalla de inicio de Schedio: racha y nivel, la tarea de hoy con su botón Empezar, el calendario de la semana y los próximos exámenes.">
               <div class="phone__screen" aria-hidden="true">
                 <div class="app-bar">
                   <span class="app-logo"><img src="assets/mark-96.png" alt="" />Schedio</span>
-                  <span class="badge-prime">PRIME</span>
-                </div>
-
-                <div class="app-metrics">
-                  <div class="metric">
-                    <span class="metric__label">RACHA</span>
-                    <div class="metric__row">
-                      <span class="metric__icon" aria-hidden="true">🔥</span>
-                      <span class="metric__value">0</span>
-                    </div>
-                    <span class="metric__unit">días</span>
-                  </div>
-                  <div class="metric">
-                    <span class="metric__label">NIVEL</span>
-                    <div class="metric__row">
-                      <span class="metric__icon" aria-hidden="true">⚡</span>
-                      <span class="metric__value metric__value--accent">4</span>
-                    </div>
-                    <div class="metric__bar"><span class="metric__bar-fill" style="width: 10%"></span></div>
-                    <span class="metric__caption">670 XP …</span>
-                  </div>
-                  <div class="metric">
-                    <span class="metric__label">MEDIA</span>
-                    <div class="metric__row">
-                      <span class="metric__icon" aria-hidden="true">📊</span>
-                      <span class="metric__value">8,0</span>
-                    </div>
-                  </div>
+                  <span class="app-stats">
+                    <span class="app-flame"><span aria-hidden="true">🔥</span>3</span>
+                    <span class="app-ring">
+                      <svg viewBox="0 0 32 32"><circle class="app-ring__bg" cx="16" cy="16" r="13" /><circle class="app-ring__fg" cx="16" cy="16" r="13" /></svg>
+                      <b>5</b>
+                    </span>
+                  </span>
                 </div>
 
                 <div class="app-card">
-                  <span class="app-card__overline">HOY</span>
-                  <p class="app-card__title">Tu racha está en 0. Una sesión corta hoy ya la pone en marcha.</p>
-                  <span class="app-btn has-arrow">Comenzar sesión de estudio</span>
+                  <span class="app-card__overline">HOY · TU PLAN</span>
+                  <span class="app-sub"><i class="dot" style="--subject: var(--subject-historia)"></i>Historia · 45 min</span>
+                  <p class="app-card__title app-card__title--lg">Repasa Historia y marca los pasos donde siempre te atascas</p>
+                  <span class="app-why">examen en 3 días · sin tocar todavía</span>
+                  <span class="app-btn app-btn--play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12-7.5z" /></svg>Empezar · 45 min</span>
+                  <span class="app-link">Plan de hoy: 2 de 4 ›</span>
                 </div>
 
-                <p class="app-section-title">Tu calendario</p>
+                <p class="app-section-title">Calendario</p>
                 <div class="app-card">
                   <div class="cal__head">
-                    <span class="cal__nav">‹</span>
-                    <span>Septiembre 2026</span>
-                    <span class="cal__nav">›</span>
+                    <span><span class="cal__nav">‹</span> 12 – 18 Oct <span class="cal__nav">›</span></span>
+                    <span class="app-seg"><i class="is-on">Semana</i><i>Mes</i></span>
                   </div>
                   <div class="cal__dow">
-                    <span>L</span><span>M</span><span>X</span><span>J</span><span>V</span
-                    ><span>S</span><span>D</span>
+                    <span>L</span><span>M</span><span>X</span><span>J</span><span>V</span><span>S</span><span>D</span>
                   </div>
-                  <div class="cal__days">
-                    <span class="is-outside">31</span><span>1</span><span>2</span><span>3</span
-                    ><span>4</span><span class="is-today">5</span><span>6</span>
-                    <span class="has-event" style="--dot-color: var(--subject-quimica)">7</span><span>8</span
-                    ><span class="has-event" style="--dot-color: var(--subject-historia)">9</span><span>10</span
-                    ><span>11</span><span>12</span><span>13</span>
-                    <span>14</span><span>15</span><span>16</span><span>17</span><span>18</span
-                    ><span>19</span><span>20</span>
-                    <span>21</span><span>22</span
-                    ><span class="has-event" style="--dot-color: var(--subject-mates)">23</span><span>24</span
-                    ><span>25</span><span>26</span><span>27</span>
-                    <span>28</span><span>29</span><span>30</span><span class="is-outside">1</span
-                    ><span class="is-outside">2</span><span class="is-outside">3</span><span class="is-outside">4</span>
+                  <div class="cal__days cal__days--week">
+                    <span class="is-today">12</span><span>13</span>
+                    <span class="has-exam" style="--tint: rgba(63, 167, 107, 0.2); --bar: var(--subject-quimica); --j: 0">14</span>
+                    <span class="has-exam" style="--tint: rgba(201, 146, 47, 0.2); --bar: var(--subject-historia); --j: 1">15</span>
+                    <span>16</span><span>17</span><span>18</span>
                   </div>
-                  <span class="cal__week-toggle">Ver semana ^</span>
+                </div>
 
-                  <div class="app-divider"></div>
-
-                  <span class="app-card__overline">PRÓXIMOS EXÁMENES</span>
-                  <div class="app-row">
+                <p class="app-section-title">Próximos exámenes</p>
+                <div class="app-card">
+                  <div class="app-row" style="--r: 0">
                     <div>
-                      <div class="app-row__name"><span class="dot" style="--subject: var(--subject-quimica)"></span>Reyes católic…</div>
-                      <div class="app-row__meta">7 sept · en 2 días</div>
+                      <div class="app-row__name"><span class="dot" style="--subject: var(--subject-quimica)"></span>Examen de Matemáticas</div>
+                      <div class="app-row__meta">14 oct · en 2 días</div>
                     </div>
-                    <span class="chip">Prioridad alta</span>
+                    <span class="chip">Alta</span>
                   </div>
-                  <div class="app-row">
+                  <div class="app-row" style="--r: 1">
                     <div>
-                      <div class="app-row__name"><span class="dot" style="--subject: var(--subject-historia)"></span>Movimiento re..</div>
-                      <div class="app-row__meta">9 sept · en 4 días</div>
+                      <div class="app-row__name"><span class="dot" style="--subject: var(--subject-historia)"></span>Examen de Historia</div>
+                      <div class="app-row__meta">15 oct · en 3 días</div>
                     </div>
-                    <span class="chip">Prioridad alta</span>
-                  </div>
-                  <div class="app-row">
-                    <div>
-                      <div class="app-row__name"><span class="dot" style="--subject: var(--subject-mates)"></span>Integrales y derivadas</div>
-                      <div class="app-row__meta">23 sept · en 18 días</div>
-                    </div>
-                    <span class="chip">Baja</span>
+                    <span class="chip">Alta</span>
                   </div>
                 </div>
 
@@ -382,17 +363,17 @@
             </p>
 
             <div class="streak-days">
-              <span class="streak-day is-on">L</span>
-              <span class="streak-day is-on">M</span>
-              <span class="streak-day is-on">X</span>
-              <span class="streak-day is-on">J</span>
-              <span class="streak-day is-rest">V</span>
-              <span class="streak-day is-on">S</span>
-              <span class="streak-day">D</span>
+              <span class="streak-day is-on" style="--k: 0">L</span>
+              <span class="streak-day is-on" style="--k: 1">M</span>
+              <span class="streak-day is-on" style="--k: 2">X</span>
+              <span class="streak-day is-on" style="--k: 3">J</span>
+              <span class="streak-day is-rest" style="--k: 4">V</span>
+              <span class="streak-day is-on" style="--k: 5">S</span>
+              <span class="streak-day" style="--k: 6">D</span>
             </div>
             <p class="cta-note">
-              La <strong>V</strong> es un día de descanso: una tarde libre no te tira abajo tres
-              semanas de racha.
+              La <strong>V</strong> es un día libre: los días libres que eliges no cuentan ni a
+              favor ni en contra, y tienes 2 comodines por semana para un día que se tuerza.
             </p>
 
             <!-- Rangos reales de services/gamification.js: icono, nivel mínimo,
@@ -402,6 +383,14 @@
                  muy saturados para un fondo oscuro. Aquí van mapeados a su tono
                  equivalente en la paleta de asignaturas de tokens.js, que está
                  desaturada a propósito. Mismo significado, registro correcto. -->
+            <div class="pace" id="pace" hidden>
+              <div class="field">
+                <label for="paceInput">Tu ritmo de estudio <output id="paceOut">30 min al día</output></label>
+                <input type="range" id="paceInput" min="10" max="180" step="5" value="30" />
+              </div>
+              <p class="pace__note">Estudiando todos los días a ese ritmo. Cada minuto de sesión da 10 XP y marcar una tarea del plan da 50 más, así que esto es el peor caso.</p>
+            </div>
+
             <div class="ranks">
               <ol class="ranks__list">
                 <li>
@@ -411,7 +400,7 @@
                     data-desc="Tus primeros pasos en el mundo del conocimiento. Sigue así."
                     data-next="Aprendiz">
                     <span class="rank__badge"><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#i-zap"></use></svg></span>
-                    <span class="rank__name">Novato</span>
+                    <span class="rank__name">Novato<small class="rank__eta"></small></span>
                     <span class="rank__level">1</span>
                   </button>
                 </li>
@@ -422,7 +411,7 @@
                     data-desc="Ya no eres un extraño para el estudio. Tus bases son sólidas."
                     data-next="Estudiante">
                     <span class="rank__badge"><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#i-book"></use></svg></span>
-                    <span class="rank__name">Aprendiz</span>
+                    <span class="rank__name">Aprendiz<small class="rank__eta"></small></span>
                     <span class="rank__level">5</span>
                   </button>
                 </li>
@@ -433,7 +422,7 @@
                     data-desc="Compromiso real. Has demostrado una constancia admirable."
                     data-next="Erudito">
                     <span class="rank__badge"><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#i-star"></use></svg></span>
-                    <span class="rank__name">Estudiante</span>
+                    <span class="rank__name">Estudiante<small class="rank__eta"></small></span>
                     <span class="rank__level">10</span>
                   </button>
                 </li>
@@ -444,7 +433,7 @@
                     data-desc="Tu conocimiento destaca. Eres un referente en Schedio."
                     data-next="Maestro">
                     <span class="rank__badge"><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#i-crown"></use></svg></span>
-                    <span class="rank__name">Erudito</span>
+                    <span class="rank__name">Erudito<small class="rank__eta"></small></span>
                     <span class="rank__level">25</span>
                   </button>
                 </li>
@@ -455,7 +444,7 @@
                     data-desc="Dominas el arte del aprendizaje. Nada te detiene."
                     data-next="Leyenda">
                     <span class="rank__badge"><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#i-flame"></use></svg></span>
-                    <span class="rank__name">Maestro</span>
+                    <span class="rank__name">Maestro<small class="rank__eta"></small></span>
                     <span class="rank__level">50</span>
                   </button>
                 </li>
@@ -466,7 +455,7 @@
                     data-desc="Has alcanzado la cima. Tu nombre será recordado."
                     data-next="">
                     <span class="rank__badge"><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#i-trophy"></use></svg></span>
-                    <span class="rank__name">Leyenda</span>
+                    <span class="rank__name">Leyenda<small class="rank__eta"></small></span>
                     <span class="rank__level">100</span>
                   </button>
                 </li>
@@ -480,6 +469,7 @@
                 <p class="rank-detail__desc">
                   Tus primeros pasos en el mundo del conocimiento. Sigue así.
                 </p>
+                <p class="rank-detail__eta" id="rankEta"></p>
                 <p class="rank-detail__next">Siguiente: <strong>Aprendiz</strong></p>
               </aside>
             </div>
@@ -495,9 +485,16 @@
           <span class="overline reveal">El motor</span>
           <h2 class="display reveal">Pruébalo sin instalar nada</h2>
           <p class="body-lg reveal" style="margin-top: var(--s6)">
-            Esto es el algoritmo de Schedio corriendo aquí mismo, el mismo que ordena tu plan
-            dentro de la app. Mueve lo que quieras y mira cómo cambia el orden.
+            Primero adivina qué haría Schedio con tres exámenes. Después juega con el mismo
+            algoritmo que ordena tu plan dentro de la app.
           </p>
+
+          <div class="challenge sim__panel reveal" id="challenge" hidden></div>
+
+          <div class="sim-lead reveal">
+            <h3>Ahora cámbialo tú</h3>
+            <p>Mueve la fecha, la dificultad o tu nota y mira cómo se reordena todo.</p>
+          </div>
 
           <div class="sim">
             <div class="sim__panel reveal" id="simInputs"></div>
@@ -537,31 +534,31 @@
                cuesta tres líneas: no hay razón para dejar navegadores fuera. -->
           <figure class="cascade__item" style="--i: 0">
             <picture>
-              <source srcset="assets/screens/playstore-02-plan-crop.webp" type="image/webp" />
-              <img src="assets/screens/playstore-02-plan-crop.png" alt="La pantalla de Plan, con las sesiones repartidas por día" loading="lazy" width="460" height="1165" />
+              <source srcset="assets/screens/app-plan-dia.webp" type="image/webp" />
+              <img src="assets/screens/app-plan-dia.png" alt="La pantalla de Plan: la tarea de hoy con su botón Empezar y el resto del día" loading="lazy" width="460" height="834" />
             </picture>
             <figcaption>Plan</figcaption>
           </figure>
           <figure class="cascade__item" style="--i: 1">
             <picture>
-              <source srcset="assets/screens/playstore-03-estudio-timer-crop.webp" type="image/webp" />
-              <img src="assets/screens/playstore-03-estudio-timer-crop.png" alt="El temporizador de una sesión de estudio, en modo enfoque, con los objetivos de la sesión" loading="lazy" width="460" height="907" />
+              <source srcset="assets/screens/app-plan-examen.webp" type="image/webp" />
+              <img src="assets/screens/app-plan-examen.png" alt="El plan visto por examen, con las sesiones hechas y la fase de cada uno" loading="lazy" width="460" height="834" />
             </picture>
-            <figcaption>Estudiar</figcaption>
+            <figcaption>Por examen</figcaption>
           </figure>
           <figure class="cascade__item" style="--i: 2">
             <picture>
-              <source srcset="assets/screens/playstore-04-mochila-crop.webp" type="image/webp" />
-              <img src="assets/screens/playstore-04-mochila-crop.png" alt="La Mochila, con tus apuntes y archivos" loading="lazy" width="460" height="630" />
+              <source srcset="assets/screens/playstore-03-estudio-timer-crop.webp" type="image/webp" />
+              <img src="assets/screens/playstore-03-estudio-timer-crop.png" alt="El temporizador de una sesión de estudio, en modo enfoque, con los objetivos de la sesión" loading="lazy" width="460" height="907" />
             </picture>
-            <figcaption>Mochila</figcaption>
+            <figcaption>Clase</figcaption>
           </figure>
           <figure class="cascade__item" style="--i: 3">
             <picture>
-              <source srcset="assets/screens/playstore-07-estad-sticas-crop.webp" type="image/webp" />
-              <img src="assets/screens/playstore-07-estad-sticas-crop.png" alt="Tu perfil: nivel, XP, insignias y tus asignaturas" loading="lazy" width="460" height="1220" />
+              <source srcset="assets/screens/app-perfil.webp" type="image/webp" />
+              <img src="assets/screens/app-perfil.png" alt="Tu perfil: la nota media del curso, tus asignaturas con sus notas y tu nivel" loading="lazy" width="460" height="834" />
             </picture>
-            <figcaption>Estadísticas</figcaption>
+            <figcaption>Perfil</figcaption>
           </figure>
         </div>
 
@@ -636,16 +633,18 @@
               <summary>Estoy en la universidad. ¿Me sirve igual?</summary>
               <p>
                 Sí. Cambias trimestres por cuatrimestres y exámenes por parciales y finales, y
-                funciona igual: Schedio no entiende de cursos, entiende de fechas, de horas y de
-                cuánto te juegas en cada asignatura. De hecho en la uni suele hacer más falta,
+                funciona igual: Schedio entiende de fechas, de horas y de cuánto te juegas en cada
+                asignatura. Además, en el perfil de universidad llevas tu expediente: créditos de la
+                carrera, nota media y a cuánto podrías llegar. En la uni suele hacer más falta,
                 porque nadie te va marcando el ritmo.
               </p>
             </details>
             <details>
-              <summary>¿Me sirve si estoy en la ESO? ¿Y para la EBAU?</summary>
+              <summary>¿Me sirve si estoy en la ESO? ¿Y para la PAU?</summary>
               <p>
                 Sí a las dos. Schedio no depende del temario: organiza asignaturas, exámenes y
-                horas, y eso es igual en 3º de la ESO que preparando la EBAU.
+                horas, y eso es igual en 3º de la ESO que preparando la PAU. Para el último curso
+                incluye una calculadora de tu nota de acceso, con cuenta atrás hasta las pruebas.
               </p>
             </details>
             <details>
@@ -680,13 +679,20 @@
           <p class="lede reveal">Gratis, en Google Play.</p>
 
           <p class="closer__cta reveal">
-            <a class="badge-playstore" href="https://play.google.com/store/apps/details?id=com.schedio.mobile&amp;pcampaignid=web_share" target="_blank" rel="noopener">
+            <a class="badge-playstore" href="https://play.google.com/store/apps/details?id=com.schedio.mobile&amp;pcampaignid=web_share&amp;referrer=utm_source%3Dschedio.es%26utm_medium%3Dweb%26utm_campaign%3Dlanding_cierre" target="_blank" rel="noopener">
               <img src="assets/google-play-badge-es.png" alt="Disponible en Google Play" width="168" height="50" />
             </a>
             <a class="btn btn--primary" href="/iphone">Descargar en iPhone</a>
           </p>
 
           <p class="cta-note">Gratis · Android · También como app web en iPhone</p>
+            <div class="desk-cta">
+              <a class="qr-card" href="/go">
+                <img src="assets/qr-go-es.svg" alt="Código QR para descargar Schedio" width="100" height="100" />
+                <span class="qr-card__text"><strong>Escanéalo con el móvil</strong><span>Te llevamos a la tienda que toca.</span></span>
+              </a>
+              <a class="desk-link has-arrow" href="https://app.schedio.es/" target="_blank" rel="noopener">O úsala ya en el navegador</a>
+            </div>
         </div>
       </section>
     </main>
@@ -710,9 +716,8 @@
         </nav>
       </div>
     </footer>
-
-    <script src="js/config.js?v=26"></script>
-    <script src="js/priority.js?v=26"></script>
-    <script src="js/main.js?v=26"></script>
+    <script src="js/priority.js?v=27"></script>
+    <script src="js/main.js?v=27"></script>
+    <script src="js/motion.js?v=27"></script>
   </body>
 </html>

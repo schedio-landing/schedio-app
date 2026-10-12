@@ -32,7 +32,7 @@
     <link rel="preload" href="../../assets/fonts/bebas-neue-400.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="../../assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="../../css/tokens.css?v=26" />
-    <link rel="stylesheet" href="../../css/styles.css?v=26" />
+    <link rel="stylesheet" href="../../css/styles.css?v=27" />
   </head>
 
   <body>
@@ -70,7 +70,7 @@
 
         <article class="legal__body">
           <h1>Schedio's Privacy Policy</h1>
-          <p class="legal__updated">Last updated: August 23, 2026</p>
+          <p class="legal__updated">Last updated: October 12, 2026</p>
 
           <div class="note-card">
             <p style="margin: 0">
@@ -148,6 +148,16 @@
                   <td data-label="What for">Adjusting your plan to your region's curriculum and school calendar. This is data you declare yourself — it isn't obtained from your device</td>
                 </tr>
                 <tr>
+                  <td data-label="Data">Year of study, degree and credits (if you study at university), and your PAU date (if you take it)</td>
+                  <td data-label="Where it comes from">You enter them in onboarding or when editing your academic details in Profile</td>
+                  <td data-label="What for">Keeping your academic record by credits, adjusting the plan to your year and showing you the PAU countdown</td>
+                </tr>
+                <tr>
+                  <td data-label="Data">Your exam grades and grade goals per subject</td>
+                  <td data-label="Where it comes from">You enter them inside the app</td>
+                  <td data-label="What for">Calculating your average and prioritizing what to study. The numbers you try in the PAU calculator are not saved</td>
+                </tr>
+                <tr>
                   <td data-label="Data">How you heard about Schedio</td>
                   <td data-label="Where it comes from">Optional question during sign-up</td>
                   <td data-label="What for">Knowing which channels work so we can reach more people. You can skip it</td>
@@ -173,12 +183,12 @@
                   <td data-label="What for">Knowing whether you have access to paid features</td>
                 </tr>
                 <tr>
-                  <td data-label="Data">Push notification token</td>
-                  <td data-label="Where it comes from">If you accept the notifications permission</td>
-                  <td data-label="What for">Alerting you about upcoming exams, nudging you back after a few days away, and a weekly summary of your sessions</td>
+                  <td data-label="Data">Push notification token (Android, iPhone and web) and your notification preferences</td>
+                  <td data-label="Where it comes from">If you accept the notifications permission; you choose the preferences in Settings</td>
+                  <td data-label="What for">Telling you about your plan for the day, a streak at risk, upcoming exams, getting back to studying after a few days away, and a weekly summary. You can turn each type off</td>
                 </tr>
                 <tr>
-                  <td data-label="Data">App crash data (Crashlytics): device model, Android version, and the point in the code where it failed</td>
+                  <td data-label="Data">App crash data (Crashlytics): device model, Android version, and the point in the code where it failed (Android app only)</td>
                   <td data-label="Where it comes from">Automatic, if the app closes unexpectedly</td>
                   <td data-label="What for">Detecting and fixing bugs. Doesn't include your email, password, or Mochila content</td>
                 </tr>
@@ -189,42 +199,20 @@
               by Google Play or Apple, not Schedio.
             </p>
 
-            <p style="margin-top: var(--s6)">
-              If you don't have an account yet and you're just joining the launch waitlist from
-              this website, here's what we collect:
+            <h3 style="margin-top: var(--s6)">When you only visit schedio.es</h3>
+            <p>
+              The website <strong>doesn't use cookies</strong> of its own or for advertising, nor
+              third-party analytics tools, and it doesn't store anything on your device to
+              recognize you. As on any site, the providers that serve it (see section 5) receive
+              the technical data of each visit, such as your IP address, browser and the page you
+              request, to deliver it to you and protect it from abuse. Schedio doesn't use them to
+              build profiles of you.
             </p>
-            <table class="datatable">
-              <thead>
-                <tr>
-                  <th>Data</th>
-                  <th>Where it comes from</th>
-                  <th>What we use it for</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td data-label="Data">Email</td>
-                  <td data-label="Where it comes from">Waitlist form on schedio.es</td>
-                  <td data-label="What for">Notifying you the day Schedio launches</td>
-                </tr>
-                <tr>
-                  <td data-label="Data">Year (high school, pre-university, university, or other)</td>
-                  <td data-label="Where it comes from">Waitlist form on schedio.es</td>
-                  <td data-label="What for">Understanding who's signing up and prioritizing what to build before launch</td>
-                </tr>
-                <tr>
-                  <td data-label="Data">Whether you have an Android phone</td>
-                  <td data-label="Where it comes from">Waitlist form on schedio.es</td>
-                  <td data-label="What for">Knowing if you can try the app as soon as it's ready</td>
-                </tr>
-                <tr>
-                  <td data-label="Data">The worst part of staying organized for you (optional, free text)</td>
-                  <td data-label="Where it comes from">Waitlist form on schedio.es</td>
-                  <td data-label="What for">Improving the app before launch</td>
-                </tr>
-              </tbody>
-            </table>
-          </section>
+            <p>
+              The web version of the app (app.schedio.es) stores in your browser only what's
+              essential to keep you signed in.
+            </p>
+                    </section>
 
           <section id="s4">
             <h2><span class="num">04</span> Legal basis for processing</h2>
@@ -240,17 +228,16 @@
                 <strong class="term">Consent</strong>
                 <p>
                   For AI-generated recommendations and for push notifications (explicitly
-                  requested when you accept the permission). Also for the email and answers from
-                  the waitlist form: there's no usage contract yet at that point, so the only
-                  basis is the consent checkbox you tick when submitting it, which you can
-                  withdraw anytime.
+                  requested when you accept the permission, and you can withdraw it anytime from
+                  your device or app settings).
                 </p>
               </div>
               <div>
                 <strong class="term">Legitimate interest</strong>
                 <p>
                   Minimum security measures and abuse prevention (for example, limiting login
-                  attempts), and diagnosing technical failures (Crashlytics).
+                  attempts), diagnosing technical failures (Crashlytics), and the operation and
+                  security of the website, including processing the IP address of its visitors.
                 </p>
               </div>
             </div>
@@ -272,6 +259,20 @@
                   Hosts your account, your calendar, your progress, and your Mochila files, sends
                   push notifications, and collects technical crash data. Firestore/Storage data is
                   stored in the European region (eur3).
+                </p>
+              </div>
+              <div>
+                <strong class="term">Cloudflare and GitHub Pages</strong>
+                <p>
+                  Serve and protect the schedio.es website. They receive the technical data of
+                  each visit (such as the IP); they don't receive your account data.
+                </p>
+              </div>
+              <div>
+                <strong class="term">Firebase Hosting</strong>
+                <p>
+                  Serves the web version of the app (app.schedio.es), with the technical data of
+                  each visit, within Google Firebase.
                 </p>
               </div>
               <div>
@@ -298,7 +299,7 @@
               </div>
             </div>
             <p>
-              Since Google (Firebase, Gemini) and RevenueCat are companies based outside the
+              Since Google (Firebase, Gemini), Cloudflare, GitHub and RevenueCat are companies based outside the
               European Union, these transfers are carried out under the safeguards provided by
               the GDPR (standard contractual clauses or other equivalent mechanisms each provider
               has published).
@@ -315,9 +316,8 @@
               regulations.
             </p>
             <p>
-              If you joined the waitlist from the website without creating an account, we keep
-              your email and your answers until we launch Schedio and notify you, or until you
-              ask to be removed before that by writing to
+              The pre-launch waitlist is closed. If you joined it back then, you can ask us to
+              delete your email and answers by writing to
               <a href="mailto:schedio.contacto@gmail.com">schedio.contacto@gmail.com</a>.
             </p>
           </section>

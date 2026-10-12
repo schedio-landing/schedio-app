@@ -29,11 +29,14 @@ privacidad/, terminos/, eliminar-cuenta/, feedback/
                           URLs limpias en GitHub Pages
 css/tokens.css            Tokens portados 1:1 desde schedio-mobile/theme/tokens.js
 css/styles.css            Todo lo demás
+go/index.html, en/go/    Enlace corto `schedio.es/go`: salta solo a Play (Android) o a la guía
+                          (iPhone/iPad) y en escritorio muestra las opciones. Es el destino
+                          del QR y sirve para la bio de Instagram. `noindex`, fuera del sitemap
+css/motion.css            Todo el movimiento (ver "Movimiento"). Solo home ES/EN
 js/priority.js            Puerto de schedio-mobile/services/priority.js
 js/main.js                Nav, revelado, móvil pegajoso, rangos y simulador —
                           bilingüe vía `document.documentElement.lang`
-js/beta-form.js           El formulario de lista de espera — también bilingüe
-js/config.js              Claves públicas de Firebase para el formulario
+js/motion.js              Titulares por líneas, cifra del hero, parallax de la cascada
 assets/                   Mark, capturas de Play Store, fuentes, OG
 ```
 
@@ -98,6 +101,69 @@ leyendo el HTML.
 El sitio bilingüe está completo: las ocho páginas (home, iphone, privacidad,
 terminos, eliminar-cuenta, feedback × 2 idiomas) tienen su pareja, sin ningún
 `(ES)` suelto.
+
+## Movimiento
+
+Todo el movimiento cuelga de `html.mo`, que un script en el `<head>` de las dos
+homes pone **solo si no hay `prefers-reduced-motion`**. Sin esa clase —sin JS o
+con menos movimiento pedido— la página es la de `styles.css`, completa y
+estática. Es el mismo contrato que `html.js` para el revelado.
+
+Se mantiene el diseño plano (regla 2): solo `transform`/`opacity`/`translate`/
+`scale`, una curva (`--ease`), nada de sombras ni brillos. El movimiento tiene
+que *explicar* algo (orden, progreso, constancia), no decorar.
+
+| Dónde | Qué hace | Dónde vive |
+|---|---|---|
+| Hero | Titular por líneas, texto escalonado, el móvil llega y la app "se monta" (XP, media, puntos del calendario, filas); la llama respira | `motion.css` + `motion.js` (media) |
+| Titulares h2 | Se parten por `<br />` en máscaras de línea al llegar | `motion.js` |
+| Cómo funciona | Paso activo encendido; la pantalla del móvil cambia con demo: Schedio **ordena** los exámenes (FLIP) y el reloj corre | `main.js` |
+| Racha | Los días se encienden uno a uno | `motion.css` |
+| Rangos | La escalera se monta y **sube sola** hasta Leyenda; cualquier gesto la corta | `main.js` |
+| Simulador | Al llegar, Matemáticas se acerca a su examen, adelanta a Historia y vuelve. Es el algoritmo real; un gesto lo corta y restaura | `main.js` |
+| Cascada | Entrada escalonada + parallax con el scroll (`--par`) en escritorio | `motion.css` + `motion.js` |
+| Tacto | Pulsación en botones, badge y rangos; FAQ con altura suave (WAAPI, funciona en todos los navegadores); toque háptico en sliders y rangos solo con gesto real (`isTrusted`) en pantallas táctiles; fundido entre páginas con `@view-transition` (en `styles.css`, porque las dos páginas del salto necesitan la regla; la barra superior se queda quieta) | `motion.css`, `motion.js`, `main.js`, `styles.css` |
+| Fondo | La retícula se desplaza con el scroll (`animation-timeline: view()`, solo donde exista) | `motion.css` |
+
+Dos trampas ya pisadas:
+
+- El móvil del hero usa `transform` para el inclinado con el cursor, así que su
+  entrada y su flotado usan las propiedades **`translate`/`scale`**: dos
+  animaciones sobre `transform` se pisarían.
+- Un elemento flex que se escala sin `align-self: flex-start` se estira a todo
+  el ancho y su caja desborda la ventana (pasó con `.step__num`, 76px de
+  scroll horizontal). Se detectó midiendo `scrollWidth`, no a ojo.
+
+La red de seguridad de `main.js` (si el observer no dispara, quita `js` y `mo`)
+antes se activaba siempre que la carga no revelara nada en 2,5s, que es lo
+normal con todo lo revelable por debajo del primer pantallazo. Ahora cuenta
+cualquier callback del observer, que se dispara una vez nada más observar.
+
+## Interacción con datos reales
+
+Piezas de la home que no son decoración: se apoyan en reglas de la app y por eso
+**hay que revisarlas si cambian**.
+
+- **Ordénalo tú, luego Schedio** (`#challenge`, `main.js`): tres casos fijos que
+  corren por `priority.js`, elegidos para que el orden de Schedio NO sea el del
+  calendario (con un caso donde gana el más cercano no se vería nada). Los textos
+  de "por qué" son del caso, no del algoritmo: si cambian los pesos, rehacerlos.
+  Los casos usan las mismas tres asignaturas que el simulador para poder volcar
+  los datos en él ("Abrir estos datos en el simulador").
+- **Rangos con tu ritmo** (`#pace`, `main.js`): minutos al día → tiempo hasta cada
+  rango. Reglas de `services/gamification.js`: 10 XP por minuto de sesión
+  (`BASE_XP_PER_MINUTE`) y el nivel L exige 100·(L−1)² XP
+  (`calculateXpForLevel`). También se ganan 50 XP por tarea del plan marcada
+  (`toggleTask`, userStore); aquí no cuentan, así que es el peor caso y la nota
+  del slider lo dice. `XP_PER_EXAM_GRADE` existe pero no se usa en ningún sitio:
+  no contar las notas de examen como fuente de XP.
+- **QR y enlace al navegador** (hero y cierre): solo con puntero fino y pantalla
+  ≥ 860px. El QR apunta a `/go` (no a Play) para que valga para iPhone y Android.
+  Se generó con `segno` y se comprobó decodificándolo; si cambia la URL hay que
+  regenerar `assets/qr-go-*.svg`.
+- **Orden por dispositivo**: un script del `<head>` pone `is-ios` (iPhone, iPad e
+  iPadOS que se presenta como Mac táctil) y el CSS pone el botón de instalar
+  primero. No se oculta nada.
 
 ## Dos ficheros que hay que mantener a mano
 
@@ -279,7 +345,13 @@ se le pase.
 - Escritorio: hero a dos columnas, móvil pegajoso en "Cómo funciona".
 - Consola limpia salvo los 404 de las fuentes que faltan.
 
-**No verificado:** el revelado al hacer scroll y las animaciones de
+**Verificado el 12 oct 2026 con Chrome sin cabeza** (Playwright, 1280×800 y
+390×844, ES y EN, y con `prefers-reduced-motion`): consola limpia, sin
+desbordamiento, nada se queda oculto tras recorrer la página entera, la
+escalera llega a Leyenda, el simulador reordena y restaura, y con movimiento
+reducido no hay `mo` ni fragmentos.
+
+**No verificado en el panel de vista previa:** el revelado al hacer scroll y las animaciones de
 `animation-timeline`. `IntersectionObserver` no dispara en el panel de vista
 previa porque sin composición no corre el ciclo de render — se comprobó que un
 observer trivial también da cero. Hay que mirarlo en un navegador de verdad.
