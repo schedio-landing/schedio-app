@@ -2341,6 +2341,544 @@ input[type='range']::-moz-range-thumb {
   }
 }
 
+/* ── Inicio de la app (hero): cabecera con racha y nivel, tarea de hoy y semana ── */
+
+.app-stats {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.app-flame {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.app-flame span {
+  font-size: 14px;
+}
+
+.app-ring {
+  position: relative;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+}
+
+.app-ring svg {
+  position: absolute;
+  inset: 0;
+  transform: rotate(-90deg);
+}
+
+.app-ring circle {
+  fill: none;
+  stroke-width: 3;
+}
+
+.app-ring__bg {
+  stroke: var(--surface-hover);
+}
+
+.app-ring__fg {
+  stroke: var(--accent);
+  stroke-linecap: round;
+  stroke-dasharray: 81.7;
+  stroke-dashoffset: 49;
+}
+
+.app-ring b {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.app-sub {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 5px;
+  font-size: 8.5px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.app-sub .dot {
+  width: 6px;
+  height: 6px;
+}
+
+.app-card__title--lg {
+  font-size: 12px;
+  line-height: 1.3;
+  margin: 3px 0 4px;
+}
+
+.app-why {
+  display: block;
+  font-size: 8px;
+  color: #6b6b6b;
+}
+
+.app-btn--play {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 9px;
+}
+
+.app-btn--play svg {
+  width: 9px;
+  height: 9px;
+  fill: currentColor;
+}
+
+.app-link {
+  display: block;
+  margin-top: 7px;
+  text-align: center;
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.app-seg {
+  display: inline-flex;
+  padding: 2px;
+  border: 1px solid var(--border-default);
+  border-radius: var(--r-pill);
+}
+
+.app-seg i {
+  font-style: normal;
+  font-size: 8px;
+  padding: 2px 7px;
+  border-radius: var(--r-pill);
+  color: var(--text-secondary);
+}
+
+.app-seg i.is-on {
+  background: var(--surface-hover);
+  color: var(--text-primary);
+}
+
+.cal__days--week span {
+  padding: 7px 0 8px;
+  border: 1px solid transparent;
+}
+
+.cal__days--week .is-today {
+  background: transparent;
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.cal__days--week .has-exam {
+  position: relative;
+  background: var(--tint);
+}
+
+.cal__days--week .has-exam::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 2px;
+  width: 9px;
+  height: 2px;
+  margin-left: -4.5px;
+  border-radius: 2px;
+  background: var(--bar);
+}
+
+/* ══════════════════════════════════════════════════════ Solo escritorio
+   El QR y el enlace a la versión web solo tienen sentido donde no se puede
+   tocar el badge de Play: puntero fino y pantalla ancha. En móvil y tableta
+   ni existen. */
+
+.desk-cta {
+  display: none;
+}
+
+@media (min-width: 860px) and (hover: hover) and (pointer: fine) {
+  .desk-cta {
+    display: grid;
+    justify-items: start;
+    gap: var(--s4);
+    margin-top: var(--s8);
+  }
+
+  .closer .desk-cta {
+    justify-items: center;
+  }
+}
+
+.qr-card {
+  display: flex;
+  align-items: center;
+  gap: var(--s4);
+  padding: var(--s3) var(--s6) var(--s3) var(--s3);
+  background: var(--surface-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--r-card);
+  text-align: left;
+  transition: border-color var(--t-standard) var(--ease), transform var(--t-standard) var(--ease);
+}
+
+.qr-card:hover {
+  border-color: #4a4a4a;
+}
+
+.qr-card:active {
+  transform: scale(0.985);
+}
+
+/* El QR va oscuro sobre blanco: es lo que leen todos los lectores. En una
+   página oscura, la tarjeta blanca es la única forma fiable de que escanee. */
+.qr-card img {
+  display: block;
+  width: 100px;
+  height: 100px;
+  padding: 5px;
+  background: #fff;
+  border-radius: var(--r-btn);
+}
+
+.qr-card__text {
+  display: grid;
+  gap: 2px;
+  font-size: var(--fs-meta);
+  color: var(--text-secondary);
+}
+
+.qr-card__text strong {
+  font-size: 15px;
+  color: var(--text-primary);
+}
+
+.desk-link {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: color var(--t-standard) var(--ease);
+}
+
+.desk-link:hover {
+  color: var(--text-primary);
+}
+
+.desk-link.has-arrow:hover::after {
+  transform: translateX(3px);
+}
+
+/* iPhone e iPad: el botón de instalar va antes que el badge de Play. Nada se
+   oculta, solo cambia el orden (la clase la pone un script del <head>). */
+.is-ios .hero__cta .btn--primary,
+.is-ios .closer__cta .btn--primary {
+  order: -1;
+}
+
+/* Página /go */
+.go {
+  padding-block: var(--s16);
+  text-align: center;
+}
+
+.go .lede {
+  margin-inline: auto;
+}
+
+/* ══════════════════════════════════════════════════════ Reto: ordénalo tú */
+
+.btn--sm {
+  padding: 11px var(--s4);
+  font-size: 14px;
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.challenge {
+  margin-top: var(--s8);
+}
+
+.challenge__q {
+  margin: 0;
+  font-size: var(--fs-section);
+  font-weight: 600;
+}
+
+.challenge__hint {
+  margin: var(--s1) 0 0;
+  font-size: var(--fs-meta);
+  color: var(--text-secondary);
+}
+
+.challenge__cards {
+  display: grid;
+  gap: var(--s3);
+  margin-top: var(--s4);
+}
+
+@media (min-width: 720px) {
+  .challenge__cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.ch-card {
+  position: relative;
+  display: grid;
+  gap: var(--s2);
+  align-content: start;
+  text-align: left;
+  padding: var(--s4);
+  background: var(--bg-base);
+  color: var(--text-primary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--r-btn);
+  cursor: pointer;
+  transition: border-color var(--t-standard) var(--ease), background var(--t-standard) var(--ease),
+    transform var(--t-standard) var(--ease);
+}
+
+.ch-card:hover:not(:disabled) {
+  border-color: #4a4a4a;
+}
+
+.ch-card:active:not(:disabled) {
+  transform: scale(0.985);
+}
+
+.ch-card:disabled {
+  cursor: default;
+}
+
+.ch-card.is-picked {
+  border-color: var(--accent-soft-border);
+  background: var(--accent-soft-bg);
+}
+
+/* Medallón con el puesto: vacío hasta que eliges; el tercero se rellena solo
+   (punteado) cuando ya has elegido dos. */
+.ch-card__pick {
+  position: absolute;
+  top: var(--s3);
+  right: var(--s3);
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border-default);
+  border-radius: 50%;
+  font-family: var(--font-display);
+  font-size: 16px;
+  line-height: 1;
+  color: transparent;
+  transition: background var(--t-standard) var(--ease), border-color var(--t-standard) var(--ease),
+    color var(--t-standard) var(--ease);
+}
+
+.ch-card.is-picked .ch-card__pick {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.ch-card.is-auto .ch-card__pick {
+  border-style: dashed;
+  color: var(--text-secondary);
+}
+
+.ch-card__name {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  padding-right: 34px;
+  font-weight: 600;
+}
+
+.ch-card__when {
+  font-size: var(--fs-body);
+}
+
+.ch-card__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px var(--s3);
+  font-size: var(--fs-meta);
+  color: var(--text-secondary);
+}
+
+.ch-card__foot {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s3);
+  margin-top: var(--s2);
+  padding-top: var(--s3);
+  border-top: 1px solid var(--border-default);
+}
+
+.ch-card__foot[hidden] {
+  display: none;
+}
+
+.ch-card__you {
+  font-size: var(--fs-meta);
+  color: var(--text-secondary);
+}
+
+.ch-card__score {
+  font-family: var(--font-display);
+  font-size: 34px;
+  line-height: 1;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.ch-card.is-top {
+  border-color: var(--accent-soft-border);
+  background: var(--accent-soft-bg);
+}
+
+.ch-card.is-top .ch-card__score {
+  color: var(--accent);
+}
+
+.ch-card.is-top .ch-card__pick {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.ch-card.is-revealed .ch-card__pick {
+  color: var(--text-secondary);
+}
+
+.ch-card.is-revealed.is-top .ch-card__pick {
+  color: #fff;
+}
+
+.challenge__bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s3);
+  margin-top: var(--s4);
+}
+
+.challenge__bar [hidden] {
+  display: none;
+}
+
+.challenge__result {
+  margin-top: var(--s4);
+  padding-top: var(--s4);
+  border-top: 1px solid var(--border-default);
+}
+
+.challenge__result[hidden] {
+  display: none;
+}
+
+.challenge__match {
+  margin: 0;
+  font-weight: 600;
+}
+
+.challenge__why {
+  max-width: 62ch;
+  margin: var(--s2) 0 var(--s4);
+  color: var(--text-secondary);
+}
+
+.sim {
+  scroll-margin-top: 96px;
+}
+
+.sim-lead {
+  margin-top: var(--s12);
+}
+
+.sim-lead h3 {
+  margin: 0;
+  font-size: var(--fs-section);
+}
+
+.sim-lead p {
+  margin: var(--s1) 0 0;
+  font-size: var(--fs-meta);
+  color: var(--text-secondary);
+}
+
+/* ══════════════════════════════════════════════════════ Rangos con tu ritmo */
+
+.pace {
+  max-width: 440px;
+  margin-top: var(--s8);
+}
+
+.pace[hidden] {
+  display: none;
+}
+
+.pace__note {
+  margin: var(--s2) 0 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.rank__eta {
+  display: block;
+  margin-top: 2px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.rank-detail__eta {
+  margin: 0;
+  font-size: var(--fs-meta);
+  color: var(--text-secondary);
+}
+
+.rank-detail__eta strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* ══════════════════════════════════════════════════════ Entre páginas
+   Navegar de la home a la guía de iPhone, a los textos legales o cambiar de
+   idioma es un fundido corto en vez de un parpadeo en blanco. Es CSS puro: los
+   navegadores que no entienden `@view-transition` (hoy Firefox) simplemente
+   hacen el salto de siempre. Las dos páginas de cada salto tienen que llevar
+   la regla, por eso vive aquí y no en motion.css (que solo cargan las homes).
+   La barra superior se queda quieta y solo cambia lo que hay debajo. */
+
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+
+  .nav {
+    view-transition-name: nav;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 200ms;
+    animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+}
+
 /* ══════════════════════════════════════════════════════ Accesibilidad */
 
 @media (prefers-reduced-motion: reduce) {

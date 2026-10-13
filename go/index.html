@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Descargar Schedio — Schedio</title>
+    <meta name="description" content="Te llevamos a la versión de Schedio que toca para tu móvil: Google Play en Android, guía de instalación en iPhone." />
+    <!-- Enlace corto para el QR de la home, la bio de Instagram y las stories.
+         No es una página para buscadores: la de verdad es la home. -->
+    <meta name="robots" content="noindex, follow" />
+    <link rel="canonical" href="https://schedio.es/" />
+    <meta name="theme-color" content="#0f0f0f" />
+
+    <link rel="icon" href="../assets/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png" />
+    <link rel="preload" href="../assets/fonts/bebas-neue-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="../assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="../css/tokens.css?v=27" />
+    <link rel="stylesheet" href="../css/styles.css?v=27" />
+  </head>
+
+  <body>
+    <header class="nav" id="nav">
+      <div class="wrap nav__inner">
+        <a class="brand" href="/">
+          <img src="../assets/mark-96.png" alt="" width="30" height="30" />
+          Schedio
+        </a>
+        <div class="nav__actions">
+          <a class="lang-switch" href="/en/go" hreflang="en" lang="en">EN</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="go wrap">
+      <h1 class="display">Descarga Schedio</h1>
+      <p class="lede" id="goStatus">Elige cómo quieres usarla.</p>
+
+      <!-- Con JS, en Android e iPhone el script salta solo al destino. Sin JS
+           (o en un ordenador) esto es todo lo que hay, y basta. -->
+      <div class="closer__cta">
+        <a class="badge-playstore" href="https://play.google.com/store/apps/details?id=com.schedio.mobile&amp;pcampaignid=web_share&amp;referrer=utm_source%3Dschedio.es%26utm_medium%3Dweb%26utm_campaign%3Dgo" target="_blank" rel="noopener">
+          <img src="../assets/google-play-badge-es.png" alt="Disponible en Google Play" width="168" height="50" />
+        </a>
+        <a class="btn btn--primary" href="/iphone">Descargar en iPhone</a>
+        <a class="desk-link has-arrow" href="https://app.schedio.es/">O úsala ya en el navegador</a>
+      </div>
+    </main>
+
+    <script>
+      (function () {
+        var ua = navigator.userAgent;
+        var status = document.getElementById('goStatus');
+        // iPadOS se presenta como un Mac, pero con pantalla táctil.
+        var ios = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+        var android = /Android/.test(ua);
+        if (!ios && !android) return;
+        status.textContent = ios ? 'Te llevamos a la guía para iPhone…' : 'Te llevamos a Google Play…';
+        window.location.replace(
+          ios ? '/iphone' : 'https://play.google.com/store/apps/details?id=com.schedio.mobile&pcampaignid=web_share&referrer=utm_source%3Dschedio.es%26utm_medium%3Dweb%26utm_campaign%3Dgo'
+        );
+      })();
+    </script>
+  </body>
+</html>

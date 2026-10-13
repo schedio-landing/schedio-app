@@ -1,0 +1,423 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   Movimiento de la landing.
+
+   Todo lo de este fichero cuelga de `html.mo`, que un script en el <head> pone
+   solo si el usuario NO ha pedido menos movimiento. Sin esa clase —sin JS o
+   con prefers-reduced-motion— la página es exactamente la de styles.css:
+   completa, estática y legible. Nada aquí es necesario para entenderla.
+
+   Reglas del lenguaje de movimiento, que son las del diseño plano:
+   · solo transform / opacity / translate / scale (nada de sombras ni brillos);
+   · una curva (--ease) y una escala de tiempos; lo que entra, entra una vez;
+   · el movimiento explica algo (orden, progreso, constancia), no decora.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Titulares por líneas ──
+   Cada línea es una máscara y el texto sube desde debajo de ella. El relleno
+   negativo da aire a acentos y astas sin cambiar la caja del titular. */
+
+.display .ln {
+  display: block;
+  overflow: hidden;
+  padding-top: 0.14em;
+  margin-top: -0.14em;
+  padding-bottom: 0.05em;
+  margin-bottom: -0.05em;
+}
+
+.display .ln > span {
+  display: block;
+}
+
+/* Hero: entra solo al cargar. */
+.mo .hero .display .ln > span {
+  transform: translateY(112%);
+  animation: ln-up 950ms var(--ease) forwards;
+  animation-delay: calc(140ms + var(--l, 0) * 120ms);
+}
+
+@keyframes ln-up {
+  to {
+    transform: none;
+  }
+}
+
+/* Resto de titulares: los parte motion.js y entran al llegar a ellos. El
+   `.reveal` genérico los haría aparecer en bloque; aquí manda la línea. */
+.mo .display.has-lines.reveal {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+.mo .display.has-lines .ln > span {
+  transform: translateY(112%);
+  transition: transform 900ms var(--ease) calc(var(--l, 0) * 110ms);
+}
+
+.mo .display.has-lines.is-in .ln > span {
+  transform: none;
+}
+
+/* ── Hero: entrada escalonada del texto ── */
+
+.mo .seq {
+  opacity: 0;
+  translate: 0 16px;
+  animation: seq-in 800ms var(--ease) forwards;
+  animation-delay: var(--d, 0ms);
+}
+
+@keyframes seq-in {
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+/* ── Hero: el móvil llega y la app cobra vida ──
+   Usa `translate`/`scale` y no `transform`: el `transform` del móvil es el
+   inclinado con el cursor, y dos animaciones sobre la misma propiedad se
+   pisarían. */
+
+.mo .hero__stage .phone--tilt {
+  opacity: 0;
+  translate: 0 56px;
+  scale: 0.97;
+  animation: phone-in 1050ms var(--ease) 620ms forwards,
+    phone-bob 9s ease-in-out 2100ms infinite;
+}
+
+@keyframes phone-in {
+  to {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+  }
+}
+
+@keyframes phone-bob {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -6px;
+  }
+}
+
+/* La pantalla se va montando de arriba abajo, como cuando abres la app. */
+.mo .phone--tilt .phone__screen > * {
+  animation: part-in 650ms var(--ease) both;
+  animation-delay: calc(1000ms + var(--k, 0) * 95ms);
+}
+
+.mo .phone--tilt .phone__screen > :nth-child(2) { --k: 1; }
+.mo .phone--tilt .phone__screen > :nth-child(3) { --k: 2; }
+.mo .phone--tilt .phone__screen > :nth-child(4) { --k: 3; }
+.mo .phone--tilt .phone__screen > :nth-child(5) { --k: 4; }
+.mo .phone--tilt .phone__screen > :nth-child(6) { --k: 5; }
+.mo .phone--tilt .phone__screen > :nth-child(7) { --k: 6; }
+
+@keyframes part-in {
+  from {
+    opacity: 0;
+    translate: 0 10px;
+  }
+}
+
+/* Nivel: la barra de XP se llena hasta donde está de verdad (el ancho en
+   línea sigue siendo el real; esto solo lo recorre). */
+.mo .phone--tilt .metric__bar-fill {
+  transform-origin: left center;
+  animation: bar-grow 1200ms var(--ease) both;
+  animation-delay: 1700ms;
+}
+
+@keyframes bar-grow {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+/* Nivel: el anillo se llena hasta su sitio. */
+.mo .phone--tilt .app-ring__fg {
+  animation: ring-fill 1200ms var(--ease) 1400ms both;
+}
+
+@keyframes ring-fill {
+  from {
+    stroke-dashoffset: 81.7;
+  }
+}
+
+/* Racha: la llama respira. Es el único elemento que se queda moviéndose, y
+   muy poco. */
+.mo .phone--tilt .app-flame span {
+  display: inline-block;
+  transform-origin: 50% 90%;
+  animation: flame 2.6s ease-in-out 2.4s infinite;
+}
+
+@keyframes flame {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+  30% {
+    transform: scale(1.08, 1.12) rotate(-3deg);
+  }
+  60% {
+    transform: scale(0.97, 1.03) rotate(2.5deg);
+  }
+}
+
+/* Calendario: los puntos de examen aparecen uno a uno y "hoy" late dos veces. */
+.mo .phone--tilt .cal__days--week .has-exam::after {
+  animation: dot-pop 520ms var(--ease) both;
+  animation-delay: calc(2100ms + var(--j, 0) * 200ms);
+}
+
+@keyframes dot-pop {
+  from {
+    transform: scale(0);
+  }
+  60% {
+    transform: scale(1.9);
+  }
+}
+
+.mo .phone--tilt .cal__days .is-today {
+  animation: today-ping 1500ms ease-out 2000ms 2;
+}
+
+@keyframes today-ping {
+  from {
+    outline: 1px solid var(--accent);
+    outline-offset: 0;
+  }
+  to {
+    outline: 1px solid transparent;
+    outline-offset: 7px;
+  }
+}
+
+/* Próximos exámenes: entran de uno en uno. */
+.mo .phone--tilt .app-row {
+  animation: row-in 650ms var(--ease) both;
+  animation-delay: calc(2500ms + var(--r, 0) * 130ms);
+}
+
+@keyframes row-in {
+  from {
+    opacity: 0;
+    translate: 14px 0;
+  }
+}
+
+/* ── Cómo funciona ── */
+
+/* El paso que estás leyendo se enciende; los demás bajan. Solo en escritorio,
+   donde el móvil pegajoso está a su lado. */
+@media (min-width: 860px) {
+  .mo .step.is-in:not(.is-active) {
+    opacity: 0.34;
+  }
+
+  /* `.step` es una columna flex: sin `align-self` el número se estira a todo
+     el ancho y, al escalarlo, la caja desborda la ventana por la derecha. */
+  .mo .step .step__num {
+    align-self: flex-start;
+    transition: transform 500ms var(--ease);
+    transform-origin: left center;
+  }
+
+  .mo .step.is-active .step__num {
+    transform: scale(1.18);
+  }
+}
+
+/* Pantalla del móvil: cada bloque entra tras el anterior. */
+.mo #stepScreen > * {
+  animation: part-in 520ms var(--ease) both;
+  animation-delay: calc(var(--k, 0) * 80ms);
+}
+
+.mo #stepScreen > :nth-child(2) { --k: 1; }
+.mo #stepScreen > :nth-child(3) { --k: 2; }
+.mo #stepScreen > :nth-child(4) { --k: 3; }
+.mo #stepScreen > :nth-child(5) { --k: 4; }
+.mo #stepScreen > :nth-child(6) { --k: 5; }
+
+.mo #stepScreen .app-row {
+  transition: transform 560ms var(--ease);
+}
+
+.mo .app-btn {
+  transition: transform 120ms var(--ease), opacity 120ms var(--ease);
+}
+
+.mo .app-btn.is-pressed {
+  transform: scale(0.96);
+  opacity: 0.85;
+}
+
+.mo .chip {
+  transition: border-color var(--t-standard) var(--ease), color var(--t-standard) var(--ease);
+}
+
+/* Escenas de móvil (bajo el texto): las piezas entran escalonadas. */
+.mo .step .scene > * {
+  opacity: 0;
+  translate: 0 12px;
+  transition: opacity 600ms var(--ease), translate 650ms var(--ease);
+}
+
+.mo .step.is-in .scene > * {
+  opacity: 1;
+  translate: 0 0;
+}
+
+.mo .step.is-in .scene > :nth-child(2) { transition-delay: 120ms; }
+.mo .step.is-in .scene > :nth-child(3) { transition-delay: 240ms; }
+
+/* ── Racha ──
+   Los días se encienden de izquierda a derecha, uno tras otro. */
+
+.mo .streak-day {
+  opacity: 0;
+  scale: 0.7;
+}
+
+.mo .is-in .streak-day {
+  opacity: 1;
+  scale: 1;
+  transition: opacity 400ms var(--ease), scale 520ms var(--ease),
+    background var(--t-standard) var(--ease), color var(--t-standard) var(--ease),
+    border-color var(--t-standard) var(--ease);
+  transition-delay: calc(250ms + var(--k, 0) * 140ms);
+}
+
+.mo .is-in .streak-day.is-on {
+  animation: day-on 520ms var(--ease) both;
+  animation-delay: calc(250ms + var(--k, 0) * 140ms);
+}
+
+@keyframes day-on {
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+/* ── Rangos ──
+   La escalera se monta peldaño a peldaño y, al verla, "sube" sola
+   (main.js). El detalle reacciona con un pequeño salto del icono. */
+
+.mo .ranks .rank {
+  opacity: 0;
+  translate: -14px 0;
+  transition: background var(--t-standard) var(--ease), border-color var(--t-standard) var(--ease),
+    transform var(--t-standard) var(--ease),
+    opacity 500ms var(--ease) calc(var(--step, 0) * 90ms),
+    translate 600ms var(--ease) calc(var(--step, 0) * 90ms);
+}
+
+.mo .ranks.is-seen .rank {
+  opacity: 1;
+  translate: 0 0;
+}
+
+.mo .rank.is-active .rank__badge {
+  animation: badge-pop 520ms var(--ease);
+}
+
+.mo .rank-detail.is-swapping .rank-detail__badge {
+  transform: scale(0.85);
+}
+
+.mo .rank-detail__badge {
+  transition: transform 300ms var(--ease);
+}
+
+@keyframes badge-pop {
+  40% {
+    transform: scale(1.18);
+  }
+}
+
+/* ── Cascada ── */
+
+.mo .cascade.reveal {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+.mo .cascade__item {
+  opacity: 0;
+  translate: 0 64px;
+  transition: transform 280ms var(--ease), opacity 800ms var(--ease) calc(var(--i, 0) * 130ms),
+    translate 1000ms var(--ease) calc(var(--i, 0) * 130ms);
+}
+
+.mo .cascade.is-in .cascade__item {
+  opacity: 1;
+  translate: 0 0;
+}
+
+@media (min-width: 860px) {
+  /* El escalón base de styles.css más un desplazamiento que depende de dónde
+     está la cascada en pantalla (--par lo pone motion.js): las capturas se
+     abren y se cierran con el scroll, cada una a su ritmo. */
+  .mo .cascade__item {
+    transform: translateY(calc((4 - var(--i)) * 30px + var(--par, 0px) * (var(--i) - 1.5)));
+  }
+
+  .mo .cascade__item:hover {
+    transform: translateY(calc((4 - var(--i)) * 30px + var(--par, 0px) * (var(--i) - 1.5) - 10px));
+  }
+}
+
+/* ── Retícula de fondo ──
+   Se desplaza despacio con el scroll: profundidad sin decoración. Solo donde
+   el navegador sabe enlazar animaciones al scroll; en el resto, quieta. */
+
+@supports (animation-timeline: view()) {
+  .mo .grid-bg::before {
+    animation: grid-drift linear both;
+    animation-timeline: view();
+  }
+}
+
+@keyframes grid-drift {
+  from {
+    translate: 0 -6%;
+  }
+  to {
+    translate: 0 6%;
+  }
+}
+
+/* ── Tacto ──
+   Todo lo que se pulsa responde al instante y se suelta con suavidad. Los
+   botones (`.btn`) ya llevaban su compresión en styles.css. */
+
+.mo .badge-playstore:active {
+  transform: scale(0.97);
+}
+
+.mo .rank:active {
+  transform: scale(0.985);
+}
+
+.mo .faq summary {
+  transition: opacity var(--t-standard) var(--ease);
+}
+
+.mo .faq summary:active {
+  opacity: 0.65;
+}
+
+.mo .lang-switch:active {
+  opacity: 0.6;
+}

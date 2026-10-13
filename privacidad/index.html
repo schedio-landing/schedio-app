@@ -31,7 +31,7 @@
     <link rel="preload" href="../assets/fonts/bebas-neue-400.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="../assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="../css/tokens.css?v=26" />
-    <link rel="stylesheet" href="../css/styles.css?v=26" />
+    <link rel="stylesheet" href="../css/styles.css?v=27" />
   </head>
 
   <body>
@@ -69,7 +69,7 @@
 
         <article class="legal__body">
           <h1>Política de privacidad de Schedio</h1>
-          <p class="legal__updated">Última actualización: 23/08/2026</p>
+          <p class="legal__updated">Última actualización: 12/10/2026</p>
 
           <p class="legal__intro">
             Esta política explica qué datos personales recoge Schedio, para qué los usa, con
@@ -140,6 +140,16 @@
                   <td data-label="Para qué">Ajustar el plan al temario y al calendario de tu comunidad. Es un dato que tú declaras, no se obtiene del dispositivo</td>
                 </tr>
                 <tr>
+                  <td data-label="Dato">Año de estudios, carrera y créditos (si estudias en la universidad), y la fecha de la PAU (si la haces)</td>
+                  <td data-label="De dónde sale">Los introduces tú en el onboarding o al editar tus datos académicos en Perfil</td>
+                  <td data-label="Para qué">Llevar tu expediente por créditos, ajustar el plan a tu curso y mostrarte la cuenta atrás de la PAU</td>
+                </tr>
+                <tr>
+                  <td data-label="Dato">Notas de tus exámenes y objetivos de nota por asignatura</td>
+                  <td data-label="De dónde sale">Las introduces tú dentro de la app</td>
+                  <td data-label="Para qué">Calcular tu media y priorizar qué estudiar. Las cifras que pruebas en la calculadora de la PAU no se guardan</td>
+                </tr>
+                <tr>
                   <td data-label="Dato">Cómo conociste Schedio</td>
                   <td data-label="De dónde sale">Pregunta opcional en el alta</td>
                   <td data-label="Para qué">Saber qué canales funcionan para darnos a conocer. Puedes no contestarla</td>
@@ -165,12 +175,12 @@
                   <td data-label="Para qué">Saber si tienes acceso a las funciones de pago</td>
                 </tr>
                 <tr>
-                  <td data-label="Dato">Token de notificaciones push</td>
-                  <td data-label="De dónde sale">Si aceptas el permiso de notificaciones</td>
-                  <td data-label="Para qué">Avisarte de exámenes próximos, retomar el estudio tras unos días sin abrir la app, y un resumen semanal de tus sesiones</td>
+                  <td data-label="Dato">Token de notificaciones push (Android, iPhone y web) y tus preferencias de avisos</td>
+                  <td data-label="De dónde sale">Si aceptas el permiso de notificaciones; las preferencias las eliges tú en Ajustes</td>
+                  <td data-label="Para qué">Avisarte del plan del día, de una racha en peligro, de exámenes próximos, de que retomes el estudio tras unos días sin abrir la app y de un resumen semanal. Puedes desactivar cada tipo de aviso</td>
                 </tr>
                 <tr>
-                  <td data-label="Dato">Datos de fallos de la app (Crashlytics): modelo de dispositivo, versión de Android, y el punto del código donde falló</td>
+                  <td data-label="Dato">Datos de fallos de la app (Crashlytics): modelo de dispositivo, versión de Android, y el punto del código donde falló (solo en la app de Android)</td>
                   <td data-label="De dónde sale">Automático si la app se cierra inesperadamente</td>
                   <td data-label="Para qué">Detectar y corregir errores. No incluye tu email, contraseña ni contenido de la Mochila</td>
                 </tr>
@@ -181,42 +191,20 @@
               gestionan Google Play o Apple, no Schedio.
             </p>
 
-            <p style="margin-top: var(--s6)">
-              Si todavía no tienes cuenta y solo te apuntas a la lista de espera del lanzamiento
-              desde esta web, recogemos esto:
+            <h3 style="margin-top: var(--s6)">Cuando solo visitas schedio.es</h3>
+            <p>
+              La web <strong>no usa cookies</strong> propias ni de publicidad, ni herramientas de
+              analítica de terceros, y no guarda nada en tu dispositivo para reconocerte. Como en
+              cualquier página, los proveedores que la sirven (ver apartado 5) reciben los datos
+              técnicos de cada visita, como tu dirección IP, el navegador y la página que pides,
+              para entregártela y protegerla de abusos. Schedio no los usa para elaborar perfiles
+              tuyos.
             </p>
-            <table class="datatable">
-              <thead>
-                <tr>
-                  <th>Dato</th>
-                  <th>De dónde sale</th>
-                  <th>Para qué lo usamos</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td data-label="Dato">Email</td>
-                  <td data-label="De dónde sale">Formulario de lista de espera en schedio.es</td>
-                  <td data-label="Para qué">Avisarte el día que Schedio se publique</td>
-                </tr>
-                <tr>
-                  <td data-label="Dato">Curso (ESO, Bachillerato, Universidad u otro)</td>
-                  <td data-label="De dónde sale">Formulario de lista de espera en schedio.es</td>
-                  <td data-label="Para qué">Entender quién se apunta y priorizar qué construir antes del lanzamiento</td>
-                </tr>
-                <tr>
-                  <td data-label="Dato">Si tienes un móvil Android</td>
-                  <td data-label="De dónde sale">Formulario de lista de espera en schedio.es</td>
-                  <td data-label="Para qué">Saber si puedes probar la app en cuanto esté lista</td>
-                </tr>
-                <tr>
-                  <td data-label="Dato">Lo que peor llevas de organizarte (opcional, texto libre)</td>
-                  <td data-label="De dónde sale">Formulario de lista de espera en schedio.es</td>
-                  <td data-label="Para qué">Mejorar la app antes de publicarla</td>
-                </tr>
-              </tbody>
-            </table>
-          </section>
+            <p>
+              La versión web de la app (app.schedio.es) guarda en tu navegador lo imprescindible
+              para mantener tu sesión iniciada.
+            </p>
+                    </section>
 
           <section id="s4">
             <h2><span class="num">04</span> Base legal del tratamiento</h2>
@@ -232,18 +220,17 @@
                 <strong class="term">Consentimiento</strong>
                 <p>
                   Para las recomendaciones generadas con inteligencia artificial y para las
-                  notificaciones push (se piden explícitamente al aceptar el permiso). También
-                  para el email y las respuestas del formulario de lista de espera: aquí no hay
-                  contrato de uso todavía, así que la única base es la casilla de consentimiento
-                  que marcas al enviarlo, y puedes retirarlo cuando quieras.
+                  notificaciones push (se piden explícitamente al aceptar el permiso, y puedes
+                  retirarlo cuando quieras desde los ajustes de tu dispositivo o de la app).
                 </p>
               </div>
               <div>
                 <strong class="term">Interés legítimo</strong>
                 <p>
                   Medidas mínimas de seguridad y prevención de abuso (por ejemplo, limitar
-                  intentos de inicio de sesión), y el diagnóstico de fallos técnicos
-                  (Crashlytics).
+                  intentos de inicio de sesión), el diagnóstico de fallos técnicos (Crashlytics)
+                  y el funcionamiento y la seguridad de la web, incluido el tratamiento de la
+                  dirección IP de quien la visita.
                 </p>
               </div>
             </div>
@@ -266,6 +253,20 @@
                   Aloja tu cuenta, tu calendario, tu progreso y los archivos de tu Mochila, envía
                   las notificaciones push y recoge los datos de fallos técnicos. Los datos de
                   Firestore/Storage se almacenan en la región europea (eur3).
+                </p>
+              </div>
+              <div>
+                <strong class="term">Cloudflare y GitHub Pages</strong>
+                <p>
+                  Sirven y protegen la web schedio.es. Reciben los datos técnicos de cada visita
+                  (como la IP); no reciben datos de tu cuenta.
+                </p>
+              </div>
+              <div>
+                <strong class="term">Firebase Hosting</strong>
+                <p>
+                  Sirve la versión web de la app (app.schedio.es), con los datos técnicos de cada
+                  visita, dentro de Google Firebase.
                 </p>
               </div>
               <div>
@@ -293,7 +294,7 @@
               </div>
             </div>
             <p>
-              Como Google (Firebase, Gemini) y RevenueCat son empresas con sede fuera de la Unión
+              Como Google (Firebase, Gemini), Cloudflare, GitHub y RevenueCat son empresas con sede fuera de la Unión
               Europea, estas transferencias se realizan bajo las garantías previstas por el RGPD
               (cláusulas contractuales tipo u otros mecanismos equivalentes que cada proveedor
               tiene publicados).
@@ -310,9 +311,8 @@
               mercantil aplicable.
             </p>
             <p>
-              Si te apuntaste a la lista de espera desde la web sin llegar a crear una cuenta,
-              conservamos tu email y tus respuestas hasta que publiquemos Schedio y te avisemos, o
-              hasta que pidas la baja antes de eso escribiendo a
+              La lista de espera de antes del lanzamiento está cerrada. Si te apuntaste entonces,
+              puedes pedir que borremos tu email y tus respuestas escribiendo a
               <a href="mailto:schedio.contacto@gmail.com">schedio.contacto@gmail.com</a>.
             </p>
           </section>
