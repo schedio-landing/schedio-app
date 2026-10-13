@@ -70,7 +70,7 @@
 
         <article class="legal__body">
           <h1>Schedio's Privacy Policy</h1>
-          <p class="legal__updated">Last updated: October 12, 2026</p>
+          <p class="legal__updated">Last updated: October 13, 2026</p>
 
           <div class="note-card">
             <p style="margin: 0">
@@ -201,9 +201,11 @@
 
             <h3 style="margin-top: var(--s6)">When you only visit schedio.es</h3>
             <p>
-              The website <strong>doesn't use cookies</strong> of its own or for advertising, nor
-              third-party analytics tools, and it doesn't store anything on your device to
-              recognize you. As on any site, the providers that serve it (see section 5) receive
+              The website <strong>doesn't use cookies</strong> of its own or for advertising, and
+              it doesn't store anything on your device to recognize you. To know how many people
+              visit and where they come from, it uses a cookie-free visit counter (Cloudflare Web
+              Analytics): it counts page views, the site you came from, country and device type,
+              without identifying you or following you between visits. As on any site, the providers that serve it (see section 5) receive
               the technical data of each visit, such as your IP address, browser and the page you
               request, to deliver it to you and protect it from abuse. Schedio doesn't use them to
               build profiles of you.
@@ -237,7 +239,8 @@
                 <p>
                   Minimum security measures and abuse prevention (for example, limiting login
                   attempts), diagnosing technical failures (Crashlytics), and the operation and
-                  security of the website, including processing the IP address of its visitors.
+                  security of the website, including processing the IP address of its visitors, and
+                  aggregate measurement of website visits.
                 </p>
               </div>
             </div>
@@ -265,7 +268,9 @@
                 <strong class="term">Cloudflare and GitHub Pages</strong>
                 <p>
                   Serve and protect the schedio.es website. They receive the technical data of
-                  each visit (such as the IP); they don't receive your account data.
+                  each visit (such as the IP); they don't receive your account data. Cloudflare also counts
+                  visits in aggregate and without cookies (page, referring site, country and
+                  device).
                 </p>
               </div>
               <div>
@@ -431,5 +436,8 @@
     </footer>
 
     <script src="../../js/legal.js?v=26"></script>
+    <!-- Cloudflare Web Analytics -->
+    <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "354afdfa66624a93a8ae896f761e8f17"}'></script>
+    <!-- End Cloudflare Web Analytics -->
   </body>
 </html>

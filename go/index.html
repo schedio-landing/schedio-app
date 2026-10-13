@@ -56,10 +56,16 @@
         var android = /Android/.test(ua);
         if (!ios && !android) return;
         status.textContent = ios ? 'Te llevamos a la guía para iPhone…' : 'Te llevamos a Google Play…';
-        window.location.replace(
-          ios ? '/iphone' : 'https://play.google.com/store/apps/details?id=com.schedio.mobile&pcampaignid=web_share&referrer=utm_source%3Dschedio.es%26utm_medium%3Dweb%26utm_campaign%3Dgo'
-        );
+        // Un instante de margen: si saltara al momento, la visita a /go se iría sin contarse.
+        var target =
+          ios ? '/iphone' : 'https://play.google.com/store/apps/details?id=com.schedio.mobile&pcampaignid=web_share&referrer=utm_source%3Dschedio.es%26utm_medium%3Dweb%26utm_campaign%3Dgo';
+        setTimeout(function () {
+          window.location.replace(target);
+        }, 900);
       })();
     </script>
+    <!-- Cloudflare Web Analytics -->
+    <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "354afdfa66624a93a8ae896f761e8f17"}'></script>
+    <!-- End Cloudflare Web Analytics -->
   </body>
 </html>
