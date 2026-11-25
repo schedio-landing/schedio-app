@@ -69,7 +69,7 @@
 
         <article class="legal__body">
           <h1>Política de privacidad de Schedio</h1>
-          <p class="legal__updated">Última actualización: 13/10/2026</p>
+          <p class="legal__updated">Última actualización: 23/11/2026</p>
 
           <p class="legal__intro">
             Esta política explica qué datos personales recoge Schedio, para qué los usa, con
@@ -170,6 +170,16 @@
                   <td data-label="Para qué">Guardarlos para que los tengas disponibles en la app</td>
                 </tr>
                 <tr>
+                  <td data-label="Dato">Mensajes que escribes a Dio (el asistente de Schedio Prime)</td>
+                  <td data-label="De dónde sale">Lo que escribes en la conversación con Dio</td>
+                  <td data-label="Para qué">Contestarte. La conversación se guarda solo en tu móvil; al servidor llegan los últimos mensajes y un resumen de tu curso, sin nombre, email ni centro</td>
+                </tr>
+                <tr>
+                  <td data-label="Dato">Foto de tu calendario de exámenes</td>
+                  <td data-label="De dónde sale">La haces tú con la función «Foto del calendario»</td>
+                  <td data-label="Para qué">Leer las fechas y proponerte los exámenes. La foto no se guarda: se borra en cuanto se lee</td>
+                </tr>
+                <tr>
                   <td data-label="Dato">Historial de compras/suscripción (Schedio Prime)</td>
                   <td data-label="De dónde sale">Google Play / App Store, vía RevenueCat</td>
                   <td data-label="Para qué">Saber si tienes acceso a las funciones de pago</td>
@@ -222,8 +232,8 @@
               <div>
                 <strong class="term">Consentimiento</strong>
                 <p>
-                  Para las recomendaciones generadas con inteligencia artificial y para las
-                  notificaciones push (se piden explícitamente al aceptar el permiso, y puedes
+                  Para usar Dio y la foto del calendario (solo se envía algo cuando tú escribes
+                  un mensaje o haces la foto) y para las notificaciones push (se piden explícitamente al aceptar el permiso, y puedes
                   retirarlo cuando quieras desde los ajustes de tu dispositivo o de la app).
                 </p>
               </div>
@@ -274,12 +284,15 @@
                 </p>
               </div>
               <div>
-                <strong class="term">Google Gemini API</strong>
+                <strong class="term">Anthropic (Claude API)</strong>
                 <p>
-                  Cuando usas las recomendaciones de IA, tu nombre y tu perfil académico
-                  (asignaturas, notas, exámenes próximos, patrones de estudio) se envían a esta
-                  API de Google para generar el texto de la recomendación. No se envían tu email,
-                  contraseña ni archivos de la Mochila.
+                  Cuando escribes a Dio o haces una foto de tu calendario, se envían a la IA de
+                  Anthropic tus últimos mensajes con Dio y un resumen de tu curso (nivel, curso,
+                  racha, minutos estudiados, exámenes próximos con sus temas y tu plan), o la foto
+                  y los nombres de tus asignaturas. No se envían tu nombre, email, centro,
+                  contraseña ni archivos de la Mochila. Anthropic no usa estos datos para entrenar
+                  sus modelos y solo los conserva el tiempo limitado que fija su política para
+                  clientes de la API. Si no usas Dio ni la foto, no se envía nada.
                 </p>
               </div>
               <div>
@@ -298,7 +311,7 @@
               </div>
             </div>
             <p>
-              Como Google (Firebase, Gemini), Cloudflare, GitHub y RevenueCat son empresas con sede fuera de la Unión
+              Como Google (Firebase), Anthropic, Cloudflare, GitHub y RevenueCat son empresas con sede fuera de la Unión
               Europea, estas transferencias se realizan bajo las garantías previstas por el RGPD
               (cláusulas contractuales tipo u otros mecanismos equivalentes que cada proveedor
               tiene publicados).

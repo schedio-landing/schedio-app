@@ -70,7 +70,7 @@
 
         <article class="legal__body">
           <h1>Schedio's Privacy Policy</h1>
-          <p class="legal__updated">Last updated: October 13, 2026</p>
+          <p class="legal__updated">Last updated: November 23, 2026</p>
 
           <div class="note-card">
             <p style="margin: 0">
@@ -178,6 +178,16 @@
                   <td data-label="What for">Storing them so they're available to you in the app</td>
                 </tr>
                 <tr>
+                  <td data-label="Data">Messages you write to Dio (the Schedio Prime assistant)</td>
+                  <td data-label="Where it comes from">What you type in the conversation with Dio</td>
+                  <td data-label="What for">Answering you. The conversation is stored only on your phone; the server receives your latest messages and a summary of your course, without your name, email or school</td>
+                </tr>
+                <tr>
+                  <td data-label="Data">Photo of your exam calendar</td>
+                  <td data-label="Where it comes from">You take it with the "Calendar photo" feature</td>
+                  <td data-label="What for">Reading the dates and suggesting the exams. The photo isn't stored: it's deleted as soon as it's read</td>
+                </tr>
+                <tr>
                   <td data-label="Data">Purchase/subscription history (Schedio Prime)</td>
                   <td data-label="Where it comes from">Google Play / App Store, via RevenueCat</td>
                   <td data-label="What for">Knowing whether you have access to paid features</td>
@@ -229,7 +239,8 @@
               <div>
                 <strong class="term">Consent</strong>
                 <p>
-                  For AI-generated recommendations and for push notifications (explicitly
+                  For using Dio and the calendar photo (something is only sent when you write a
+                  message or take the photo) and for push notifications (explicitly
                   requested when you accept the permission, and you can withdraw it anytime from
                   your device or app settings).
                 </p>
@@ -281,11 +292,15 @@
                 </p>
               </div>
               <div>
-                <strong class="term">Google Gemini API</strong>
+                <strong class="term">Anthropic (Claude API)</strong>
                 <p>
-                  When you use the AI recommendations, your name and academic profile (subjects,
-                  grades, upcoming exams, study patterns) are sent to this Google API to generate
-                  the recommendation text. Your email, password, and Mochila files are not sent.
+                  When you write to Dio or take a photo of your calendar, your latest messages
+                  with Dio and a summary of your course (level, year, streak, minutes studied,
+                  upcoming exams with their topics and your plan), or the photo and the names of
+                  your subjects, are sent to Anthropic's AI. Your name, email, school, password
+                  and Mochila files are not sent. Anthropic doesn't use this data to train its
+                  models and only keeps it for the limited time set by its policy for API
+                  customers. If you don't use Dio or the photo, nothing is sent.
                 </p>
               </div>
               <div>
@@ -304,7 +319,7 @@
               </div>
             </div>
             <p>
-              Since Google (Firebase, Gemini), Cloudflare, GitHub and RevenueCat are companies based outside the
+              Since Google (Firebase), Anthropic, Cloudflare, GitHub and RevenueCat are companies based outside the
               European Union, these transfers are carried out under the safeguards provided by
               the GDPR (standard contractual clauses or other equivalent mechanisms each provider
               has published).
